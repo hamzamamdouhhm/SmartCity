@@ -1,0 +1,271 @@
+{
+  "cities": [
+    {
+      "id": "teutschenthal",
+      "name": "Teutschenthal",
+      "kreis": "Saalekreis",
+      "einwohner": 13008,
+      "flaeche_km2": 91.1,
+      "lat": 51.45,
+      "lng": 11.81,
+      "farbe": "#3E6C8E",
+      "beschreibung": "Referenzkommune des Projekts im Westen des Saalekreises, nahe Halle (Saale). Polyzentrierte Siedlungsstruktur mit ländlich geprägten Ortsteilen.",
+      "bild": "",
+      "kpis": {
+        "abgedeckte_sichten": { "wert": 10, "einheit": "von 10", "jahr": 2025, "besser": "high" },
+        "virtuelle_touren_pro_1000": { "wert": 0.15, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "strassennetz_abdeckung": { "wert": 90.0, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "ladepunkte_eautos_pro_1000": { "wert": 1.54, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "ladepunkte_ebikes_pro_1000": { "wert": 0.0, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "festnetz_download_mbits": { "wert": 50.0, "einheit": "Mbit/s", "jahr": 2025, "besser": "high" },
+        "haushalte_ab_100_mbits": { "wert": 60.0, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "mobilfunk_o2": { "wert": -85.0, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_telekom": { "wert": -80.0, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_vodafone": { "wert": -90.0, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "digitale_services_reifegrad": { "wert": 1.18, "einheit": "Mittelwert", "jahr": 2025, "besser": "high" },
+        "digitale_services_ab_stufe_2": { "wert": 16.0, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "kanaldichte_social_media": { "wert": 12.99, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "vernetzung_score": { "wert": 65.0, "einheit": "Punkte", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_schulen": { "wert": 2.05, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_kitas": { "wert": 9.81, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_gewerbe_m2_pro_1000": { "wert": 213638.0, "einheit": "m² pro 1.000 EW", "jahr": 2025, "besser": "high" }
+      }
+    },
+    {
+      "id": "landsberg",
+      "name": "Landsberg",
+      "kreis": "Saalekreis",
+      "einwohner": 14792,
+      "flaeche_km2": null,
+      "lat": 51.53,
+      "lng": 12.16,
+      "farbe": "#B97A2E",
+      "beschreibung": "Stadt im Saalekreis mit vergleichsweise guten digitalen Infrastrukturdaten.",
+      "bild": "",
+      "kpis": {
+        "abgedeckte_sichten": { "wert": 5, "einheit": "von 10", "jahr": 2025, "besser": "high" },
+        "virtuelle_touren_pro_1000": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "strassennetz_abdeckung": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "ladepunkte_eautos_pro_1000": { "wert": 1.02, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "ladepunkte_ebikes_pro_1000": { "wert": 0.0, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "festnetz_download_mbits": { "wert": 400.06, "einheit": "Mbit/s", "jahr": 2025, "besser": "high" },
+        "haushalte_ab_100_mbits": { "wert": 86.04, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "mobilfunk_o2": { "wert": -79.74, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_telekom": { "wert": -80.19, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_vodafone": { "wert": -88.46, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "digitale_services_reifegrad": { "wert": 1.06, "einheit": "Mittelwert", "jahr": 2025, "besser": "high" },
+        "digitale_services_ab_stufe_2": { "wert": 6.12, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "kanaldichte_social_media": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "vernetzung_score": { "wert": null, "einheit": "Punkte", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_schulen": { "wert": 3.0, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_kitas": { "wert": 4.2, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_gewerbe_m2_pro_1000": { "wert": 236000.0, "einheit": "m² pro 1.000 EW", "jahr": 2025, "besser": "high" }
+      }
+    },
+    {
+      "id": "muldestausee",
+      "name": "Muldestausee",
+      "kreis": "Anhalt-Bitterfeld",
+      "einwohner": null,
+      "flaeche_km2": null,
+      "lat": 51.65,
+      "lng": 12.45,
+      "farbe": "#2E7A57",
+      "beschreibung": "Gemeinde im Landkreis Anhalt-Bitterfeld, geprägt durch den Muldestausee und ländliche Strukturen.",
+      "bild": "",
+      "kpis": {
+        "abgedeckte_sichten": { "wert": 5, "einheit": "von 10", "jahr": 2025, "besser": "high" },
+        "virtuelle_touren_pro_1000": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "strassennetz_abdeckung": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "ladepunkte_eautos_pro_1000": { "wert": 0.6, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "ladepunkte_ebikes_pro_1000": { "wert": 0.25, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "festnetz_download_mbits": { "wert": 379.67, "einheit": "Mbit/s", "jahr": 2025, "besser": "high" },
+        "haushalte_ab_100_mbits": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "mobilfunk_o2": { "wert": -13.59, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_telekom": { "wert": -12.3, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_vodafone": { "wert": -10.98, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "digitale_services_reifegrad": { "wert": null, "einheit": "Mittelwert", "jahr": 2025, "besser": "high" },
+        "digitale_services_ab_stufe_2": { "wert": 39.0, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "kanaldichte_social_media": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "vernetzung_score": { "wert": null, "einheit": "Punkte", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_schulen": { "wert": 4.1, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_kitas": { "wert": 6.2, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_gewerbe_m2_pro_1000": { "wert": null, "einheit": "m² pro 1.000 EW", "jahr": 2025, "besser": "high" }
+      }
+    },
+    {
+      "id": "suedlichesanhalt",
+      "name": "Südliches Anhalt",
+      "kreis": "Anhalt-Bitterfeld",
+      "einwohner": null,
+      "flaeche_km2": null,
+      "lat": 51.75,
+      "lng": 12.08,
+      "farbe": "#7A4E6D",
+      "beschreibung": "Verwaltungsgemeinschaft im Landkreis Anhalt-Bitterfeld.",
+      "bild": "",
+      "kpis": {
+        "abgedeckte_sichten": { "wert": 5, "einheit": "von 10", "jahr": 2025, "besser": "high" },
+        "virtuelle_touren_pro_1000": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "strassennetz_abdeckung": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "ladepunkte_eautos_pro_1000": { "wert": 0.0, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "ladepunkte_ebikes_pro_1000": { "wert": 0.0, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "festnetz_download_mbits": { "wert": null, "einheit": "Mbit/s", "jahr": 2025, "besser": "high" },
+        "haushalte_ab_100_mbits": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "mobilfunk_o2": { "wert": -12.26, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_telekom": { "wert": -27.21, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_vodafone": { "wert": -1.53, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "digitale_services_reifegrad": { "wert": 1.37, "einheit": "Mittelwert", "jahr": 2025, "besser": "high" },
+        "digitale_services_ab_stufe_2": { "wert": 35.5, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "kanaldichte_social_media": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "vernetzung_score": { "wert": null, "einheit": "Punkte", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_schulen": { "wert": 2.94, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_kitas": { "wert": 7.97, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_gewerbe_m2_pro_1000": { "wert": 96020.0, "einheit": "m² pro 1.000 EW", "jahr": 2025, "besser": "high" }
+      }
+    },
+    {
+      "id": "osternienburgerland",
+      "name": "Osternienburger Land",
+      "kreis": "Anhalt-Bitterfeld",
+      "einwohner": null,
+      "flaeche_km2": null,
+      "lat": 51.8,
+      "lng": 12.03,
+      "farbe": "#C7962F",
+      "beschreibung": "Verwaltungsgemeinschaft im Landkreis Anhalt-Bitterfeld.",
+      "bild": "",
+      "kpis": {
+        "abgedeckte_sichten": { "wert": 5, "einheit": "von 10", "jahr": 2025, "besser": "high" },
+        "virtuelle_touren_pro_1000": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "strassennetz_abdeckung": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "ladepunkte_eautos_pro_1000": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "ladepunkte_ebikes_pro_1000": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "festnetz_download_mbits": { "wert": 18.28, "einheit": "Mbit/s", "jahr": 2025, "besser": "high" },
+        "haushalte_ab_100_mbits": { "wert": null, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "mobilfunk_o2": { "wert": -10.23, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_telekom": { "wert": -6.71, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "mobilfunk_vodafone": { "wert": -4.94, "einheit": "dBm", "jahr": 2025, "besser": "high" },
+        "digitale_services_reifegrad": { "wert": null, "einheit": "Mittelwert", "jahr": 2025, "besser": "high" },
+        "digitale_services_ab_stufe_2": { "wert": 38.0, "einheit": "%", "jahr": 2025, "besser": "high" },
+        "kanaldichte_social_media": { "wert": null, "einheit": "pro 1.000 EW", "jahr": 2025, "besser": "high" },
+        "vernetzung_score": { "wert": null, "einheit": "Punkte", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_schulen": { "wert": null, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_kitas": { "wert": null, "einheit": "% Fläche", "jahr": 2025, "besser": "high" },
+        "daseinsvorsorge_gewerbe_m2_pro_1000": { "wert": null, "einheit": "m² pro 1.000 EW", "jahr": 2025, "besser": "high" }
+      }
+    }
+  ],
+  "dimensions": [
+    {
+      "id": "abgedeckte_sichten",
+      "label": "Abdeckung der Sichten",
+      "gewicht": 1.0,
+      "kpis": ["abgedeckte_sichten"]
+    },
+    {
+      "id": "virtuelle_touren",
+      "label": "Virtuelle Touren",
+      "gewicht": 1.0,
+      "kpis": ["virtuelle_touren_pro_1000"]
+    },
+    {
+      "id": "strassennetz",
+      "label": "Straßennetz-Abdeckung",
+      "gewicht": 1.0,
+      "kpis": ["strassennetz_abdeckung"]
+    },
+    {
+      "id": "ladeinfrastruktur",
+      "label": "Ladeinfrastruktur",
+      "gewicht": 1.5,
+      "kpis": ["ladepunkte_eautos_pro_1000", "ladepunkte_ebikes_pro_1000"]
+    },
+    {
+      "id": "festnetz",
+      "label": "Festnetz",
+      "gewicht": 1.5,
+      "kpis": ["festnetz_download_mbits", "haushalte_ab_100_mbits"]
+    },
+    {
+      "id": "mobilfunk",
+      "label": "Mobilfunk",
+      "gewicht": 1.5,
+      "kpis": ["mobilfunk_o2", "mobilfunk_telekom", "mobilfunk_vodafone"]
+    },
+    {
+      "id": "digitale_services",
+      "label": "Digitale Services",
+      "gewicht": 1.5,
+      "kpis": ["digitale_services_reifegrad", "digitale_services_ab_stufe_2"]
+    },
+    {
+      "id": "social_media",
+      "label": "Social Media / Kanaldichte",
+      "gewicht": 1.0,
+      "kpis": ["kanaldichte_social_media"]
+    },
+    {
+      "id": "vernetzung",
+      "label": "Vernetzung",
+      "gewicht": 1.0,
+      "kpis": ["vernetzung_score"]
+    },
+    {
+      "id": "daseinsvorsorge",
+      "label": "Daseinsvorsorge",
+      "gewicht": 1.5,
+      "kpis": ["daseinsvorsorge_schulen", "daseinsvorsorge_kitas", "daseinsvorsorge_gewerbe_m2_pro_1000"]
+    }
+  ],
+  "stakeholder_presets": {
+    "stadtleitung": {
+      "abgedeckte_sichten": 1.0,
+      "virtuelle_touren": 1.0,
+      "strassennetz": 1.0,
+      "ladeinfrastruktur": 1.5,
+      "festnetz": 1.5,
+      "mobilfunk": 1.5,
+      "digitale_services": 1.5,
+      "social_media": 1.0,
+      "vernetzung": 1.5,
+      "daseinsvorsorge": 1.5
+    },
+    "buerger": {
+      "abgedeckte_sichten": 1.0,
+      "virtuelle_touren": 1.0,
+      "strassennetz": 1.0,
+      "ladeinfrastruktur": 1.0,
+      "festnetz": 2.0,
+      "mobilfunk": 2.0,
+      "digitale_services": 2.0,
+      "social_media": 1.5,
+      "vernetzung": 1.5,
+      "daseinsvorsorge": 2.5
+    },
+    "investor": {
+      "abgedeckte_sichten": 1.0,
+      "virtuelle_touren": 1.5,
+      "strassennetz": 1.5,
+      "ladeinfrastruktur": 2.0,
+      "festnetz": 2.0,
+      "mobilfunk": 1.5,
+      "digitale_services": 1.5,
+      "social_media": 1.0,
+      "vernetzung": 2.0,
+      "daseinsvorsorge": 1.5
+    },
+    "umzug": {
+      "abgedeckte_sichten": 1.0,
+      "virtuelle_touren": 1.5,
+      "strassennetz": 1.5,
+      "ladeinfrastruktur": 1.0,
+      "festnetz": 2.0,
+      "mobilfunk": 2.0,
+      "digitale_services": 1.5,
+      "social_media": 1.0,
+      "vernetzung": 1.5,
+      "daseinsvorsorge": 2.5
+    }
+  }
+}

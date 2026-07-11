@@ -1,0 +1,4717 @@
+{
+  "config": {
+    "version": "3.0",
+    "lastUpdated": "2026-07-12",
+    "defaultLanguage": "de",
+    "scoreThresholds": {
+      "green": 70,
+      "yellow": 40,
+      "red": 0
+    },
+    "overallWeights": {
+      "festnetz": 0.25,
+      "mobilfunk": 0.25,
+      "digitale_services": 0.25,
+      "daseinsvorsorge": 0.25
+    },
+    "csvSource": "Tabelle Abfrage1.csv; Digitaler_Wandel_Benchmarking(Festnetz/Mobilfunk/Digitale Services/Existenz Daseinsvorsorge).csv"
+  },
+  "municipalities": [
+    {
+      "id": "suedharz",
+      "name": {
+        "de": "Südharz",
+        "en": "Südharz"
+      },
+      "fullName": {
+        "de": "Südharz",
+        "en": "Südharz"
+      },
+      "kreis": "Mansfeld-Südharz",
+      "lat": 51.55,
+      "lng": 11.1,
+      "color": "#13322E",
+      "description": {
+        "de": "Gemeindeverband im Landkreis Mansfeld-Südharz.",
+        "en": "Municipal association in Mansfeld-Südharz district."
+      },
+      "population": 8856
+    },
+    {
+      "id": "landsberg",
+      "name": {
+        "de": "Landsberg",
+        "en": "Landsberg"
+      },
+      "fullName": {
+        "de": "Landsberg, Stadt",
+        "en": "Landsberg, City"
+      },
+      "kreis": "Saalekreis",
+      "lat": 51.53,
+      "lng": 12.16,
+      "color": "#B97A2E",
+      "description": {
+        "de": "Stadt im Saalekreis.",
+        "en": "City in Saalekreis district."
+      },
+      "population": 14792
+    },
+    {
+      "id": "leuna",
+      "name": {
+        "de": "Leuna",
+        "en": "Leuna"
+      },
+      "fullName": {
+        "de": "Leuna, Stadt",
+        "en": "Leuna, City"
+      },
+      "kreis": "Saalekreis",
+      "lat": 51.35,
+      "lng": 12.02,
+      "color": "#2E7A57",
+      "description": {
+        "de": "Stadt im Saalekreis.",
+        "en": "City in Saalekreis district."
+      },
+      "population": 14108
+    },
+    {
+      "id": "teutschenthal",
+      "name": {
+        "de": "Teutschenthal",
+        "en": "Teutschenthal"
+      },
+      "fullName": {
+        "de": "Teutschenthal",
+        "en": "Teutschenthal"
+      },
+      "kreis": "Saalekreis",
+      "lat": 51.45,
+      "lng": 11.81,
+      "color": "#7A4E6D",
+      "description": {
+        "de": "Gemeinde im Saalekreis, Referenzkommune.",
+        "en": "Municipality in Saalekreis district, reference municipality."
+      },
+      "population": 13066
+    }
+  ],
+  "kpis": [
+    {
+      "id": "festnetz",
+      "name": {
+        "de": "Festnetz",
+        "en": "Fixed Network"
+      },
+      "description": {
+        "de": "Verfügbarkeit und Geschwindigkeit der Festnetzverbindungen.",
+        "en": "Availability and speed of fixed-network connections."
+      },
+      "unit": {
+        "de": "Punkte",
+        "en": "Points"
+      },
+      "higherIsBetter": true,
+      "weight": 0.25,
+      "thresholds": {
+        "green": 70,
+        "yellow": 40,
+        "red": 0
+      },
+      "formula": "\\bar{v} = \\frac{\\sum (v_i \\cdot w_i)}{\\sum w_i}",
+      "source": {
+        "de": "INKAR / BBSR / Breitbandatlas",
+        "en": "INKAR / BBSR / Broadband atlas"
+      },
+      "lastUpdate": "2023/2024",
+      "subIndicators": [
+        {
+          "id": "breitband_100",
+          "name": {
+            "de": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+            "en": "Bandwidth availability at least 100 Mbit/s"
+          },
+          "unit": "%",
+          "weight": 0.35,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
+            "en": "Share of households with at least 100 Mbit/s bandwidth."
+          },
+          "csvKey": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s"
+        },
+        {
+          "id": "festnetz_download",
+          "name": {
+            "de": "Durchschnittliche Festnetzgeschwindigkeit (Download)",
+            "en": "Average fixed-network download speed"
+          },
+          "unit": "Mbit/s",
+          "weight": 0.65,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
+            "en": "Average fixed-network download speed."
+          },
+          "csvKey": "Mittelwert Festnetzempfang (Download) in Mbit/s"
+        }
+      ]
+    },
+    {
+      "id": "mobilfunk",
+      "name": {
+        "de": "Mobilfunk",
+        "en": "Mobile Network"
+      },
+      "description": {
+        "de": "Mobilfunkempfang der drei Hauptnetzbetreiber.",
+        "en": "Mobile reception of the three main network operators."
+      },
+      "unit": {
+        "de": "Punkte",
+        "en": "Points"
+      },
+      "higherIsBetter": true,
+      "weight": 0.25,
+      "thresholds": {
+        "green": 70,
+        "yellow": 40,
+        "red": 0
+      },
+      "formula": "\\bar{r} = \\frac{\\sum (r_j \\cdot w_j)}{\\sum w_j}",
+      "source": {
+        "de": "CellMapper / externe Datenerhebung",
+        "en": "CellMapper / external survey"
+      },
+      "lastUpdate": "2024",
+      "subIndicators": [
+        {
+          "id": "mobil_o2",
+          "name": {
+            "de": "Mobilfunkempfang O2",
+            "en": "Mobile reception O2"
+          },
+          "unit": "dBm",
+          "weight": 0.333,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception O2. Less negative values are better."
+          },
+          "csvKey": "Mobilfunk O2"
+        },
+        {
+          "id": "mobil_vodafone",
+          "name": {
+            "de": "Mobilfunkempfang Vodafone",
+            "en": "Mobile reception Vodafone"
+          },
+          "unit": "dBm",
+          "weight": 0.333,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Vodafone. Less negative values are better."
+          },
+          "csvKey": "Mobilfunk Vodafone"
+        },
+        {
+          "id": "mobil_telekom",
+          "name": {
+            "de": "Mobilfunkempfang Telekom",
+            "en": "Mobile reception Telekom"
+          },
+          "unit": "dBm",
+          "weight": 0.334,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Telekom. Less negative values are better."
+          },
+          "csvKey": "Mobilfunk Telekom"
+        }
+      ]
+    },
+    {
+      "id": "digitale_services",
+      "name": {
+        "de": "Digitale Services",
+        "en": "Digital Services"
+      },
+      "description": {
+        "de": "Digitalisierungsgrad der öffentlichen Verwaltungsservices nach OZG-Reifegradmodell.",
+        "en": "Digitalization level of public administration services according to OZG maturity model."
+      },
+      "unit": {
+        "de": "Punkte",
+        "en": "Points"
+      },
+      "higherIsBetter": true,
+      "weight": 0.25,
+      "thresholds": {
+        "green": 70,
+        "yellow": 40,
+        "red": 0
+      },
+      "formula": "\\bar{R} = \\frac{\\sum (R_i \\cdot w_i)}{\\sum w_i}",
+      "source": {
+        "de": "Gemeinde-Online-Serviceübersichten",
+        "en": "Municipal online service overviews"
+      },
+      "lastUpdate": "2024",
+      "subIndicators": [
+        {
+          "id": "ozg_reifegrad",
+          "name": {
+            "de": "OZG Reifegrad-Mittelwert",
+            "en": "OZG maturity level average"
+          },
+          "unit": "Level 0-4",
+          "weight": 0.5,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
+            "en": "Average OZG maturity level of all services (levels 0-4)."
+          },
+          "csvKey": "OZG Reifegrad-Mittelwert"
+        },
+        {
+          "id": "ozg_pct_level2",
+          "name": {
+            "de": "OZG Anteil ab Stufe 2",
+            "en": "OZG share level 2+"
+          },
+          "unit": "%",
+          "weight": 0.5,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anteil der Services mit Reifegrad 2 oder höher.",
+            "en": "Share of services with maturity level 2 or higher."
+          },
+          "csvKey": "OZG Prozentanteil ab Stufe 2"
+        }
+      ]
+    },
+    {
+      "id": "daseinsvorsorge",
+      "name": {
+        "de": "Daseinsvorsorge",
+        "en": "Public Services"
+      },
+      "description": {
+        "de": "Erreichbarkeit öffentlicher Einrichtungen, Gesundheitsversorgung, Bildung, Mobilität und sozioökonomische Rahmenbedingungen.",
+        "en": "Accessibility of public facilities, healthcare, education, mobility and socio-economic framework conditions."
+      },
+      "unit": {
+        "de": "Punkte",
+        "en": "Points"
+      },
+      "higherIsBetter": true,
+      "weight": 0.25,
+      "thresholds": {
+        "green": 70,
+        "yellow": 40,
+        "red": 0
+      },
+      "formula": "S = \\frac{\\sum (s_k \\cdot w_k)}{\\sum w_k}",
+      "source": {
+        "de": "INKAR / BBSR",
+        "en": "INKAR / BBSR"
+      },
+      "lastUpdate": "2023/2024",
+      "subIndicators": [
+        {
+          "id": "bevoelkerung",
+          "name": {
+            "de": "Bevölkerung gesamt",
+            "en": "Total population"
+          },
+          "unit": "EW",
+          "weight": 0.03,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Gesamtbevölkerung der Kommune.",
+            "en": "Total population of the municipality."
+          },
+          "csvKey": "Bevölkerung gesamt"
+        },
+        {
+          "id": "arbeitslose",
+          "name": {
+            "de": "Arbeitslose",
+            "en": "Unemployed"
+          },
+          "unit": "Personen",
+          "weight": 0.04,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+            "en": "Number of unemployed people. Lower values are better."
+          },
+          "csvKey": "Arbeitslose"
+        },
+        {
+          "id": "neubauwohnungen",
+          "name": {
+            "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+            "en": "New dwellings in single and two-family houses"
+          },
+          "unit": "Anzahl",
+          "weight": 0.03,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+            "en": "Number of new dwellings in single and two-family houses."
+          },
+          "csvKey": "Neubauwohnungen in Ein- und Zweifamilienhäusern"
+        },
+        {
+          "id": "beschaeftigtenquote",
+          "name": {
+            "de": "Beschäftigtenquote",
+            "en": "Employment rate"
+          },
+          "unit": "%",
+          "weight": 0.07,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+            "en": "Share of employed population. Higher values are better."
+          },
+          "csvKey": "Beschäftigtenquote"
+        },
+        {
+          "id": "anteil_minijobs",
+          "name": {
+            "de": "Anteil Minijobs (Nebenverdienst)",
+            "en": "Share of mini-jobs (secondary income)"
+          },
+          "unit": "%",
+          "weight": 0.03,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+            "en": "Share of employees in marginal employment. Lower values are better."
+          },
+          "csvKey": "Anteil Minijobs (Nebenverdienst)"
+        },
+        {
+          "id": "durchschnittsalter",
+          "name": {
+            "de": "Durchschnittsalter der Bevölkerung",
+            "en": "Average age of population"
+          },
+          "unit": "Jahre",
+          "weight": 0.03,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+            "en": "Average age of population. Lower values indicate more dynamism."
+          },
+          "csvKey": "Durchschnittsalter der Bevölkerung"
+        },
+        {
+          "id": "studierende",
+          "name": {
+            "de": "Studierende",
+            "en": "Students"
+          },
+          "unit": "Anzahl",
+          "weight": 0.03,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+            "en": "Number of students. Higher values are better."
+          },
+          "csvKey": "Studierende"
+        },
+        {
+          "id": "kaufkraft",
+          "name": {
+            "de": "Kaufkraft",
+            "en": "Purchasing power"
+          },
+          "unit": "EUR/EW",
+          "weight": 0.07,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+            "en": "Purchasing power per inhabitant. Higher values are better."
+          },
+          "csvKey": "Kaufkraft"
+        },
+        {
+          "id": "hh_mittel",
+          "name": {
+            "de": "Haushalte mit mittlerem Einkommen",
+            "en": "Middle-income households"
+          },
+          "unit": "%",
+          "weight": 0.03,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+            "en": "Share of middle-income households. Higher values are better."
+          },
+          "csvKey": "Haushalte mit mittlerem Einkommen"
+        },
+        {
+          "id": "kinderarzte",
+          "name": {
+            "de": "Kinderärzte",
+            "en": "Paediatricians"
+          },
+          "unit": "Anzahl",
+          "weight": 0.05,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
+            "en": "Number of paediatricians. Higher values are better."
+          },
+          "csvKey": "Kinderärzte"
+        },
+        {
+          "id": "hausarzte",
+          "name": {
+            "de": "Hausärzte",
+            "en": "General practitioners"
+          },
+          "unit": "Anzahl",
+          "weight": 0.05,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
+            "en": "Number of general practitioners. Higher values are better."
+          },
+          "csvKey": "Hausärzte"
+        },
+        {
+          "id": "ent_super",
+          "name": {
+            "de": "Entfernung zum Supermarkt / Discounter",
+            "en": "Distance to supermarket / discounter"
+          },
+          "unit": "m",
+          "weight": 0.05,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest supermarket or discounter. Lower values are better."
+          },
+          "csvKey": "Entfernung zum Supermarkt/Discounter"
+        },
+        {
+          "id": "ent_hausarzt",
+          "name": {
+            "de": "Entfernung zum Hausarzt",
+            "en": "Distance to GP"
+          },
+          "unit": "m",
+          "weight": 0.05,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest GP. Lower values are better."
+          },
+          "csvKey": "Entfernung zum Hausarzt"
+        },
+        {
+          "id": "ent_apo",
+          "name": {
+            "de": "Entfernung zur Apotheke",
+            "en": "Distance to pharmacy"
+          },
+          "unit": "m",
+          "weight": 0.05,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest pharmacy. Lower values are better."
+          },
+          "csvKey": "Entfernung zur Apotheke"
+        },
+        {
+          "id": "ent_oev",
+          "name": {
+            "de": "Entfernung zur ÖV-Haltestelle",
+            "en": "Distance to public transport stop"
+          },
+          "unit": "m",
+          "weight": 0.05,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest public transport stop. Lower values are better."
+          },
+          "csvKey": "Entfernung zur ÖV Haltestelle"
+        },
+        {
+          "id": "ent_grund",
+          "name": {
+            "de": "Entfernung zur Grundschule",
+            "en": "Distance to primary school"
+          },
+          "unit": "m",
+          "weight": 0.05,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest primary school. Lower values are better."
+          },
+          "csvKey": "Entfernung zur Grundschule"
+        },
+        {
+          "id": "strassen_unfaelle",
+          "name": {
+            "de": "Straßenverkehrsunfälle",
+            "en": "Road traffic accidents"
+          },
+          "unit": "Anzahl",
+          "weight": 0.04,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+            "en": "Number of road traffic accidents. Lower values are better."
+          },
+          "csvKey": "Straßenverkehrsunfälle"
+        },
+        {
+          "id": "erreichbarkeit_autobahn",
+          "name": {
+            "de": "Erreichbarkeit von Autobahnen",
+            "en": "Accessibility of motorways"
+          },
+          "unit": "min",
+          "weight": 0.06,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest motorway junction. Lower values are better."
+          },
+          "csvKey": "Erreichbarkeit von Autobahnen"
+        },
+        {
+          "id": "erreichbarkeit_flughafen",
+          "name": {
+            "de": "Erreichbarkeit von Flughäfen",
+            "en": "Accessibility of airports"
+          },
+          "unit": "min",
+          "weight": 0.04,
+          "higherIsBetter": false,
+          "description": {
+            "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest airport. Lower values are better."
+          },
+          "csvKey": "Erreichbarkeit von Flughäfen"
+        },
+        {
+          "id": "schulabdeckung",
+          "name": {
+            "de": "Schulabdeckung",
+            "en": "School coverage"
+          },
+          "unit": "%",
+          "weight": 0.05,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
+            "en": "Share of area with school coverage. Higher values are better."
+          },
+          "csvKey": "Schulabdeckung"
+        },
+        {
+          "id": "kitas_abdeckung",
+          "name": {
+            "de": "Kitas-Abdeckung",
+            "en": "Kindergarten coverage"
+          },
+          "unit": "%",
+          "weight": 0.05,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
+            "en": "Share of area with kindergarten coverage. Higher values are better."
+          },
+          "csvKey": "Kitas-Abdeckung"
+        },
+        {
+          "id": "gewerbegebiet",
+          "name": {
+            "de": "Gewerbegebiet pro 1.000 EW",
+            "en": "Commercial area per 1,000 inhabitants"
+          },
+          "unit": "m²",
+          "weight": 0.04,
+          "higherIsBetter": true,
+          "description": {
+            "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
+            "en": "Commercial area per 1,000 inhabitants. Higher values are better."
+          },
+          "csvKey": "Gewerbegebiet pro 1.000 EW"
+        }
+      ]
+    }
+  ],
+  "profileIndicators": [
+    {
+      "id": "bevoelkerung",
+      "name": {
+        "de": "Bevölkerung gesamt",
+        "en": "Total population"
+      },
+      "unit": "EW",
+      "csvColumn": "Bevölkerung gesamt",
+      "higherIsBetter": true,
+      "description": {
+        "de": "Gesamtbevölkerung der Kommune.",
+        "en": "Total population of the municipality."
+      }
+    },
+    {
+      "id": "arbeitslose",
+      "name": {
+        "de": "Arbeitslose",
+        "en": "Unemployed"
+      },
+      "unit": "Personen",
+      "csvColumn": "Arbeitslose",
+      "higherIsBetter": false,
+      "description": {
+        "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+        "en": "Number of unemployed people. Lower values are better."
+      }
+    },
+    {
+      "id": "neubauwohnungen",
+      "name": {
+        "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+        "en": "New dwellings in single and two-family houses"
+      },
+      "unit": "Anzahl",
+      "csvColumn": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+      "higherIsBetter": true,
+      "description": {
+        "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+        "en": "Number of new dwellings in single and two-family houses."
+      }
+    },
+    {
+      "id": "beschaeftigtenquote",
+      "name": {
+        "de": "Beschäftigtenquote",
+        "en": "Employment rate"
+      },
+      "unit": "%",
+      "csvColumn": "Beschäftigtenquote",
+      "higherIsBetter": true,
+      "description": {
+        "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+        "en": "Share of employed population. Higher values are better."
+      }
+    },
+    {
+      "id": "anteil_minijobs",
+      "name": {
+        "de": "Anteil Minijobs (Nebenverdienst)",
+        "en": "Share of mini-jobs (secondary income)"
+      },
+      "unit": "%",
+      "csvColumn": "Anteil Minijobs (Nebenverdienst)",
+      "higherIsBetter": false,
+      "description": {
+        "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+        "en": "Share of employees in marginal employment. Lower values are better."
+      }
+    },
+    {
+      "id": "durchschnittsalter",
+      "name": {
+        "de": "Durchschnittsalter der Bevölkerung",
+        "en": "Average age of population"
+      },
+      "unit": "Jahre",
+      "csvColumn": "Durchschnittsalter der Bevölkerung",
+      "higherIsBetter": false,
+      "description": {
+        "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+        "en": "Average age of population. Lower values indicate more dynamism."
+      }
+    },
+    {
+      "id": "studierende",
+      "name": {
+        "de": "Studierende",
+        "en": "Students"
+      },
+      "unit": "Anzahl",
+      "csvColumn": "Studierende",
+      "higherIsBetter": true,
+      "description": {
+        "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+        "en": "Number of students. Higher values are better."
+      }
+    },
+    {
+      "id": "kaufkraft",
+      "name": {
+        "de": "Kaufkraft",
+        "en": "Purchasing power"
+      },
+      "unit": "EUR/EW",
+      "csvColumn": "Kaufkraft",
+      "higherIsBetter": true,
+      "description": {
+        "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+        "en": "Purchasing power per inhabitant. Higher values are better."
+      }
+    },
+    {
+      "id": "hh_mittel",
+      "name": {
+        "de": "Haushalte mit mittlerem Einkommen",
+        "en": "Middle-income households"
+      },
+      "unit": "%",
+      "csvColumn": "Haushalte mit mittlerem Einkommen",
+      "higherIsBetter": true,
+      "description": {
+        "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+        "en": "Share of middle-income households. Higher values are better."
+      }
+    },
+    {
+      "id": "strassen_unfaelle",
+      "name": {
+        "de": "Straßenverkehrsunfälle",
+        "en": "Road traffic accidents"
+      },
+      "unit": "Anzahl",
+      "csvColumn": "Straßenverkehrsunfälle",
+      "higherIsBetter": false,
+      "description": {
+        "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+        "en": "Number of road traffic accidents. Lower values are better."
+      }
+    }
+  ],
+  "stakeholders": {
+    "stadt": {
+      "id": "stadt",
+      "name": {
+        "de": "Stadtleitung",
+        "en": "City Management"
+      },
+      "focus": [
+        "festnetz",
+        "daseinsvorsorge",
+        "digitale_services",
+        "mobilfunk"
+      ],
+      "priorityIndicators": [
+        "breitband_100",
+        "festnetz_download",
+        "erreichbarkeit_autobahn",
+        "kaufkraft",
+        "beschaeftigtenquote"
+      ],
+      "description": {
+        "de": "Gesamtperspektive auf Infrastruktur, Daseinsvorsorge und Wirtschaftskraft.",
+        "en": "Overall perspective on infrastructure, public services and economic strength."
+      }
+    },
+    "buerger": {
+      "id": "buerger",
+      "name": {
+        "de": "Bürger",
+        "en": "Citizens"
+      },
+      "focus": [
+        "daseinsvorsorge",
+        "festnetz"
+      ],
+      "priorityIndicators": [
+        "breitband_100",
+        "hausarzte",
+        "ent_apo",
+        "ent_super",
+        "ent_grund",
+        "ent_oev",
+        "kinderarzte"
+      ],
+      "description": {
+        "de": "Fokus auf Alltagsrelevanz: Breitband, Ärzte, Apotheke, Einkauf, Schule, ÖV.",
+        "en": "Focus on everyday relevance: broadband, doctors, pharmacy, shopping, school, public transport."
+      }
+    },
+    "investor": {
+      "id": "investor",
+      "name": {
+        "de": "Investor",
+        "en": "Investor"
+      },
+      "focus": [
+        "daseinsvorsorge",
+        "festnetz",
+        "mobilfunk"
+      ],
+      "priorityIndicators": [
+        "kaufkraft",
+        "beschaeftigtenquote",
+        "breitband_100",
+        "festnetz_download",
+        "erreichbarkeit_autobahn",
+        "erreichbarkeit_flughafen",
+        "gewerbegebiet"
+      ],
+      "description": {
+        "de": "Wirtschaftsstandort: Kaufkraft, Erwerbstätige, Verkehrsanbindung, Breitband.",
+        "en": "Business location: purchasing power, employment, transport links, broadband."
+      }
+    },
+    "umzug": {
+      "id": "umzug",
+      "name": {
+        "de": "Umzugsinteressent",
+        "en": "Relocating Interest"
+      },
+      "focus": [
+        "daseinsvorsorge",
+        "festnetz"
+      ],
+      "priorityIndicators": [
+        "ent_grund",
+        "ent_super",
+        "hausarzte",
+        "ent_apo",
+        "ent_oev",
+        "breitband_100",
+        "durchschnittsalter",
+        "kinderarzte",
+        "kitas_abdeckung"
+      ],
+      "description": {
+        "de": "Lebensqualität: Schulen, Einkauf, Gesundheit, Mobilität, Breitband, Alter.",
+        "en": "Quality of life: schools, shopping, health, mobility, broadband, age."
+      }
+    }
+  },
+  "values": {
+    "suedharz": {
+      "kpis": {
+        "festnetz": 100.0,
+        "mobilfunk": null,
+        "digitale_services": null,
+        "daseinsvorsorge": 17.0
+      },
+      "indicators": {
+        "breitband_100": {
+          "raw": 93.66,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.35,
+          "category": "festnetz",
+          "name": {
+            "de": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+            "en": "Bandwidth availability at least 100 Mbit/s"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
+            "en": "Share of households with at least 100 Mbit/s bandwidth."
+          }
+        },
+        "festnetz_download": {
+          "raw": null,
+          "unit": "Mbit/s",
+          "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.65,
+          "category": "festnetz",
+          "name": {
+            "de": "Durchschnittliche Festnetzgeschwindigkeit (Download)",
+            "en": "Average fixed-network download speed"
+          },
+          "description": {
+            "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
+            "en": "Average fixed-network download speed."
+          }
+        },
+        "mobil_o2": {
+          "raw": null,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang O2",
+            "en": "Mobile reception O2"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception O2. Less negative values are better."
+          }
+        },
+        "mobil_vodafone": {
+          "raw": null,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Vodafone",
+            "en": "Mobile reception Vodafone"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Vodafone. Less negative values are better."
+          }
+        },
+        "mobil_telekom": {
+          "raw": null,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.334,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Telekom",
+            "en": "Mobile reception Telekom"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Telekom. Less negative values are better."
+          }
+        },
+        "ozg_reifegrad": {
+          "raw": null,
+          "unit": "Level 0-4",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Reifegrad-Mittelwert",
+            "en": "OZG maturity level average"
+          },
+          "description": {
+            "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
+            "en": "Average OZG maturity level of all services (levels 0-4)."
+          }
+        },
+        "ozg_pct_level2": {
+          "raw": null,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Anteil ab Stufe 2",
+            "en": "OZG share level 2+"
+          },
+          "description": {
+            "de": "Anteil der Services mit Reifegrad 2 oder höher.",
+            "en": "Share of services with maturity level 2 or higher."
+          }
+        },
+        "bevoelkerung": {
+          "raw": 8856.0,
+          "unit": "EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Bevölkerung gesamt",
+            "en": "Total population"
+          },
+          "description": {
+            "de": "Gesamtbevölkerung der Kommune.",
+            "en": "Total population of the municipality."
+          }
+        },
+        "arbeitslose": {
+          "raw": 320.0,
+          "unit": "Personen",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 36.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Arbeitslose",
+            "en": "Unemployed"
+          },
+          "description": {
+            "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+            "en": "Number of unemployed people. Lower values are better."
+          }
+        },
+        "neubauwohnungen": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+            "en": "New dwellings in single and two-family houses"
+          },
+          "description": {
+            "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+            "en": "Number of new dwellings in single and two-family houses."
+          }
+        },
+        "beschaeftigtenquote": {
+          "raw": 67.32,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Beschäftigtenquote",
+            "en": "Employment rate"
+          },
+          "description": {
+            "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+            "en": "Share of employed population. Higher values are better."
+          }
+        },
+        "anteil_minijobs": {
+          "raw": 30.17,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 62.6,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Anteil Minijobs (Nebenverdienst)",
+            "en": "Share of mini-jobs (secondary income)"
+          },
+          "description": {
+            "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+            "en": "Share of employees in marginal employment. Lower values are better."
+          }
+        },
+        "durchschnittsalter": {
+          "raw": 50.16,
+          "unit": "Jahre",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Durchschnittsalter der Bevölkerung",
+            "en": "Average age of population"
+          },
+          "description": {
+            "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+            "en": "Average age of population. Lower values indicate more dynamism."
+          }
+        },
+        "studierende": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Studierende",
+            "en": "Students"
+          },
+          "description": {
+            "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+            "en": "Number of students. Higher values are better."
+          }
+        },
+        "kaufkraft": {
+          "raw": 26138.45,
+          "unit": "EUR/EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kaufkraft",
+            "en": "Purchasing power"
+          },
+          "description": {
+            "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+            "en": "Purchasing power per inhabitant. Higher values are better."
+          }
+        },
+        "hh_mittel": {
+          "raw": 52.68,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Haushalte mit mittlerem Einkommen",
+            "en": "Middle-income households"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+            "en": "Share of middle-income households. Higher values are better."
+          }
+        },
+        "kinderarzte": {
+          "raw": 30.15,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kinderärzte",
+            "en": "Paediatricians"
+          },
+          "description": {
+            "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
+            "en": "Number of paediatricians. Higher values are better."
+          }
+        },
+        "hausarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Hausärzte",
+            "en": "General practitioners"
+          },
+          "description": {
+            "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
+            "en": "Number of general practitioners. Higher values are better."
+          }
+        },
+        "ent_super": {
+          "raw": 2530.28,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Supermarkt / Discounter",
+            "en": "Distance to supermarket / discounter"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest supermarket or discounter. Lower values are better."
+          }
+        },
+        "ent_hausarzt": {
+          "raw": 2100.13,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Hausarzt",
+            "en": "Distance to GP"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest GP. Lower values are better."
+          }
+        },
+        "ent_apo": {
+          "raw": 2697.34,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 28.5,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Apotheke",
+            "en": "Distance to pharmacy"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest pharmacy. Lower values are better."
+          }
+        },
+        "ent_oev": {
+          "raw": 461.86,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2022",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur ÖV-Haltestelle",
+            "en": "Distance to public transport stop"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest public transport stop. Lower values are better."
+          }
+        },
+        "ent_grund": {
+          "raw": 2879.26,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Grundschule",
+            "en": "Distance to primary school"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest primary school. Lower values are better."
+          }
+        },
+        "strassen_unfaelle": {
+          "raw": 383.92,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Straßenverkehrsunfälle",
+            "en": "Road traffic accidents"
+          },
+          "description": {
+            "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+            "en": "Number of road traffic accidents. Lower values are better."
+          }
+        },
+        "erreichbarkeit_autobahn": {
+          "raw": 10.0,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.06,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Autobahnen",
+            "en": "Accessibility of motorways"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest motorway junction. Lower values are better."
+          }
+        },
+        "erreichbarkeit_flughafen": {
+          "raw": 60.69,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Flughäfen",
+            "en": "Accessibility of airports"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest airport. Lower values are better."
+          }
+        },
+        "schulabdeckung": {
+          "raw": null,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Schulabdeckung",
+            "en": "School coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
+            "en": "Share of area with school coverage. Higher values are better."
+          }
+        },
+        "kitas_abdeckung": {
+          "raw": null,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kitas-Abdeckung",
+            "en": "Kindergarten coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
+            "en": "Share of area with kindergarten coverage. Higher values are better."
+          }
+        },
+        "gewerbegebiet": {
+          "raw": null,
+          "unit": "m²",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Gewerbegebiet pro 1.000 EW",
+            "en": "Commercial area per 1,000 inhabitants"
+          },
+          "description": {
+            "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
+            "en": "Commercial area per 1,000 inhabitants. Higher values are better."
+          }
+        }
+      },
+      "festnetz": {
+        "sub": {
+          "breitband_100": {
+            "raw": 93.66,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.35
+          },
+          "festnetz_download": {
+            "raw": null,
+            "unit": "Mbit/s",
+            "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.65
+          }
+        },
+        "score": 100.0
+      },
+      "mobilfunk": {
+        "sub": {
+          "mobil_o2": {
+            "raw": null,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.333
+          },
+          "mobil_vodafone": {
+            "raw": null,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.333
+          },
+          "mobil_telekom": {
+            "raw": null,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.334
+          }
+        },
+        "score": null
+      },
+      "digitale_services": {
+        "sub": {
+          "ozg_reifegrad": {
+            "raw": null,
+            "unit": "Level 0-4",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.5
+          },
+          "ozg_pct_level2": {
+            "raw": null,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.5
+          }
+        },
+        "score": null
+      },
+      "daseinsvorsorge": {
+        "sub": {
+          "bevoelkerung": {
+            "raw": 8856.0,
+            "unit": "EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.03
+          },
+          "arbeitslose": {
+            "raw": 320.0,
+            "unit": "Personen",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 36.0,
+            "weight": 0.04
+          },
+          "neubauwohnungen": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.03
+          },
+          "beschaeftigtenquote": {
+            "raw": 67.32,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.07
+          },
+          "anteil_minijobs": {
+            "raw": 30.17,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 62.6,
+            "weight": 0.03
+          },
+          "durchschnittsalter": {
+            "raw": 50.16,
+            "unit": "Jahre",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.03
+          },
+          "studierende": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.03
+          },
+          "kaufkraft": {
+            "raw": 26138.45,
+            "unit": "EUR/EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.07
+          },
+          "hh_mittel": {
+            "raw": 52.68,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.03
+          },
+          "kinderarzte": {
+            "raw": 30.15,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "hausarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "ent_super": {
+            "raw": 2530.28,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "ent_hausarzt": {
+            "raw": 2100.13,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "ent_apo": {
+            "raw": 2697.34,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 28.5,
+            "weight": 0.05
+          },
+          "ent_oev": {
+            "raw": 461.86,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2022",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "ent_grund": {
+            "raw": 2879.26,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "strassen_unfaelle": {
+            "raw": 383.92,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.04
+          },
+          "erreichbarkeit_autobahn": {
+            "raw": 10.0,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.06
+          },
+          "erreichbarkeit_flughafen": {
+            "raw": 60.69,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.04
+          },
+          "schulabdeckung": {
+            "raw": null,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "kitas_abdeckung": {
+            "raw": null,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "gewerbegebiet": {
+            "raw": null,
+            "unit": "m²",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.04
+          }
+        },
+        "score": 17.0
+      },
+      "overall": 58.5,
+      "completeness": 58.6,
+      "completeFields": 17,
+      "totalFields": 29
+    },
+    "landsberg": {
+      "kpis": {
+        "festnetz": 15.4,
+        "mobilfunk": 100.0,
+        "digitale_services": 0.0,
+        "daseinsvorsorge": 53.1
+      },
+      "indicators": {
+        "breitband_100": {
+          "raw": 86.04,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 43.9,
+          "weight": 0.35,
+          "category": "festnetz",
+          "name": {
+            "de": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+            "en": "Bandwidth availability at least 100 Mbit/s"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
+            "en": "Share of households with at least 100 Mbit/s bandwidth."
+          }
+        },
+        "festnetz_download": {
+          "raw": 400.06,
+          "unit": "Mbit/s",
+          "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.65,
+          "category": "festnetz",
+          "name": {
+            "de": "Durchschnittliche Festnetzgeschwindigkeit (Download)",
+            "en": "Average fixed-network download speed"
+          },
+          "description": {
+            "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
+            "en": "Average fixed-network download speed."
+          }
+        },
+        "mobil_o2": {
+          "raw": -79.74,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang O2",
+            "en": "Mobile reception O2"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception O2. Less negative values are better."
+          }
+        },
+        "mobil_vodafone": {
+          "raw": -88.46,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Vodafone",
+            "en": "Mobile reception Vodafone"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Vodafone. Less negative values are better."
+          }
+        },
+        "mobil_telekom": {
+          "raw": -80.19,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.334,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Telekom",
+            "en": "Mobile reception Telekom"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Telekom. Less negative values are better."
+          }
+        },
+        "ozg_reifegrad": {
+          "raw": 1.06,
+          "unit": "Level 0-4",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Reifegrad-Mittelwert",
+            "en": "OZG maturity level average"
+          },
+          "description": {
+            "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
+            "en": "Average OZG maturity level of all services (levels 0-4)."
+          }
+        },
+        "ozg_pct_level2": {
+          "raw": 6.12,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Anteil ab Stufe 2",
+            "en": "OZG share level 2+"
+          },
+          "description": {
+            "de": "Anteil der Services mit Reifegrad 2 oder höher.",
+            "en": "Share of services with maturity level 2 or higher."
+          }
+        },
+        "bevoelkerung": {
+          "raw": 14792.0,
+          "unit": "EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Bevölkerung gesamt",
+            "en": "Total population"
+          },
+          "description": {
+            "de": "Gesamtbevölkerung der Kommune.",
+            "en": "Total population of the municipality."
+          }
+        },
+        "arbeitslose": {
+          "raw": 277.0,
+          "unit": "Personen",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 73.7,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Arbeitslose",
+            "en": "Unemployed"
+          },
+          "description": {
+            "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+            "en": "Number of unemployed people. Lower values are better."
+          }
+        },
+        "neubauwohnungen": {
+          "raw": 42.74,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+            "en": "New dwellings in single and two-family houses"
+          },
+          "description": {
+            "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+            "en": "Number of new dwellings in single and two-family houses."
+          }
+        },
+        "beschaeftigtenquote": {
+          "raw": 75.51,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Beschäftigtenquote",
+            "en": "Employment rate"
+          },
+          "description": {
+            "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+            "en": "Share of employed population. Higher values are better."
+          }
+        },
+        "anteil_minijobs": {
+          "raw": 42.15,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Anteil Minijobs (Nebenverdienst)",
+            "en": "Share of mini-jobs (secondary income)"
+          },
+          "description": {
+            "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+            "en": "Share of employees in marginal employment. Lower values are better."
+          }
+        },
+        "durchschnittsalter": {
+          "raw": 46.49,
+          "unit": "Jahre",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Durchschnittsalter der Bevölkerung",
+            "en": "Average age of population"
+          },
+          "description": {
+            "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+            "en": "Average age of population. Lower values indicate more dynamism."
+          }
+        },
+        "studierende": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Studierende",
+            "en": "Students"
+          },
+          "description": {
+            "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+            "en": "Number of students. Higher values are better."
+          }
+        },
+        "kaufkraft": {
+          "raw": 28331.18,
+          "unit": "EUR/EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 82.0,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kaufkraft",
+            "en": "Purchasing power"
+          },
+          "description": {
+            "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+            "en": "Purchasing power per inhabitant. Higher values are better."
+          }
+        },
+        "hh_mittel": {
+          "raw": 47.83,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 16.7,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Haushalte mit mittlerem Einkommen",
+            "en": "Middle-income households"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+            "en": "Share of middle-income households. Higher values are better."
+          }
+        },
+        "kinderarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kinderärzte",
+            "en": "Paediatricians"
+          },
+          "description": {
+            "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
+            "en": "Number of paediatricians. Higher values are better."
+          }
+        },
+        "hausarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Hausärzte",
+            "en": "General practitioners"
+          },
+          "description": {
+            "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
+            "en": "Number of general practitioners. Higher values are better."
+          }
+        },
+        "ent_super": {
+          "raw": 1946.42,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 47.4,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Supermarkt / Discounter",
+            "en": "Distance to supermarket / discounter"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest supermarket or discounter. Lower values are better."
+          }
+        },
+        "ent_hausarzt": {
+          "raw": 1653.31,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 38.3,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Hausarzt",
+            "en": "Distance to GP"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest GP. Lower values are better."
+          }
+        },
+        "ent_apo": {
+          "raw": 2492.59,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 41.9,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Apotheke",
+            "en": "Distance to pharmacy"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest pharmacy. Lower values are better."
+          }
+        },
+        "ent_oev": {
+          "raw": 385.97,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2022",
+          "higherIsBetter": false,
+          "normalized": 50.8,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur ÖV-Haltestelle",
+            "en": "Distance to public transport stop"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest public transport stop. Lower values are better."
+          }
+        },
+        "ent_grund": {
+          "raw": 1897.07,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 97.8,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Grundschule",
+            "en": "Distance to primary school"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest primary school. Lower values are better."
+          }
+        },
+        "strassen_unfaelle": {
+          "raw": 696.32,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Straßenverkehrsunfälle",
+            "en": "Road traffic accidents"
+          },
+          "description": {
+            "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+            "en": "Number of road traffic accidents. Lower values are better."
+          }
+        },
+        "erreichbarkeit_autobahn": {
+          "raw": 4.3,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 94.7,
+          "weight": 0.06,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Autobahnen",
+            "en": "Accessibility of motorways"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest motorway junction. Lower values are better."
+          }
+        },
+        "erreichbarkeit_flughafen": {
+          "raw": 18.78,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Flughäfen",
+            "en": "Accessibility of airports"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest airport. Lower values are better."
+          }
+        },
+        "schulabdeckung": {
+          "raw": 3.0,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Schulabdeckung",
+            "en": "School coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
+            "en": "Share of area with school coverage. Higher values are better."
+          }
+        },
+        "kitas_abdeckung": {
+          "raw": 4.2,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kitas-Abdeckung",
+            "en": "Kindergarten coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
+            "en": "Share of area with kindergarten coverage. Higher values are better."
+          }
+        },
+        "gewerbegebiet": {
+          "raw": 236.0,
+          "unit": "m²",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Gewerbegebiet pro 1.000 EW",
+            "en": "Commercial area per 1,000 inhabitants"
+          },
+          "description": {
+            "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
+            "en": "Commercial area per 1,000 inhabitants. Higher values are better."
+          }
+        }
+      },
+      "festnetz": {
+        "sub": {
+          "breitband_100": {
+            "raw": 86.04,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 43.9,
+            "weight": 0.35
+          },
+          "festnetz_download": {
+            "raw": 400.06,
+            "unit": "Mbit/s",
+            "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.65
+          }
+        },
+        "score": 15.4
+      },
+      "mobilfunk": {
+        "sub": {
+          "mobil_o2": {
+            "raw": -79.74,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.333
+          },
+          "mobil_vodafone": {
+            "raw": -88.46,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.333
+          },
+          "mobil_telekom": {
+            "raw": -80.19,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.334
+          }
+        },
+        "score": 100.0
+      },
+      "digitale_services": {
+        "sub": {
+          "ozg_reifegrad": {
+            "raw": 1.06,
+            "unit": "Level 0-4",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.5
+          },
+          "ozg_pct_level2": {
+            "raw": 6.12,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.5
+          }
+        },
+        "score": 0.0
+      },
+      "daseinsvorsorge": {
+        "sub": {
+          "bevoelkerung": {
+            "raw": 14792.0,
+            "unit": "EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.03
+          },
+          "arbeitslose": {
+            "raw": 277.0,
+            "unit": "Personen",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 73.7,
+            "weight": 0.04
+          },
+          "neubauwohnungen": {
+            "raw": 42.74,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.03
+          },
+          "beschaeftigtenquote": {
+            "raw": 75.51,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.07
+          },
+          "anteil_minijobs": {
+            "raw": 42.15,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.03
+          },
+          "durchschnittsalter": {
+            "raw": 46.49,
+            "unit": "Jahre",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.03
+          },
+          "studierende": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.03
+          },
+          "kaufkraft": {
+            "raw": 28331.18,
+            "unit": "EUR/EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 82.0,
+            "weight": 0.07
+          },
+          "hh_mittel": {
+            "raw": 47.83,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 16.7,
+            "weight": 0.03
+          },
+          "kinderarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "hausarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "ent_super": {
+            "raw": 1946.42,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 47.4,
+            "weight": 0.05
+          },
+          "ent_hausarzt": {
+            "raw": 1653.31,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 38.3,
+            "weight": 0.05
+          },
+          "ent_apo": {
+            "raw": 2492.59,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 41.9,
+            "weight": 0.05
+          },
+          "ent_oev": {
+            "raw": 385.97,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2022",
+            "higherIsBetter": false,
+            "normalized": 50.8,
+            "weight": 0.05
+          },
+          "ent_grund": {
+            "raw": 1897.07,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 97.8,
+            "weight": 0.05
+          },
+          "strassen_unfaelle": {
+            "raw": 696.32,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.04
+          },
+          "erreichbarkeit_autobahn": {
+            "raw": 4.3,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 94.7,
+            "weight": 0.06
+          },
+          "erreichbarkeit_flughafen": {
+            "raw": 18.78,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.04
+          },
+          "schulabdeckung": {
+            "raw": 3.0,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "kitas_abdeckung": {
+            "raw": 4.2,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "gewerbegebiet": {
+            "raw": 236.0,
+            "unit": "m²",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.04
+          }
+        },
+        "score": 53.1
+      },
+      "overall": 42.1,
+      "completeness": 89.7,
+      "completeFields": 26,
+      "totalFields": 29
+    },
+    "leuna": {
+      "kpis": {
+        "festnetz": 65.0,
+        "mobilfunk": 0.0,
+        "digitale_services": 100.0,
+        "daseinsvorsorge": 71.4
+      },
+      "indicators": {
+        "breitband_100": {
+          "raw": 80.07,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.35,
+          "category": "festnetz",
+          "name": {
+            "de": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+            "en": "Bandwidth availability at least 100 Mbit/s"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
+            "en": "Share of households with at least 100 Mbit/s bandwidth."
+          }
+        },
+        "festnetz_download": {
+          "raw": 447.67,
+          "unit": "Mbit/s",
+          "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.65,
+          "category": "festnetz",
+          "name": {
+            "de": "Durchschnittliche Festnetzgeschwindigkeit (Download)",
+            "en": "Average fixed-network download speed"
+          },
+          "description": {
+            "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
+            "en": "Average fixed-network download speed."
+          }
+        },
+        "mobil_o2": {
+          "raw": -90.4,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang O2",
+            "en": "Mobile reception O2"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception O2. Less negative values are better."
+          }
+        },
+        "mobil_vodafone": {
+          "raw": -95.99,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Vodafone",
+            "en": "Mobile reception Vodafone"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Vodafone. Less negative values are better."
+          }
+        },
+        "mobil_telekom": {
+          "raw": -81.86,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.334,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Telekom",
+            "en": "Mobile reception Telekom"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Telekom. Less negative values are better."
+          }
+        },
+        "ozg_reifegrad": {
+          "raw": 3.24,
+          "unit": "Level 0-4",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Reifegrad-Mittelwert",
+            "en": "OZG maturity level average"
+          },
+          "description": {
+            "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
+            "en": "Average OZG maturity level of all services (levels 0-4)."
+          }
+        },
+        "ozg_pct_level2": {
+          "raw": 84.85,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Anteil ab Stufe 2",
+            "en": "OZG share level 2+"
+          },
+          "description": {
+            "de": "Anteil der Services mit Reifegrad 2 oder höher.",
+            "en": "Share of services with maturity level 2 or higher."
+          }
+        },
+        "bevoelkerung": {
+          "raw": 14108.0,
+          "unit": "EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 88.5,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Bevölkerung gesamt",
+            "en": "Total population"
+          },
+          "description": {
+            "de": "Gesamtbevölkerung der Kommune.",
+            "en": "Total population of the municipality."
+          }
+        },
+        "arbeitslose": {
+          "raw": 361.0,
+          "unit": "Personen",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Arbeitslose",
+            "en": "Unemployed"
+          },
+          "description": {
+            "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+            "en": "Number of unemployed people. Lower values are better."
+          }
+        },
+        "neubauwohnungen": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+            "en": "New dwellings in single and two-family houses"
+          },
+          "description": {
+            "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+            "en": "Number of new dwellings in single and two-family houses."
+          }
+        },
+        "beschaeftigtenquote": {
+          "raw": 74.53,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 88.0,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Beschäftigtenquote",
+            "en": "Employment rate"
+          },
+          "description": {
+            "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+            "en": "Share of employed population. Higher values are better."
+          }
+        },
+        "anteil_minijobs": {
+          "raw": 23.01,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Anteil Minijobs (Nebenverdienst)",
+            "en": "Share of mini-jobs (secondary income)"
+          },
+          "description": {
+            "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+            "en": "Share of employees in marginal employment. Lower values are better."
+          }
+        },
+        "durchschnittsalter": {
+          "raw": 46.62,
+          "unit": "Jahre",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 96.5,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Durchschnittsalter der Bevölkerung",
+            "en": "Average age of population"
+          },
+          "description": {
+            "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+            "en": "Average age of population. Lower values indicate more dynamism."
+          }
+        },
+        "studierende": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Studierende",
+            "en": "Students"
+          },
+          "description": {
+            "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+            "en": "Number of students. Higher values are better."
+          }
+        },
+        "kaufkraft": {
+          "raw": 28059.09,
+          "unit": "EUR/EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 71.8,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kaufkraft",
+            "en": "Purchasing power"
+          },
+          "description": {
+            "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+            "en": "Purchasing power per inhabitant. Higher values are better."
+          }
+        },
+        "hh_mittel": {
+          "raw": 48.73,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 32.1,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Haushalte mit mittlerem Einkommen",
+            "en": "Middle-income households"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+            "en": "Share of middle-income households. Higher values are better."
+          }
+        },
+        "kinderarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kinderärzte",
+            "en": "Paediatricians"
+          },
+          "description": {
+            "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
+            "en": "Number of paediatricians. Higher values are better."
+          }
+        },
+        "hausarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Hausärzte",
+            "en": "General practitioners"
+          },
+          "description": {
+            "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
+            "en": "Number of general practitioners. Higher values are better."
+          }
+        },
+        "ent_super": {
+          "raw": 1400.87,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 91.8,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Supermarkt / Discounter",
+            "en": "Distance to supermarket / discounter"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest supermarket or discounter. Lower values are better."
+          }
+        },
+        "ent_hausarzt": {
+          "raw": 1287.85,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 69.6,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Hausarzt",
+            "en": "Distance to GP"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest GP. Lower values are better."
+          }
+        },
+        "ent_apo": {
+          "raw": 3133.61,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 0.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Apotheke",
+            "en": "Distance to pharmacy"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest pharmacy. Lower values are better."
+          }
+        },
+        "ent_oev": {
+          "raw": 348.62,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2022",
+          "higherIsBetter": false,
+          "normalized": 75.8,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur ÖV-Haltestelle",
+            "en": "Distance to public transport stop"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest public transport stop. Lower values are better."
+          }
+        },
+        "ent_grund": {
+          "raw": 1874.68,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Grundschule",
+            "en": "Distance to primary school"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest primary school. Lower values are better."
+          }
+        },
+        "strassen_unfaelle": {
+          "raw": 637.94,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 18.7,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Straßenverkehrsunfälle",
+            "en": "Road traffic accidents"
+          },
+          "description": {
+            "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+            "en": "Number of road traffic accidents. Lower values are better."
+          }
+        },
+        "erreichbarkeit_autobahn": {
+          "raw": 6.44,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 59.1,
+          "weight": 0.06,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Autobahnen",
+            "en": "Accessibility of motorways"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest motorway junction. Lower values are better."
+          }
+        },
+        "erreichbarkeit_flughafen": {
+          "raw": 24.95,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 85.3,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Flughäfen",
+            "en": "Accessibility of airports"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest airport. Lower values are better."
+          }
+        },
+        "schulabdeckung": {
+          "raw": 6.87,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Schulabdeckung",
+            "en": "School coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
+            "en": "Share of area with school coverage. Higher values are better."
+          }
+        },
+        "kitas_abdeckung": {
+          "raw": 9.45,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kitas-Abdeckung",
+            "en": "Kindergarten coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
+            "en": "Share of area with kindergarten coverage. Higher values are better."
+          }
+        },
+        "gewerbegebiet": {
+          "raw": 646.941,
+          "unit": "m²",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Gewerbegebiet pro 1.000 EW",
+            "en": "Commercial area per 1,000 inhabitants"
+          },
+          "description": {
+            "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
+            "en": "Commercial area per 1,000 inhabitants. Higher values are better."
+          }
+        }
+      },
+      "festnetz": {
+        "sub": {
+          "breitband_100": {
+            "raw": 80.07,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.35
+          },
+          "festnetz_download": {
+            "raw": 447.67,
+            "unit": "Mbit/s",
+            "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.65
+          }
+        },
+        "score": 65.0
+      },
+      "mobilfunk": {
+        "sub": {
+          "mobil_o2": {
+            "raw": -90.4,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.333
+          },
+          "mobil_vodafone": {
+            "raw": -95.99,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.333
+          },
+          "mobil_telekom": {
+            "raw": -81.86,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.334
+          }
+        },
+        "score": 0.0
+      },
+      "digitale_services": {
+        "sub": {
+          "ozg_reifegrad": {
+            "raw": 3.24,
+            "unit": "Level 0-4",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.5
+          },
+          "ozg_pct_level2": {
+            "raw": 84.85,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.5
+          }
+        },
+        "score": 100.0
+      },
+      "daseinsvorsorge": {
+        "sub": {
+          "bevoelkerung": {
+            "raw": 14108.0,
+            "unit": "EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 88.5,
+            "weight": 0.03
+          },
+          "arbeitslose": {
+            "raw": 361.0,
+            "unit": "Personen",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.04
+          },
+          "neubauwohnungen": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.03
+          },
+          "beschaeftigtenquote": {
+            "raw": 74.53,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 88.0,
+            "weight": 0.07
+          },
+          "anteil_minijobs": {
+            "raw": 23.01,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.03
+          },
+          "durchschnittsalter": {
+            "raw": 46.62,
+            "unit": "Jahre",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 96.5,
+            "weight": 0.03
+          },
+          "studierende": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.03
+          },
+          "kaufkraft": {
+            "raw": 28059.09,
+            "unit": "EUR/EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 71.8,
+            "weight": 0.07
+          },
+          "hh_mittel": {
+            "raw": 48.73,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 32.1,
+            "weight": 0.03
+          },
+          "kinderarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "hausarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "ent_super": {
+            "raw": 1400.87,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 91.8,
+            "weight": 0.05
+          },
+          "ent_hausarzt": {
+            "raw": 1287.85,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 69.6,
+            "weight": 0.05
+          },
+          "ent_apo": {
+            "raw": 3133.61,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 0.0,
+            "weight": 0.05
+          },
+          "ent_oev": {
+            "raw": 348.62,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2022",
+            "higherIsBetter": false,
+            "normalized": 75.8,
+            "weight": 0.05
+          },
+          "ent_grund": {
+            "raw": 1874.68,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "strassen_unfaelle": {
+            "raw": 637.94,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 18.7,
+            "weight": 0.04
+          },
+          "erreichbarkeit_autobahn": {
+            "raw": 6.44,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 59.1,
+            "weight": 0.06
+          },
+          "erreichbarkeit_flughafen": {
+            "raw": 24.95,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 85.3,
+            "weight": 0.04
+          },
+          "schulabdeckung": {
+            "raw": 6.87,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "kitas_abdeckung": {
+            "raw": 9.45,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "gewerbegebiet": {
+            "raw": 646.941,
+            "unit": "m²",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.04
+          }
+        },
+        "score": 71.4
+      },
+      "overall": 59.1,
+      "completeness": 86.2,
+      "completeFields": 25,
+      "totalFields": 29
+    },
+    "teutschenthal": {
+      "kpis": {
+        "festnetz": 65.0,
+        "mobilfunk": null,
+        "digitale_services": null,
+        "daseinsvorsorge": 84.8
+      },
+      "indicators": {
+        "breitband_100": {
+          "raw": 88.91,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 65.0,
+          "weight": 0.35,
+          "category": "festnetz",
+          "name": {
+            "de": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+            "en": "Bandwidth availability at least 100 Mbit/s"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
+            "en": "Share of households with at least 100 Mbit/s bandwidth."
+          }
+        },
+        "festnetz_download": {
+          "raw": null,
+          "unit": "Mbit/s",
+          "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.65,
+          "category": "festnetz",
+          "name": {
+            "de": "Durchschnittliche Festnetzgeschwindigkeit (Download)",
+            "en": "Average fixed-network download speed"
+          },
+          "description": {
+            "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
+            "en": "Average fixed-network download speed."
+          }
+        },
+        "mobil_o2": {
+          "raw": null,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang O2",
+            "en": "Mobile reception O2"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception O2. Less negative values are better."
+          }
+        },
+        "mobil_vodafone": {
+          "raw": null,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.333,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Vodafone",
+            "en": "Mobile reception Vodafone"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Vodafone. Less negative values are better."
+          }
+        },
+        "mobil_telekom": {
+          "raw": null,
+          "unit": "dBm",
+          "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.334,
+          "category": "mobilfunk",
+          "name": {
+            "de": "Mobilfunkempfang Telekom",
+            "en": "Mobile reception Telekom"
+          },
+          "description": {
+            "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
+            "en": "Average mobile reception Telekom. Less negative values are better."
+          }
+        },
+        "ozg_reifegrad": {
+          "raw": null,
+          "unit": "Level 0-4",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Reifegrad-Mittelwert",
+            "en": "OZG maturity level average"
+          },
+          "description": {
+            "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
+            "en": "Average OZG maturity level of all services (levels 0-4)."
+          }
+        },
+        "ozg_pct_level2": {
+          "raw": null,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.5,
+          "category": "digitale_services",
+          "name": {
+            "de": "OZG Anteil ab Stufe 2",
+            "en": "OZG share level 2+"
+          },
+          "description": {
+            "de": "Anteil der Services mit Reifegrad 2 oder höher.",
+            "en": "Share of services with maturity level 2 or higher."
+          }
+        },
+        "bevoelkerung": {
+          "raw": 13066.0,
+          "unit": "EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 70.9,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Bevölkerung gesamt",
+            "en": "Total population"
+          },
+          "description": {
+            "de": "Gesamtbevölkerung der Kommune.",
+            "en": "Total population of the municipality."
+          }
+        },
+        "arbeitslose": {
+          "raw": 247.0,
+          "unit": "Personen",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Arbeitslose",
+            "en": "Unemployed"
+          },
+          "description": {
+            "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+            "en": "Number of unemployed people. Lower values are better."
+          }
+        },
+        "neubauwohnungen": {
+          "raw": 44.12,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+            "en": "New dwellings in single and two-family houses"
+          },
+          "description": {
+            "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+            "en": "Number of new dwellings in single and two-family houses."
+          }
+        },
+        "beschaeftigtenquote": {
+          "raw": 75.32,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 97.7,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Beschäftigtenquote",
+            "en": "Employment rate"
+          },
+          "description": {
+            "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+            "en": "Share of employed population. Higher values are better."
+          }
+        },
+        "anteil_minijobs": {
+          "raw": 29.58,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 65.7,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Anteil Minijobs (Nebenverdienst)",
+            "en": "Share of mini-jobs (secondary income)"
+          },
+          "description": {
+            "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+            "en": "Share of employees in marginal employment. Lower values are better."
+          }
+        },
+        "durchschnittsalter": {
+          "raw": 49.68,
+          "unit": "Jahre",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 13.1,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Durchschnittsalter der Bevölkerung",
+            "en": "Average age of population"
+          },
+          "description": {
+            "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+            "en": "Average age of population. Lower values indicate more dynamism."
+          }
+        },
+        "studierende": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Studierende",
+            "en": "Students"
+          },
+          "description": {
+            "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+            "en": "Number of students. Higher values are better."
+          }
+        },
+        "kaufkraft": {
+          "raw": 28814.1,
+          "unit": "EUR/EW",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 100.0,
+          "weight": 0.07,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kaufkraft",
+            "en": "Purchasing power"
+          },
+          "description": {
+            "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+            "en": "Purchasing power per inhabitant. Higher values are better."
+          }
+        },
+        "hh_mittel": {
+          "raw": 46.86,
+          "unit": "%",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": 0.0,
+          "weight": 0.03,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Haushalte mit mittlerem Einkommen",
+            "en": "Middle-income households"
+          },
+          "description": {
+            "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+            "en": "Share of middle-income households. Higher values are better."
+          }
+        },
+        "kinderarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kinderärzte",
+            "en": "Paediatricians"
+          },
+          "description": {
+            "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
+            "en": "Number of paediatricians. Higher values are better."
+          }
+        },
+        "hausarzte": {
+          "raw": null,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Hausärzte",
+            "en": "General practitioners"
+          },
+          "description": {
+            "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
+            "en": "Number of general practitioners. Higher values are better."
+          }
+        },
+        "ent_super": {
+          "raw": 1299.57,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Supermarkt / Discounter",
+            "en": "Distance to supermarket / discounter"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest supermarket or discounter. Lower values are better."
+          }
+        },
+        "ent_hausarzt": {
+          "raw": 933.66,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zum Hausarzt",
+            "en": "Distance to GP"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest GP. Lower values are better."
+          }
+        },
+        "ent_apo": {
+          "raw": 1605.18,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Apotheke",
+            "en": "Distance to pharmacy"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest pharmacy. Lower values are better."
+          }
+        },
+        "ent_oev": {
+          "raw": 312.5,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2022",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur ÖV-Haltestelle",
+            "en": "Distance to public transport stop"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest public transport stop. Lower values are better."
+          }
+        },
+        "ent_grund": {
+          "raw": 1975.03,
+          "unit": "m",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 90.0,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Entfernung zur Grundschule",
+            "en": "Distance to primary school"
+          },
+          "description": {
+            "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
+            "en": "Average distance to nearest primary school. Lower values are better."
+          }
+        },
+        "strassen_unfaelle": {
+          "raw": 474.51,
+          "unit": "Anzahl",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2023",
+          "higherIsBetter": false,
+          "normalized": 71.0,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Straßenverkehrsunfälle",
+            "en": "Road traffic accidents"
+          },
+          "description": {
+            "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+            "en": "Number of road traffic accidents. Lower values are better."
+          }
+        },
+        "erreichbarkeit_autobahn": {
+          "raw": 3.98,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 100.0,
+          "weight": 0.06,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Autobahnen",
+            "en": "Accessibility of motorways"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest motorway junction. Lower values are better."
+          }
+        },
+        "erreichbarkeit_flughafen": {
+          "raw": 35.33,
+          "unit": "min",
+          "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+          "date": "2024",
+          "higherIsBetter": false,
+          "normalized": 60.5,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Erreichbarkeit von Flughäfen",
+            "en": "Accessibility of airports"
+          },
+          "description": {
+            "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
+            "en": "Average travel time to nearest airport. Lower values are better."
+          }
+        },
+        "schulabdeckung": {
+          "raw": null,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Schulabdeckung",
+            "en": "School coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
+            "en": "Share of area with school coverage. Higher values are better."
+          }
+        },
+        "kitas_abdeckung": {
+          "raw": null,
+          "unit": "%",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.05,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Kitas-Abdeckung",
+            "en": "Kindergarten coverage"
+          },
+          "description": {
+            "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
+            "en": "Share of area with kindergarten coverage. Higher values are better."
+          }
+        },
+        "gewerbegebiet": {
+          "raw": null,
+          "unit": "m²",
+          "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+          "date": "",
+          "higherIsBetter": true,
+          "normalized": null,
+          "weight": 0.04,
+          "category": "daseinsvorsorge",
+          "name": {
+            "de": "Gewerbegebiet pro 1.000 EW",
+            "en": "Commercial area per 1,000 inhabitants"
+          },
+          "description": {
+            "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
+            "en": "Commercial area per 1,000 inhabitants. Higher values are better."
+          }
+        }
+      },
+      "festnetz": {
+        "sub": {
+          "breitband_100": {
+            "raw": 88.91,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 65.0,
+            "weight": 0.35
+          },
+          "festnetz_download": {
+            "raw": null,
+            "unit": "Mbit/s",
+            "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.65
+          }
+        },
+        "score": 65.0
+      },
+      "mobilfunk": {
+        "sub": {
+          "mobil_o2": {
+            "raw": null,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.333
+          },
+          "mobil_vodafone": {
+            "raw": null,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.333
+          },
+          "mobil_telekom": {
+            "raw": null,
+            "unit": "dBm",
+            "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.334
+          }
+        },
+        "score": null
+      },
+      "digitale_services": {
+        "sub": {
+          "ozg_reifegrad": {
+            "raw": null,
+            "unit": "Level 0-4",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.5
+          },
+          "ozg_pct_level2": {
+            "raw": null,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.5
+          }
+        },
+        "score": null
+      },
+      "daseinsvorsorge": {
+        "sub": {
+          "bevoelkerung": {
+            "raw": 13066.0,
+            "unit": "EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 70.9,
+            "weight": 0.03
+          },
+          "arbeitslose": {
+            "raw": 247.0,
+            "unit": "Personen",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.04
+          },
+          "neubauwohnungen": {
+            "raw": 44.12,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.03
+          },
+          "beschaeftigtenquote": {
+            "raw": 75.32,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 97.7,
+            "weight": 0.07
+          },
+          "anteil_minijobs": {
+            "raw": 29.58,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 65.7,
+            "weight": 0.03
+          },
+          "durchschnittsalter": {
+            "raw": 49.68,
+            "unit": "Jahre",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 13.1,
+            "weight": 0.03
+          },
+          "studierende": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.03
+          },
+          "kaufkraft": {
+            "raw": 28814.1,
+            "unit": "EUR/EW",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 100.0,
+            "weight": 0.07
+          },
+          "hh_mittel": {
+            "raw": 46.86,
+            "unit": "%",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": 0.0,
+            "weight": 0.03
+          },
+          "kinderarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "hausarzte": {
+            "raw": null,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "ent_super": {
+            "raw": 1299.57,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "ent_hausarzt": {
+            "raw": 933.66,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "ent_apo": {
+            "raw": 1605.18,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "ent_oev": {
+            "raw": 312.5,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2022",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.05
+          },
+          "ent_grund": {
+            "raw": 1975.03,
+            "unit": "m",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 90.0,
+            "weight": 0.05
+          },
+          "strassen_unfaelle": {
+            "raw": 474.51,
+            "unit": "Anzahl",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2023",
+            "higherIsBetter": false,
+            "normalized": 71.0,
+            "weight": 0.04
+          },
+          "erreichbarkeit_autobahn": {
+            "raw": 3.98,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 100.0,
+            "weight": 0.06
+          },
+          "erreichbarkeit_flughafen": {
+            "raw": 35.33,
+            "unit": "min",
+            "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
+            "date": "2024",
+            "higherIsBetter": false,
+            "normalized": 60.5,
+            "weight": 0.04
+          },
+          "schulabdeckung": {
+            "raw": null,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "kitas_abdeckung": {
+            "raw": null,
+            "unit": "%",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.05
+          },
+          "gewerbegebiet": {
+            "raw": null,
+            "unit": "m²",
+            "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
+            "date": "",
+            "higherIsBetter": true,
+            "normalized": null,
+            "weight": 0.04
+          }
+        },
+        "score": 84.8
+      },
+      "overall": 74.9,
+      "completeness": 58.6,
+      "completeFields": 17,
+      "totalFields": 29
+    }
+  },
+  "methodology": {
+    "festnetz": {
+      "de": "Festnetz: Verfügbarkeit und Geschwindigkeit der Festnetzverbindungen. Der Kategorie-Score ist der gewichtete Mittelwert der einzelnen Indikatoren.",
+      "en": "Fixed Network: Availability and speed of fixed-network connections. The category score is the weighted average of individual indicators."
+    },
+    "mobilfunk": {
+      "de": "Mobilfunk: Mobilfunkempfang der drei Hauptnetzbetreiber. Der Kategorie-Score ist der gewichtete Mittelwert der einzelnen Indikatoren.",
+      "en": "Mobile Network: Mobile reception of the three main network operators. The category score is the weighted average of individual indicators."
+    },
+    "digitale_services": {
+      "de": "Digitale Services: Digitalisierungsgrad der öffentlichen Verwaltungsservices nach OZG-Reifegradmodell. Der Kategorie-Score ist der gewichtete Mittelwert der einzelnen Indikatoren.",
+      "en": "Digital Services: Digitalization level of public administration services according to OZG maturity model. The category score is the weighted average of individual indicators."
+    },
+    "daseinsvorsorge": {
+      "de": "Daseinsvorsorge: Erreichbarkeit öffentlicher Einrichtungen, Gesundheitsversorgung, Bildung, Mobilität und sozioökonomische Rahmenbedingungen. Der Kategorie-Score ist der gewichtete Mittelwert der einzelnen Indikatoren.",
+      "en": "Public Services: Accessibility of public facilities, healthcare, education, mobility and socio-economic framework conditions. The category score is the weighted average of individual indicators."
+    },
+    "normalization": {
+      "de": "Höher-ist-besser: (Wert − Minimum) / (Maximum − Minimum) × 100. Niedriger-ist-besser: (Maximum − Wert) / (Maximum − Minimum) × 100. Bei fehlenden Werten oder fehlender Varianz: 'Keine Daten verfügbar'.",
+      "en": "Higher-is-better: (Value − Minimum) / (Maximum − Minimum) × 100. Lower-is-better: (Maximum − Value) / (Maximum − Minimum) × 100. For missing values or no variance: 'No data available'."
+    }
+  },
+  "indicatorCatalogue": [
+    {
+      "id": "breitband_100",
+      "name": {
+        "de": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+        "en": "Bandwidth availability at least 100 Mbit/s"
+      },
+      "category": "festnetz",
+      "unit": "%",
+      "weight": 0.35,
+      "higherIsBetter": true,
+      "csvKey": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
+        "en": "Share of households with at least 100 Mbit/s bandwidth."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "festnetz_download",
+      "name": {
+        "de": "Durchschnittliche Festnetzgeschwindigkeit (Download)",
+        "en": "Average fixed-network download speed"
+      },
+      "category": "festnetz",
+      "unit": "Mbit/s",
+      "weight": 0.65,
+      "higherIsBetter": true,
+      "csvKey": "Mittelwert Festnetzempfang (Download) in Mbit/s",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
+        "en": "Average fixed-network download speed."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "mobil_o2",
+      "name": {
+        "de": "Mobilfunkempfang O2",
+        "en": "Mobile reception O2"
+      },
+      "category": "mobilfunk",
+      "unit": "dBm",
+      "weight": 0.333,
+      "higherIsBetter": true,
+      "csvKey": "Mobilfunk O2",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
+        "en": "Average mobile reception O2. Less negative values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "mobil_vodafone",
+      "name": {
+        "de": "Mobilfunkempfang Vodafone",
+        "en": "Mobile reception Vodafone"
+      },
+      "category": "mobilfunk",
+      "unit": "dBm",
+      "weight": 0.333,
+      "higherIsBetter": true,
+      "csvKey": "Mobilfunk Vodafone",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
+        "en": "Average mobile reception Vodafone. Less negative values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "mobil_telekom",
+      "name": {
+        "de": "Mobilfunkempfang Telekom",
+        "en": "Mobile reception Telekom"
+      },
+      "category": "mobilfunk",
+      "unit": "dBm",
+      "weight": 0.334,
+      "higherIsBetter": true,
+      "csvKey": "Mobilfunk Telekom",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
+        "en": "Average mobile reception Telekom. Less negative values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "ozg_reifegrad",
+      "name": {
+        "de": "OZG Reifegrad-Mittelwert",
+        "en": "OZG maturity level average"
+      },
+      "category": "digitale_services",
+      "unit": "Level 0-4",
+      "weight": 0.5,
+      "higherIsBetter": true,
+      "csvKey": "OZG Reifegrad-Mittelwert",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
+        "en": "Average OZG maturity level of all services (levels 0-4)."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "ozg_pct_level2",
+      "name": {
+        "de": "OZG Anteil ab Stufe 2",
+        "en": "OZG share level 2+"
+      },
+      "category": "digitale_services",
+      "unit": "%",
+      "weight": 0.5,
+      "higherIsBetter": true,
+      "csvKey": "OZG Prozentanteil ab Stufe 2",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der Services mit Reifegrad 2 oder höher.",
+        "en": "Share of services with maturity level 2 or higher."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "bevoelkerung",
+      "name": {
+        "de": "Bevölkerung gesamt",
+        "en": "Total population"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "EW",
+      "weight": 0.03,
+      "higherIsBetter": true,
+      "csvKey": "Bevölkerung gesamt",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Gesamtbevölkerung der Kommune.",
+        "en": "Total population of the municipality."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "arbeitslose",
+      "name": {
+        "de": "Arbeitslose",
+        "en": "Unemployed"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Personen",
+      "weight": 0.04,
+      "higherIsBetter": false,
+      "csvKey": "Arbeitslose",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
+        "en": "Number of unemployed people. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "neubauwohnungen",
+      "name": {
+        "de": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+        "en": "New dwellings in single and two-family houses"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Anzahl",
+      "weight": 0.03,
+      "higherIsBetter": true,
+      "csvKey": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
+        "en": "Number of new dwellings in single and two-family houses."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "beschaeftigtenquote",
+      "name": {
+        "de": "Beschäftigtenquote",
+        "en": "Employment rate"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "%",
+      "weight": 0.07,
+      "higherIsBetter": true,
+      "csvKey": "Beschäftigtenquote",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
+        "en": "Share of employed population. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "anteil_minijobs",
+      "name": {
+        "de": "Anteil Minijobs (Nebenverdienst)",
+        "en": "Share of mini-jobs (secondary income)"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "%",
+      "weight": 0.03,
+      "higherIsBetter": false,
+      "csvKey": "Anteil Minijobs (Nebenverdienst)",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
+        "en": "Share of employees in marginal employment. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "durchschnittsalter",
+      "name": {
+        "de": "Durchschnittsalter der Bevölkerung",
+        "en": "Average age of population"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Jahre",
+      "weight": 0.03,
+      "higherIsBetter": false,
+      "csvKey": "Durchschnittsalter der Bevölkerung",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
+        "en": "Average age of population. Lower values indicate more dynamism."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "studierende",
+      "name": {
+        "de": "Studierende",
+        "en": "Students"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Anzahl",
+      "weight": 0.03,
+      "higherIsBetter": true,
+      "csvKey": "Studierende",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
+        "en": "Number of students. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "kaufkraft",
+      "name": {
+        "de": "Kaufkraft",
+        "en": "Purchasing power"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "EUR/EW",
+      "weight": 0.07,
+      "higherIsBetter": true,
+      "csvKey": "Kaufkraft",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
+        "en": "Purchasing power per inhabitant. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "hh_mittel",
+      "name": {
+        "de": "Haushalte mit mittlerem Einkommen",
+        "en": "Middle-income households"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "%",
+      "weight": 0.03,
+      "higherIsBetter": true,
+      "csvKey": "Haushalte mit mittlerem Einkommen",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
+        "en": "Share of middle-income households. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "kinderarzte",
+      "name": {
+        "de": "Kinderärzte",
+        "en": "Paediatricians"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Anzahl",
+      "weight": 0.05,
+      "higherIsBetter": true,
+      "csvKey": "Kinderärzte",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
+        "en": "Number of paediatricians. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "hausarzte",
+      "name": {
+        "de": "Hausärzte",
+        "en": "General practitioners"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Anzahl",
+      "weight": 0.05,
+      "higherIsBetter": true,
+      "csvKey": "Hausärzte",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
+        "en": "Number of general practitioners. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "ent_super",
+      "name": {
+        "de": "Entfernung zum Supermarkt / Discounter",
+        "en": "Distance to supermarket / discounter"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "m",
+      "weight": 0.05,
+      "higherIsBetter": false,
+      "csvKey": "Entfernung zum Supermarkt/Discounter",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
+        "en": "Average distance to nearest supermarket or discounter. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "ent_hausarzt",
+      "name": {
+        "de": "Entfernung zum Hausarzt",
+        "en": "Distance to GP"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "m",
+      "weight": 0.05,
+      "higherIsBetter": false,
+      "csvKey": "Entfernung zum Hausarzt",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
+        "en": "Average distance to nearest GP. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "ent_apo",
+      "name": {
+        "de": "Entfernung zur Apotheke",
+        "en": "Distance to pharmacy"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "m",
+      "weight": 0.05,
+      "higherIsBetter": false,
+      "csvKey": "Entfernung zur Apotheke",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
+        "en": "Average distance to nearest pharmacy. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "ent_oev",
+      "name": {
+        "de": "Entfernung zur ÖV-Haltestelle",
+        "en": "Distance to public transport stop"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "m",
+      "weight": 0.05,
+      "higherIsBetter": false,
+      "csvKey": "Entfernung zur ÖV Haltestelle",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
+        "en": "Average distance to nearest public transport stop. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "ent_grund",
+      "name": {
+        "de": "Entfernung zur Grundschule",
+        "en": "Distance to primary school"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "m",
+      "weight": 0.05,
+      "higherIsBetter": false,
+      "csvKey": "Entfernung zur Grundschule",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
+        "en": "Average distance to nearest primary school. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "strassen_unfaelle",
+      "name": {
+        "de": "Straßenverkehrsunfälle",
+        "en": "Road traffic accidents"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "Anzahl",
+      "weight": 0.04,
+      "higherIsBetter": false,
+      "csvKey": "Straßenverkehrsunfälle",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
+        "en": "Number of road traffic accidents. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "erreichbarkeit_autobahn",
+      "name": {
+        "de": "Erreichbarkeit von Autobahnen",
+        "en": "Accessibility of motorways"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "min",
+      "weight": 0.06,
+      "higherIsBetter": false,
+      "csvKey": "Erreichbarkeit von Autobahnen",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
+        "en": "Average travel time to nearest motorway junction. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "erreichbarkeit_flughafen",
+      "name": {
+        "de": "Erreichbarkeit von Flughäfen",
+        "en": "Accessibility of airports"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "min",
+      "weight": 0.04,
+      "higherIsBetter": false,
+      "csvKey": "Erreichbarkeit von Flughäfen",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
+        "en": "Average travel time to nearest airport. Lower values are better."
+      },
+      "formula": "(Max − Wert) / (Max − Min) × 100"
+    },
+    {
+      "id": "schulabdeckung",
+      "name": {
+        "de": "Schulabdeckung",
+        "en": "School coverage"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "%",
+      "weight": 0.05,
+      "higherIsBetter": true,
+      "csvKey": "Schulabdeckung",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
+        "en": "Share of area with school coverage. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "kitas_abdeckung",
+      "name": {
+        "de": "Kitas-Abdeckung",
+        "en": "Kindergarten coverage"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "%",
+      "weight": 0.05,
+      "higherIsBetter": true,
+      "csvKey": "Kitas-Abdeckung",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
+        "en": "Share of area with kindergarten coverage. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    },
+    {
+      "id": "gewerbegebiet",
+      "name": {
+        "de": "Gewerbegebiet pro 1.000 EW",
+        "en": "Commercial area per 1,000 inhabitants"
+      },
+      "category": "daseinsvorsorge",
+      "unit": "m²",
+      "weight": 0.04,
+      "higherIsBetter": true,
+      "csvKey": "Gewerbegebiet pro 1.000 EW",
+      "source": "s. Datenquelle im Wert",
+      "description": {
+        "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
+        "en": "Commercial area per 1,000 inhabitants. Higher values are better."
+      },
+      "formula": "(Wert − Min) / (Max − Min) × 100"
+    }
+  ]
+}

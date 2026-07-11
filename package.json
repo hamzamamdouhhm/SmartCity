@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@babel/preset-react": "^8.0.1"
+  },
+  "devDependencies": {
+    "@babel/parser": "^8.0.4"
+  }
+}
