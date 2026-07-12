@@ -21,9 +21,8 @@ Premium Smart-City Benchmarking Dashboard für die Kommunen **Südharz**, **Land
 
 ```
 SmartCity/
-├── index.html                  # Standalone React-Dashboard (Haupt-Deliverable)
 ├── backend/
-│   ├── app.py                  # Flask-Backend mit Auth-API
+│   ├── app.py                  # Flask-Backend mit Auth-API und Statischem-Datei-Auslieferung
 │   ├── generate_data.py        # CSV-Import, Normalisierung und Datenmodell-Generierung
 │   ├── data/
 │   │   ├── csv/                # Quell-CSV-Dateien
@@ -34,37 +33,71 @@ SmartCity/
 │   │   │   └── Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv
 │   │   ├── benchmarkData.json  # Autoritäre Datenquelle (29 Indikatoren, 4 Kategorien)
 │   │   └── users.db            # SQLite-Benutzerdatenbank
-│   └── static/index.html       # Vom Backend ausgeliefertes Dashboard
-├── frontend/                   # Vite-React-Scaffold (zukünftige Weiterentwicklung)
-├── frontend/src/data/benchmarkData.json # Frontend-Kopie des Datenmodells
+├── frontend/                   # Vite-React-SPA (Haupt-Frontend)
+│   ├── src/
+│   │   ├── components/         # Wiederverwendbare UI-Komponenten
+│   │   ├── components/modals/  # Detail-Modal-Komponenten
+│   │   ├── components/maps/    # Kartenkomponenten
+│   │   ├── components/ui/      # UI-Hilfskomponenten
+│   │   ├── contexts/           # React Contexts (Auth, Data)
+│   │   ├── hooks/              # Custom React Hooks
+│   │   ├── pages/              # React Router Seitenkomponenten
+│   │   ├── utils/              # Hilfsfunktionen (Formatierung, Export, Scoring)
+│   │   ├── config/             # Konfiguration (z.B. KPI-Rechner)
+│   │   ├── App.jsx             # React Router Routen-Definition
+│   │   ├── main.jsx            # Einstiegspunkt
+│   │   ├── i18n.js             # Übersetzungen (DE/EN)
+│   │   └── api.js              # API-Client
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
 ├── resources/                  # Weitere Projektressourcen (PDFs, Bilder, Präsentationen)
-├── build_dashboard.py          # Baut index.html aus Daten und React-Komponenten
+├── build_dashboard.py          # (veraltet) Frühere monolithische HTML-Generierung
+├── index.html                  # (veraltet) Früheres standalone-Deliverable
 └── README.md
 ```
 
 ## Schnellstart
 
-### 1. Backend starten
+### 1. Frontend bauen
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+Das produktionsreife Bundle landet in `frontend/dist/`.
+
+### 2. Backend starten
 
 ```bash
 cd backend
 python app.py
 ```
 
-Beim Start werden automatisch aus den CSV-Quellen neu generiert:
+Beim Start wird automatisch aus den CSV-Quellen neu generiert:
 
 - `backend/data/benchmarkData.json`
-- `frontend/src/data/benchmarkData.json`
-- `index.html`
-- `backend/static/index.html`
 
-Das Backend läuft auf `http://localhost:3001`.
+Das Backend läuft auf `http://localhost:3001` und liefert das gebaute Vite-Bundle aus `frontend/dist/` aus.
 
-### 2. Dashboard öffnen
+### 3. Dashboard öffnen
 
 Öffnen Sie `http://localhost:3001/` im Browser.
 
-Das Dashboard ist eine eigenständige React-Anwendung, die direkt vom Backend ausgeliefert wird.
+Das Dashboard ist nun eine professionelle React Single Page Application (SPA) mit React Router, modularer Komponentenstruktur und sauberer Trennung von Daten, UI und Routing.
+
+### Entwicklungsmodus
+
+Für Hot-Reload während der Entwicklung:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Der Vite-Dev-Server läuft auf `http://localhost:3000` und leitet API-Anfragen an das Flask-Backend (`http://localhost:3001`) weiter.
 
 ## API
 

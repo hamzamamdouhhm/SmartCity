@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body { background: #EAEDE6; color: #13322E; font-family: Inter, system-ui, sans-serif; }
+body { background: #F8FAF7; color: #0F2E2A; font-family: Inter, system-ui, sans-serif; }
 h1, h2, h3, h4, h5, h6 { font-family: "Space Grotesk", system-ui, sans-serif; }
+.glass { background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,46,42,0.08); }
+.card-shadow { box-shadow: 0 4px 24px -8px rgba(15,46,42,0.12); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card-shadow:hover { transform: translateY(-3px); box-shadow: 0 12px 32px -10px rgba(15,46,42,0.18); }
 .leaflet-container { border-radius: 0.75rem; z-index: 1; }
+.premium-gradient { background: linear-gradient(135deg, #0F2E2A 0%, #1A3A4A 50%, #064E3B 100%); }
+.hero-pattern { background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 24px 24px; }
+.glass-card { background: rgba(255,255,255,0.75); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.4); }

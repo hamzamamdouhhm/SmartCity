@@ -1,15 +1,19 @@
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "!./src/_legacy_split/**/*"],
   theme: {
     extend: {
       colors: {
-        paper: "#EAEDE6",
-        card: "#F6F7F2",
-        ink: "#13322E",
-        accent: "#B97A2E",
-        good: "#2E7A57",
-        mid: "#C7962F",
-        low: "#B24A34"
+        paper: "#F8FAF7",
+        card: "#FFFFFF",
+        ink: "#0F2E2A",
+        navy: "#1A3A4A",
+        emerald: "#10B981",
+        forest: "#064E3B",
+        gold: "#D4A017",
+        good: "#059669",
+        mid: "#D97706",
+        low: "#DC2626",
+        muted: "#6B7280"
       },
       fontFamily: {
         display: ["Space Grotesk", "system-ui", "sans-serif"],

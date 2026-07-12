@@ -11,25 +11,25 @@ ROOT_DIR = BACKEND_DIR.parent
 sys.path.insert(0, str(BACKEND_DIR))
 sys.path.insert(0, str(ROOT_DIR))
 
-# Regenerate benchmark data and dashboard HTML on every app start
-print("Regenerating benchmark data and dashboard...")
+# Regenerate benchmark data on every app start (frontend is built separately via Vite)
+print("Regenerating benchmark data...")
 try:
     import generate_data
     generate_data.main()
-    import build_dashboard
-    build_dashboard.build_dashboard()
     print("Startup generation complete.")
 except Exception as e:
     print("Warning: startup generation failed:", e)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 app.secret_key = os.environ.get("SECRET_KEY", "smartcity-dev-secret-key-change-in-production")
 CORS(app, supports_credentials=True)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "data", "benchmarkData.json")
-STATIC_DIR = os.path.join(BASE_DIR, "static")
 DB_PATH = os.path.join(BASE_DIR, "data", "users.db")
+
+# Vite production build is served from the frontend dist directory
+FRONTEND_DIST = os.path.join(BASE_DIR, "..", "frontend", "dist")
 
 def load_data():
     with open(DATA_PATH, encoding="utf-8") as f:
@@ -194,14 +194,15 @@ def change_password():
     finally:
         conn.close()
 
-# ---------- Static files ----------
+# ---------- Static files (Vite production build) ----------
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve(path):
-    if path and os.path.exists(os.path.join(STATIC_DIR, path)):
-        response = make_response(send_from_directory(STATIC_DIR, path))
+    file_path = os.path.join(FRONTEND_DIST, path) if path else None
+    if path and os.path.exists(file_path) and os.path.isfile(file_path):
+        response = make_response(send_from_directory(FRONTEND_DIST, path))
     else:
-        response = make_response(send_from_directory(STATIC_DIR, "index.html"))
+        response = make_response(send_from_directory(FRONTEND_DIST, "index.html"))
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "0"

@@ -1,3 +1,6 @@
+# DEPRECATED: This file generated a single monolithic index.html with inline JSX.
+# The project now uses a Vite-based React SPA in frontend/.
+# It is kept for reference only and is no longer executed on backend startup.
 import json
 from string import Template
 from pathlib import Path
