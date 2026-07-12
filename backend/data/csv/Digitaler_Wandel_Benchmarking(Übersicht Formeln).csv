@@ -1,0 +1,17 @@
+Sicht;Kennzahl;Berechnungsformel;Bemerkungen
+1;Abdeckung der Sichten;Anzahl an abgedeckten Sichten, also x von 10;
+2;Virtuelle Touren pro 1.000 Einwohner;;
+3;Abdeckungsgrad des kommunalen Straßennetzes;;
+4;Lademöglichkeiten pro 1.000 Einwohner;;optional
+;;Image;2 Kennzahlen sind zu berechnen (1x für e-Autos und 1x für e-Bikes)
+5;Durchschnittliche Festnetzgeschwindigkeit;;berücksichtigt sind nur Raster, in denen mindestens eine Adresse eine positive Festnetzgeschwindigkeit aufweist (Also wo v ? 0) 
+;Anteil der Haushalte mit ?100 Mbit/s;;
+6;Durchschnittlicher Mobilfunkempfang;Picture;" jeweils pro Anbieter (o2, Telekom, Vodafone)
+Raster ohne Messwert sind nicht zu berücksichtigen
+Werte müssen negativ sein!"
+7;Mittelwert des Reifegrades aller Dienste;Bild;
+8;Kanaldichte;;
+9;Vernetzung;;
+10;Daseinvorsorge;;
+;;;
+;;;Berechnnung von 3 Kennzahlen

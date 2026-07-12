@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart City Benchmarking — Kleinstädte-Vergleich</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAEDE6; --card:#F6F7F2; --ink:#13322E; --ink-soft:#41564F;
+    --line:#D3D8CD; --line-strong:#BFC6B8; --accent:#B97A2E; --na:#9AA69B;
+    --good:#2E7A57; --mid:#C7962F; --low:#B24A34;
+    --c1:#13322E; --c2:#B97A2E; --c3:#3E6C8E; --c4:#7A4E6D; /* Stadtfarben */
+    --shadow:0 1px 0 rgba(19,50,46,.04), 0 10px 26px -20px rgba(19,50,46,.4);
+    --dsp:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+  header.top{border-bottom:1px solid var(--line-strong)}
+  .brandrow{display:flex;align-items:center;gap:16px;padding:20px 0 16px;flex-wrap:wrap}
+  .mark{font-family:var(--dsp);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:8px 11px;border-radius:3px;line-height:1;white-space:nowrap}
+  .mark span{color:var(--accent)}
+  .brandtext h1{font-family:var(--dsp);font-weight:600;font-size:18px;margin:0;letter-spacing:-.01em}
+  .brandtext p{margin:2px 0 0;font-size:12.5px;color:var(--ink-soft)}
+  .src{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-soft);text-align:right;line-height:1.6}
+
+  /* Steuerleiste */
+  .controls{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+  .ctl label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+  .citytoggles{display:flex;gap:8px;flex-wrap:wrap}
+  .citytog{display:flex;align-items:center;gap:8px;font-size:14px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:6px;background:var(--card);cursor:pointer;color:var(--ink)}
+  .citytog .sw{width:11px;height:11px;border-radius:3px}
+  .citytog.off{opacity:.4;text-decoration:line-through}
+  .stake{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line-strong);border-radius:6px;overflow:hidden;background:var(--card)}
+  .stake button{font-family:var(--body);font-size:13.5px;padding:8px 13px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer}
+  .stake button:last-child{border-right:0}
+  .stake button.on{background:var(--ink);color:var(--paper)}
+  select:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  section{padding:32px 0;border-top:1px solid var(--line)}
+  .sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .secno{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .sechead h3{font-family:var(--dsp);font-weight:600;font-size:21px;margin:0;letter-spacing:-.01em}
+  .seclede{color:var(--ink-soft);font-size:13.5px;max-width:720px;margin:0 0 22px}
+
+  /* Gesamtranking */
+  .rankgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center}
+  .rankrow{display:grid;grid-template-columns:26px 1fr 150px 58px;align-items:center;gap:12px;padding:11px 0}
+  .rankrow + .rankrow{border-top:1px solid var(--line)}
+  .rankpos{font-family:var(--dsp);font-weight:700;font-size:17px;color:var(--ink-soft)}
+  .rankcity{display:flex;align-items:center;gap:9px;font-family:var(--dsp);font-weight:600;font-size:15.5px}
+  .rankcity .sw{width:12px;height:12px;border-radius:3px}
+  .rankcity small{font-family:var(--body);font-weight:400;font-size:11.5px;color:var(--ink-soft)}
+  .rbar{height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+  .rbar span{display:block;height:100%;border-radius:6px;transition:width .7s cubic-bezier(.22,.61,.36,1)}
+  .rscore{text-align:right;font-family:var(--mono);font-size:17px;font-weight:500}
+  .ampeldot{width:10px;height:10px;border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px}
+  .legendbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow)}
+  .legendbox h4{font-family:var(--dsp);font-size:14px;margin:0 0 12px}
+  .legrow{display:flex;align-items:center;gap:9px;font-size:13px;padding:4px 0;color:var(--ink-soft)}
+
+  /* Radar */
+  .radargrid{display:grid;grid-template-columns:380px 1fr;gap:30px;align-items:center}
+  .radarleg{display:flex;flex-direction:column;gap:9px}
+  .radarleg .item{display:flex;align-items:center;gap:10px;font-size:14px}
+  .radarleg .sw{width:22px;height:0;border-top-width:3px;border-top-style:solid}
+
+  /* Dimensionen */
+  .dimcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0;margin-bottom:14px;overflow:hidden}
+  .dimtop{display:flex;align-items:center;gap:14px;padding:15px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .dimtop h4{font-family:var(--dsp);font-weight:600;font-size:16px;margin:0}
+  .dimweight{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);margin-left:auto}
+  .dimscores{display:flex;gap:8px;flex-wrap:wrap}
+  .dscore{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12.5px;padding:4px 9px;border-radius:20px;border:1px solid var(--line-strong);background:var(--paper)}
+  .dscore .sw{width:9px;height:9px;border-radius:2px}
+  .kpitable{width:100%;border-collapse:collapse;font-size:13.5px}
+  .kpitable th,.kpitable td{padding:9px 14px;text-align:right;border-top:1px dotted var(--line)}
+  .kpitable th:first-child,.kpitable td:first-child{text-align:left}
+  .kpitable thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);border-top:0;font-weight:500}
+  .kpitable td.val{font-family:var(--mono)}
+  .kpitable td.best{font-weight:600;color:var(--good)}
+  .kpitable td.na{color:var(--na);font-style:italic}
+  .kpiname{font-size:13px}
+  .kpiunit{font-family:var(--mono);font-size:10px;color:var(--ink-soft)}
+  .ctxnote{font-size:12px;color:var(--ink-soft);padding:10px 20px;background:rgba(19,50,46,.02)}
+
+  /* Gewichtung */
+  .weightgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .wrow{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px 15px}
+  .wrow .wl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:8px}
+  .wrow .wl b{font-family:var(--mono);font-weight:500}
+  .wrow input[type=range]{width:100%;accent-color:var(--ink)}
+
+  .expbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  button.act{font-family:var(--dsp);font-weight:600;font-size:13.5px;cursor:pointer;border-radius:6px;padding:11px 17px;border:1px solid transparent}
+  button.primary{background:var(--accent);color:#241304} button.primary:hover{background:#cc8a3a}
+  button.ghost{background:var(--card);color:var(--ink);border-color:var(--line-strong)} button.ghost:hover{border-color:var(--ink-soft)}
+  .exphint{font-size:12px;color:var(--ink-soft);margin-top:10px}
+
+  footer{padding:30px 0 60px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12px}
+  footer b{color:var(--ink);font-weight:500}
+  .disc{font-size:11.5px;margin-top:8px}
+
+  @media (max-width:860px){
+    .rankgrid,.radargrid{grid-template-columns:1fr}
+    .src{margin-left:0;text-align:left;width:100%}
+    .rankrow{grid-template-columns:22px 1fr 90px 50px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media print{.controls,.weightsec,.expsec{display:none!important}.dimcard{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="mark">Smart<span>City</span> · Benchmark</div>
+      <div class="brandtext">
+        <h1>Kleinstädte-Vergleich für die Region südliches Sachsen-Anhalt</h1>
+        <p>8 Dimensionen · gewichteter Score · Ampelsystem · Ranking — nach Projektplan der Hochschule Merseburg</p>
+      </div>
+      <div class="src">Datenquelle: INKAR / BBSR<br>Stand 2022–2024 · 4 Kommunen</div>
+    </div>
+    <div class="controls">
+      <div>
+        <label>Städte im Vergleich</label>
+        <div class="citytoggles" id="cityToggles"></div>
+      </div>
+      <div>
+        <label>Stakeholder-Sicht (setzt Gewichtung)</label>
+        <div class="stake" id="stake" role="group" aria-label="Stakeholder-Sicht">
+          <button data-k="leitung" class="on">Stadtleitung</button>
+          <button data-k="buerger">Bürger</button>
+          <button data-k="investor">Investor</button>
+          <button data-k="umzug">Umzug</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<footer class="wrap">
+  <b>Smart City Benchmarking</b> — Prototyp (MVP v1) zum Projektplan „Smart City Benchmarking“, Hochschule Merseburg,
+  Requirements Engineering &amp; Scope Management. Datenbasis: reale INKAR-Indikatoren (BBSR) für Südharz, Landsberg,
+  Leuna und Teutschenthal.
+  <div class="disc">Scores sind ein relativer Benchmark innerhalb der ausgewählten Städte (Min-Max-Normierung je Kennzahl,
+  richtungsabhängig). Fehlende Indikatoren bleiben als „keine Angabe“ sichtbar und werden nicht geschätzt. Ampel-Schwellen:
+  grün ≥ 66, gelb ≥ 33, sonst rot.</div>
+</footer>
+
+<script>
+/* =========================================================================
+   Smart City Benchmarking — Prototyp (MVP v1) auf realer INKAR-Datenbasis
+   ========================================================================= */
+
+/* ---- 1. Städte (reale INKAR-Werte, Stand 2022–2024) ------------------ */
+const CITIES = [
+  { name:"Leuna", kreis:"Saalekreis", color:"var(--c1)",
+    ind:{ bev:14108, arblose:361, alter:46.62, besch:74.53, minijob:23.01, kaufkraft:28059.09, hh_mittel:48.73,
+      neubau:0, ent_super:1400.87, ent_hausarzt:1287.85, ent_apo:3133.61, ent_oev:348.62, auto_err:6.44,
+      flug_err:24.95, breitband:80.07, ent_grund:1874.68, unfaelle:637.94, studierende:0, hausaerzte:null } },
+  { name:"Landsberg", kreis:"Saalekreis", color:"var(--c2)",
+    ind:{ bev:14792, arblose:277, alter:46.49, besch:75.51, minijob:42.15, kaufkraft:28331.18, hh_mittel:47.83,
+      neubau:42.74, ent_super:1946.42, ent_hausarzt:1653.31, ent_apo:2492.59, ent_oev:385.97, auto_err:4.3,
+      flug_err:18.78, breitband:86.04, ent_grund:1897.07, unfaelle:696.32, studierende:0, hausaerzte:null } },
+  { name:"Teutschenthal", kreis:"Saalekreis", color:"var(--c3)",
+    ind:{ bev:13066, arblose:247, alter:49.68, besch:75.32, minijob:29.58, kaufkraft:28814.10, hh_mittel:46.86,
+      neubau:44.12, ent_super:1299.57, ent_hausarzt:933.66, ent_apo:1605.18, ent_oev:312.50, auto_err:3.98,
+      flug_err:35.33, breitband:88.91, ent_grund:1975.03, unfaelle:474.51, studierende:0, hausaerzte:null } },
+  { name:"Südharz", kreis:"Mansfeld-Südharz", color:"var(--c4)",
+    ind:{ bev:8856, arblose:320, alter:50.16, besch:67.32, minijob:30.17, kaufkraft:26138.45, hh_mittel:52.68,
+      neubau:0, ent_super:2530.28, ent_hausarzt:2100.13, ent_apo:2697.34, ent_oev:461.86, auto_err:10,
+      flug_err:60.69, breitband:93.66, ent_grund:2879.26, unfaelle:383.92, studierende:0, hausaerzte:null } }
+];
+
+/* ---- 2. Kennzahl-Metadaten ------------------------------------------- */
+const KPI = {
+  alter:      { label:"Durchschnittsalter",        unit:"Jahre",        better:"low",  dec:1, year:2023 },
+  arblos_pk:  { label:"Arbeitslose",               unit:"je 1.000 EW",  better:"low",  dec:1, year:2023, derived:true },
+  besch:      { label:"Beschäftigtenquote",        unit:"%",            better:"high", dec:1, year:2023 },
+  kaufkraft:  { label:"Kaufkraft",                 unit:"€ je EW",      better:"high", dec:0, year:2023 },
+  minijob:    { label:"Anteil Minijobs",           unit:"%",            better:"low",  dec:1, year:2023 },
+  hh_mittel:  { label:"Haushalte mittl. Einkommen",unit:"%",            better:"high", dec:1, year:2023 },
+  neubau:     { label:"Neubau (EFH/ZFH)",          unit:"% neuer Whg.", better:"high", dec:1, year:2023 },
+  ent_super:  { label:"Weg zum Supermarkt",        unit:"m",            better:"low",  dec:0, year:2023 },
+  ent_hausarzt:{label:"Weg zum Hausarzt",          unit:"m",            better:"low",  dec:0, year:2023 },
+  ent_apo:    { label:"Weg zur Apotheke",          unit:"m",            better:"low",  dec:0, year:2023 },
+  hausaerzte: { label:"Hausärzte",                 unit:"je 10.000 EW", better:"high", dec:1, year:2023 },
+  ent_oev:    { label:"Weg zur ÖV-Haltestelle",    unit:"m",            better:"low",  dec:0, year:2022 },
+  auto_err:   { label:"Fahrzeit zur Autobahn",     unit:"min",          better:"low",  dec:1, year:2024 },
+  flug_err:   { label:"Fahrzeit zum Flughafen",    unit:"min",          better:"low",  dec:1, year:2024 },
+  breitband:  { label:"Breitband ≥ 100 Mbit/s",    unit:"% Haushalte",  better:"high", dec:1, year:2023 },
+  ent_grund:  { label:"Weg zur Grundschule",       unit:"m",            better:"low",  dec:0, year:2023 },
+  unfaelle:   { label:"Straßenverkehrsunfälle",    unit:"je 100.000 EW",better:"low",  dec:0, year:2023 },
+  studierende:{ label:"Studierende",               unit:"Anzahl",       better:"high", dec:0, year:2023, ctx:true }
+};
+
+/* ---- 3. Die 8 Benchmark-Dimensionen (Projektplan) -------------------- */
+const DIMS = [
+  { id:"demografie",     label:"Demografie",     kpis:["alter"] },
+  { id:"wirtschaft",     label:"Wirtschaft",     kpis:["besch","kaufkraft","minijob","arblos_pk","hh_mittel"] },
+  { id:"wohnen",         label:"Wohnen",         kpis:["neubau","ent_super"] },
+  { id:"gesundheit",     label:"Gesundheit",     kpis:["ent_hausarzt","ent_apo","hausaerzte"] },
+  { id:"mobilitaet",     label:"Mobilität",      kpis:["ent_oev","auto_err","flug_err"] },
+  { id:"digitalisierung",label:"Digitalisierung",kpis:["breitband"] },
+  { id:"bildung",        label:"Bildung",        kpis:["ent_grund"], ctx:["studierende"] },
+  { id:"sicherheit",     label:"Sicherheit",     kpis:["unfaelle"] }
+];
+
+/* ---- 4. Stakeholder-Gewichtungen (Presets) --------------------------- */
+const STAKE = {
+  leitung:  { demografie:1.5, wirtschaft:1.5, wohnen:1.5, gesundheit:1.5, mobilitaet:1.5, digitalisierung:1.5, bildung:1.5, sicherheit:1.5 },
+  buerger:  { demografie:1, wirtschaft:1, wohnen:1.5, gesundheit:3, mobilitaet:2, digitalisierung:1.5, bildung:2.5, sicherheit:2.5 },
+  investor: { demografie:1.5, wirtschaft:3, wohnen:1, gesundheit:1, mobilitaet:2.5, digitalisierung:2.5, bildung:1, sicherheit:1 },
+  umzug:    { demografie:1, wirtschaft:1, wohnen:2.5, gesundheit:2.5, mobilitaet:2, digitalisierung:1.5, bildung:2.5, sicherheit:2 }
+};
+
+/* ---- 5. Zustand ------------------------------------------------------ */
+const state = {
+  selected: new Set(CITIES.map(c=>c.name)),
+  stakeholder: "leitung",
+  weights: {...STAKE.leitung}
+};
+
+/* ---- 6. Berechnung --------------------------------------------------- */
+function raw(city, id){
+  if(id==="arblos_pk") return city.ind.arblose / city.ind.bev * 1000;
+  const v = city.ind[id];
+  return (v===null || v===undefined) ? null : v;
+}
+function selectedCities(){ return CITIES.filter(c=>state.selected.has(c.name)); }
+
+/* Normierung 0–100 je Kennzahl über die ausgewählten Städte, richtungsabhängig */
+function normKpi(id, city, pool){
+  const vals = pool.map(c=>raw(c,id)).filter(v=>v!==null);
+  const mine = raw(city,id);
+  if(mine===null || vals.length<1) return null;
+  const min=Math.min(...vals), max=Math.max(...vals);
+  if(max===min) return 50;
+  let n=(mine-min)/(max-min);
+  if(KPI[id].better==="low") n=1-n;
+  return Math.round(n*100);
+}
+/* Dimensionsscore einer Stadt = Mittel der bewerteten Kennzahlen */
+function dimScore(dim, city, pool){
+  const ns = dim.kpis.map(k=>normKpi(k,city,pool)).filter(v=>v!==null);
+  return ns.length ? Math.round(ns.reduce((a,b)=>a+b,0)/ns.length) : null;
+}
+/* Gesamtscore = gewichtetes Mittel der vorhandenen Dimensionsscores */
+function totalScore(city, pool){
+  let sum=0, wsum=0;
+  DIMS.forEach(d=>{ const s=dimScore(d,city,pool); const w=state.weights[d.id];
+    if(s!==null && w>0){ sum+=s*w; wsum+=w; } });
+  return wsum ? Math.round(sum/wsum) : null;
+}
+function ampel(score){ if(score===null) return "na"; return score>=66?"good":score>=33?"mid":"low"; }
+const AMPEL_COLOR = { good:"var(--good)", mid:"var(--mid)", low:"var(--low)", na:"var(--na)" };
+
+/* ---- 7. Rendering ---------------------------------------------------- */
+const app = document.getElementById("app");
+function fmt(v, dec){ if(v===null||v===undefined) return "—";
+  return Number(v).toLocaleString("de-DE",{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+
+function render(){
+  const pool = selectedCities();
+  app.innerHTML = rankSection(pool) + radarSection(pool) + dimSection(pool) + weightSection() + exportSection();
+  wireWeights(); wireExport(pool);
+  requestAnimationFrame(()=>document.querySelectorAll(".rbar span[data-w]").forEach(el=>el.style.width=el.dataset.w));
+}
+
+function rankSection(pool){
+  const ranked = pool.map(c=>({c, s:totalScore(c,pool)})).sort((a,b)=>(b.s??-1)-(a.s??-1));
+  const rows = ranked.map((r,i)=>{
+    const col=r.c.color, amp=ampel(r.s);
+    return `<div class="rankrow">
+      <div class="rankpos">${i+1}</div>
+      <div class="rankcity"><span class="sw" style="background:${col}"></span>${r.c.name}<small>· ${r.c.kreis} · ${r.c.ind.bev.toLocaleString("de-DE")} EW</small></div>
+      <div class="rbar"><span data-w="${r.s??0}%" style="width:0;background:${col}"></span></div>
+      <div class="rscore"><span class="ampeldot" style="background:${AMPEL_COLOR[amp]}"></span>${r.s??"—"}</div>
+    </div>`;
+  }).join("");
+  return `<section id="rank">
+    <div class="sechead"><span class="secno">01</span><h3>Gesamt-Benchmark</h3></div>
+    <p class="seclede">Gewichteter Gesamtscore aus den 8 Dimensionen — hier aus der Sicht <b>${labelStake()}</b>.
+      Die Gewichtung lässt sich unten frei anpassen.</p>
+    <div class="rankgrid">
+      <div>${rows}</div>
+      <div class="legendbox">
+        <h4>Ampel-Bewertung</h4>
+        <div class="legrow"><span class="ampeldot" style="background:var(--good)"></span>Grün — ab 66 Punkten (führend im Vergleich)</div>
+        <div class="legrow"><span class="ampeldot" style="background:var(--mid)"></span>Gelb — 33 bis 65 Punkte (Mittelfeld)</div>
+        <div class="legrow"><span class="ampeldot" style="background:var(--low)"></span>Rot — unter 33 Punkten (Nachholbedarf)</div>
+        <div class="legrow" style="margin-top:10px;font-size:12px">Scores sind relativ zu den ausgewählten Städten.</div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function radarSection(pool){
+  const cx=190, cy=175, R=132, n=DIMS.length;
+  const pt=(i,v)=>{ const ang=-Math.PI/2+i*2*Math.PI/n, r=R*(v/100); return [cx+r*Math.cos(ang),cy+r*Math.sin(ang)]; };
+  const rings=[25,50,75,100].map(p=>`<polygon points="${DIMS.map((_,i)=>pt(i,p).join(",")).join(" ")}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join("");
+  const spokes=DIMS.map((_,i)=>{const[x,y]=pt(i,100);return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;}).join("");
+  const polys=pool.map(c=>{
+    const vals=DIMS.map(d=>dimScore(d,c,pool)??0);
+    const pts=vals.map((v,i)=>pt(i,v).join(",")).join(" ");
+    return `<polygon points="${pts}" fill="${c.color}" fill-opacity="0.10" stroke="${c.color}" stroke-width="2"/>`;
+  }).join("");
+  const labels=DIMS.map((d,i)=>{const[x,y]=pt(i,116);const ta=x<cx-8?"end":x>cx+8?"start":"middle";const dy=y<cy-46?-4:y>cy+46?12:4;
+    return `<text x="${x}" y="${y+dy}" text-anchor="${ta}" font-family="IBM Plex Mono,monospace" font-size="10.5" fill="var(--ink-soft)">${d.label}</text>`;}).join("");
+  const svg=`<svg viewBox="0 0 380 350" width="100%" height="auto" role="img" aria-label="Radar der 8 Dimensionen je Stadt">
+    ${rings}${spokes}${polys}${labels}</svg>`;
+  const leg=pool.map(c=>`<div class="item"><span class="sw" style="border-color:${c.color}"></span>${c.name}</div>`).join("");
+  return `<section id="radar">
+    <div class="sechead"><span class="secno">02</span><h3>Dimensionsprofil</h3></div>
+    <p class="seclede">Jede Achse ist eine Dimension, auf 0–100 normiert. So werden Stärken und Schwächen jeder Stadt
+      auf einen Blick sichtbar.</p>
+    <div class="radargrid"><div>${svg}</div><div class="radarleg">${leg}</div></div>
+  </section>`;
+}
+
+function dimSection(pool){
+  const cards=DIMS.map(d=>{
+    // Dimensions-Scores je Stadt (Chips)
+    const chips=pool.map(c=>{ const s=dimScore(d,c,pool); const amp=ampel(s);
+      return `<span class="dscore"><span class="sw" style="background:${c.color}"></span>${c.name}
+        <span class="ampeldot" style="background:${AMPEL_COLOR[amp]};margin:0 0 0 4px"></span>${s??"—"}</span>`; }).join("");
+    // KPI-Tabelle
+    const headCities=pool.map(c=>`<th>${c.name}</th>`).join("");
+    const kpiRows=d.kpis.map(k=>{
+      const vals=pool.map(c=>raw(c,k));
+      const present=vals.filter(v=>v!==null);
+      // beste Stadt markieren
+      let bestVal=null;
+      if(present.length){ bestVal = KPI[k].better==="high"?Math.max(...present):Math.min(...present); }
+      const cells=pool.map(c=>{ const v=raw(c,k);
+        if(v===null) return `<td class="val na">k. A.</td>`;
+        const isBest = present.length>1 && v===bestVal;
+        return `<td class="val ${isBest?"best":""}">${fmt(v,KPI[k].dec)}</td>`; }).join("");
+      return `<tr><td><span class="kpiname">${KPI[k].label}</span> <span class="kpiunit">${KPI[k].unit} · ${KPI[k].year} · ${KPI[k].better==="high"?"höher besser":"niedriger besser"}</span></td>${cells}</tr>`;
+    }).join("");
+    const ctx = (d.ctx||[]).length ? `<div class="ctxnote">Kontext (nicht gewertet): ${d.ctx.map(k=>KPI[k].label+" — "+pool.map(c=>raw(c,k)===null?"k.A.":fmt(raw(c,k),KPI[k].dec)).join(" / ")).join("; ")}</div>` : "";
+    return `<div class="dimcard">
+      <div class="dimtop"><h4>${d.label}</h4><div class="dimscores">${chips}</div><span class="dimweight">Gewicht ×${fmt(state.weights[d.id],1)}</span></div>
+      <table class="kpitable"><thead><tr><th>Kennzahl</th>${headCities}</tr></thead><tbody>${kpiRows}</tbody></table>
+      ${ctx}
+    </div>`;
+  }).join("");
+  return `<section id="dims">
+    <div class="sechead"><span class="secno">03</span><h3>Dimensionen im Detail</h3></div>
+    <p class="seclede">Je Dimension der relative Score (mit Ampel) und die zugrunde liegenden INKAR-Kennzahlen.
+      Der jeweils beste Wert ist grün hervorgehoben; fehlende Werte bleiben als „k. A.“ sichtbar.</p>
+    ${cards}
+  </section>`;
+}
+
+function weightSection(){
+  const rows=DIMS.map(d=>`<div class="wrow">
+    <div class="wl"><span>${d.label}</span><b id="wv_${d.id}">×${fmt(state.weights[d.id],1)}</b></div>
+    <input type="range" min="0" max="3" step="0.5" value="${state.weights[d.id]}" data-dim="${d.id}">
+  </div>`).join("");
+  return `<section id="weights" class="weightsec">
+    <div class="sechead"><span class="secno">04</span><h3>Gewichtung anpassen</h3></div>
+    <p class="seclede">Die Stakeholder-Sicht oben setzt sinnvolle Startgewichte. Hier lassen sie sich je Dimension
+      feinjustieren — Gesamtscore und Ranking aktualisieren sich sofort.</p>
+    <div class="weightgrid">${rows}</div>
+  </section>`;
+}
+
+function exportSection(){
+  return `<section id="export" class="expsec">
+    <div class="sechead"><span class="secno">05</span><h3>Export</h3></div>
+    <p class="seclede">Ergebnis als Bericht sichern oder die Datenbasis weiterverarbeiten.</p>
+    <div class="expbtns">
+      <button class="act primary" id="pdfbtn">Als PDF drucken</button>
+      <button class="act ghost" id="csvbtn">Daten als CSV</button>
+    </div>
+    <p class="exphint">Der PDF-Druck blendet Bedienelemente aus und gibt Ranking, Radar und Dimensionen aus.
+      Die CSV enthält alle Kennzahlen und Scores der ausgewählten Städte.</p>
+  </section>`;
+}
+
+function labelStake(){ return {leitung:"Stadtleitung",buerger:"Bürger",investor:"Investor",umzug:"Umzugsinteressent"}[state.stakeholder]; }
+
+/* ---- 8. Interaktion -------------------------------------------------- */
+function wireWeights(){
+  document.querySelectorAll('#weights input[type=range]').forEach(inp=>{
+    inp.oninput=()=>{ const id=inp.dataset.dim; state.weights[id]=parseFloat(inp.value);
+      document.getElementById("wv_"+id).textContent="×"+fmt(state.weights[id],1);
+      // nur die score-abhängigen Teile neu rendern
+      render(); document.getElementById("weights").scrollIntoView({block:"nearest"}); };
+  });
+}
+function wireExport(pool){
+  document.getElementById("pdfbtn").onclick=()=>window.print();
+  document.getElementById("csvbtn").onclick=()=>exportCsv(pool);
+}
+function exportCsv(pool){
+  const rows=[];
+  rows.push(["Kennzahl","Einheit","Jahr",...pool.map(c=>c.name)]);
+  Object.keys(KPI).forEach(k=>{
+    rows.push([KPI[k].label, KPI[k].unit, KPI[k].year, ...pool.map(c=>{const v=raw(c,k);return v===null?"":String(v).replace(".",",");})]);
+  });
+  rows.push([]);
+  rows.push(["Dimension","Gewicht","",...pool.map(c=>c.name)]);
+  DIMS.forEach(d=>rows.push([d.label, "x"+state.weights[d.id], "", ...pool.map(c=>{const s=dimScore(d,c,pool);return s===null?"":s;})]));
+  rows.push(["Gesamtscore","", "", ...pool.map(c=>totalScore(c,pool)??"")]);
+  const csv="\uFEFF"+rows.map(r=>r.map(x=>`"${String(x??"").replace(/"/g,'""')}"`).join(";")).join("\r\n");
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="SmartCity_Benchmark_Vergleich.csv"; a.click(); URL.revokeObjectURL(a.href);
+}
+
+function initControls(){
+  const ct=document.getElementById("cityToggles");
+  ct.innerHTML=CITIES.map(c=>`<button class="citytog" data-city="${c.name}"><span class="sw" style="background:${c.color}"></span>${c.name}</button>`).join("");
+  ct.querySelectorAll(".citytog").forEach(b=>b.onclick=()=>{
+    const n=b.dataset.city;
+    if(state.selected.has(n)){ if(state.selected.size<=2) return; state.selected.delete(n); b.classList.add("off"); }
+    else { state.selected.add(n); b.classList.remove("off"); }
+    render();
+  });
+  document.querySelectorAll("#stake button").forEach(b=>b.onclick=()=>{
+    state.stakeholder=b.dataset.k; state.weights={...STAKE[b.dataset.k]};
+    document.querySelectorAll("#stake button").forEach(x=>x.classList.toggle("on",x===b));
+    render();
+  });
+}
+initControls();
+render();
+</script>
+</body>
+</html>

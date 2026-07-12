@@ -1,0 +1,53 @@
+Kategorie;Indikator;Wert;Einheit;Quelle im Dokument;Hinweise
+Allgemein;Lage;Westen des Saalekreises (Sachsen-Anhalt);Text;Seite 3;
+Allgemein;Einwohner;13008;Anzahl;Seite 3;
+Allgemein;Gemeindefläche;91,1;km²;Seite 10;
+Allgemein;Durchschnittsalter;49,5;Jahre;Seite 3;
+Allgemein;Anteil männlich;49,2;%;Seite 3;
+Allgemein;Anteil weiblich;50,8;%;Seite 3;
+Allgemein;Bevölkerungsentwicklung;kontinuierlicher Rückgang seit 2012;Text;Seite 3;
+Allgemein;Gewässer;17;Anzahl;Seite 10;
+Allgemein;Siedlungsstruktur;polyzentrisch mit mehreren Ortsteilen;Text;Seite 10;
+Allgemein;Lage;suburban nahe Halle (Saale);Text;Seite 10;
+Digitaler Zwilling / Virtuelle Touren;Verbreitung virtuelle Touren;gering;Text;Seite 18;
+Digitaler Zwilling / Virtuelle Touren;Nutzung;gewerbliche Anbieter und touristische Standorte;Text;Seite 18;
+360-Grad-Ansichten;Gesamtstraßennetz;190196;m;Seite 20;
+360-Grad-Ansichten;Streetview-Straßennetz;170734;m;Seite 20;
+360-Grad-Ansichten;Streetview-Abdeckung;90;%;Seite 20;
+360-Grad-Ansichten;Straßenanteil ohne Streetview;10;%;Seite 20;
+360-Grad-Ansichten;Anzahl Straßen ohne Streetview;35;Anzahl;Seite 20;
+E-Ladeinfrastruktur;Öffentliche Ladeplätze;10;Anzahl;Seite 26;
+E-Ladeinfrastruktur;Ladepunkte gesamt;20;Anzahl;Seite 26;
+E-Ladeinfrastruktur;Maximale Ladeleistung;ca. 300;kW;Seite 26;
+E-Ladeinfrastruktur;Ladepunkte pro 1000 Einwohner;1,54;Anzahl pro 1000 EW;Seite 26;Berechnet: 20 Ladepunkte / 13.008 EW * 1000
+Festnetz;Beobachtung;Ländliche Außenbereiche dominieren niedrige Bandbreiten (0–2 Mbit/s);Text;Seite 27;Kein Mittelwert verfügbar
+Mobilfunk;Analysegrundlage;CellMapper-Daten 4G/LTE;Text;Seite 28;
+Mobilfunk;Rastergröße;500 x 500;m;Seite 28;
+Mobilfunk;Analysierte Rasterzellen;448;Anzahl;Offizielle Fallstudie;
+Mobilfunk;Telekom-Mittelwert;-125,16;dBm;Offizielle Fallstudie;Berechnet aus Σ(Zellen × Klassenmitte) / 448
+Mobilfunk;O2-Mittelwert;-129,18;dBm;Offizielle Fallstudie;Berechnet aus Σ(Zellen × Klassenmitte) / 448
+Mobilfunk;Vodafone-Mittelwert;-133,88;dBm;Offizielle Fallstudie;Berechnet aus Σ(Zellen × Klassenmitte) / 448
+Digitale Services;Gesamtzahl Services;50;Anzahl;Offizielle Fallstudie;
+Digitale Services;Reifegrad 0-Anteil;0;%;Offizielle Fallstudie;0 von 50 Services
+Digitale Services;Reifegrad 1-Anteil;84;%;Offizielle Fallstudie;42 von 50 Services
+Digitale Services;Reifegrad 2-Anteil;12;%;Offizielle Fallstudie;6 von 50 Services
+Digitale Services;Reifegrad 3-Anteil;4;%;Offizielle Fallstudie;2 von 50 Services
+Digitale Services;Reifegrad 4-Anteil;0;%;Offizielle Fallstudie;0 von 50 Services
+Digitale Services;Reifegrad-Mittelwert;1,2;Index;Offizielle Fallstudie;Berechnet: (0×0 + 1×42 + 2×6 + 3×2 + 4×0) / 50 = 60/50
+Digitale Services;Prozentanteil ab Stufe 2;16;%;Offizielle Fallstudie;Berechnet: (6 + 2 + 0) / 50 × 100
+
+Social Media;Aktive Social-Media-Kanäle;169;Anzahl;Seite 33;Stand 24.12.2025
+Social Media;Aktivitäten im Hauptort;ca. 40;%;Seite 33;
+Social Media;Thematischer Schwerpunkt;Kultur, Vereine, Wirtschaft;Text;Seite 33;
+Vernetzung;Schlüsselknoten;zentrale politische Gremien;Text;Seite 37;
+Vernetzung;Kommunikationswege;kurz;Text;Seite 37;
+Vernetzung;Netzwerkcharakter;stabil, aber zentralistisch;Text;Seite 37;
+Daseinsvorsorge;Schulabdeckung (10-Min-Radius);2,05;%;Seite 43;
+Daseinsvorsorge;Schulabdeckung Fläche;1,87;km²;Seite 43;
+Daseinsvorsorge;Kindergartenabdeckung (10-Min-Radius);9,81;%;Seite 49;
+Daseinsvorsorge;Kindergartenabdeckung Fläche;8,943;km²;Seite 49;
+Daseinsvorsorge;Wirtschaftliche Nutzungsfläche gesamt;2,779;km²;Seite 55;3,1% der Gemeindefläche
+Daseinsvorsorge;Gewerbeflächen;1,446;km²;Seite 55;1,6% der Gemeindefläche
+Daseinsvorsorge;Industrieflächen;1,166;km²;Seite 55;1,3% der Gemeindefläche
+Daseinsvorsorge;Einzelhandelsflächen;0,167;km²;Seite 55;0,18% der Gemeindefläche
+Daseinsvorsorge;Sanierungsbedarf ältere Ortskerne;hoch;Text;Seite 56;Gebäude vor 1950

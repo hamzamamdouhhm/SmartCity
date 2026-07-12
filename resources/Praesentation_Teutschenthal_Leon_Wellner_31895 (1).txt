@@ -1,0 +1,703 @@
+Case Study: Benchmarking von
+ Kleinstädten und Kommunen
+ Teutschenthal
+ Leon Wellner -   31895
+
+Inhalt
+ 1.   Einführung
+ 2.   Digitaler Zwilling, virtuelle Touren
+ 3.   360 - Grad - Ansichten aus Straßenperspektive
+ 4.   Öffentliche Ladeinfrastruktur
+ 5.   Festnetzverbindungen
+ 6.   Mobilfunk
+ 7.   Digitale Services in der öffentlichen Verwaltung
+ 8.   Social   Media
+ 9.   Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ 10.   Existenz Daseinsvorsorge & öffentliche Einrichtungen
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ •   Durchschnittsalter: 49,5 Jahre
+ •   Anteil männlich: 49,2%
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   3
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ •   Durchschnittsalter: 49,5 Jahre
+ •   Anteil männlich: 49,2%
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   4
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ 01.09.2010  01.01.2010
+ •   Durchschnittsalter: 49,5 Jahre
+ 01.09.2010  01.01.2010
+ •   Anteil männlich: 49,2%
+01.01.2005  01.01.2005  
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   5
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ •   Durchschnittsalter: 49,5 Jahre
+ •   Anteil männlich: 49,2%
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   6
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ •   Durchschnittsalter: 49,5 Jahre
+ •   Anteil männlich: 49,2%
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   7
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ •   Durchschnittsalter: 49,5 Jahre
+ •   Anteil männlich: 49,2%
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   8
+
+ 1. Einführung
+ •   Lage: Westen des Saalekreises (Sachsen - Anhalt)
+ •   Einwohner: 13.008
+ •   Erste urkundliche Erwähnung 9. Jahrhundert
+ •   Kontinuierlicher Bevölkerungsrückgang seit dem
+ Jahr 2012
+ •   Durchschnittsalter: 49,5 Jahre
+ •   Anteil männlich: 49,2%
+ •   Anteil weiblich: 50,8%
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   9
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   10
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   11
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   12
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   13
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   14
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   15
+
+ 1. Einführung
+ •   Fläche Gemeinde Teutschenthal: 91,1 km²
+ •   Polyzentrierte Siedlungsstruktur mit mehreren
+ räumlich getrennten Ortsteilen
+ •   Kernort Teutschenthal als administratives und
+ infrastrukturelles Zentrum
+ •   Ortsteile überwiegend ländlich geprägt, teils mit
+ Gewerbe -   und Verkehrsfunktionen
+ •   Lage im suburbanen Raum nahe Halle (Saale)
+ •   Gewässer insgesamt: 17
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   16
+
+ 1. Einführung
+ Steuereinnahmen:
+ •   Hoher Gewerbesteueranteil zeigt die wirtschaftliche Bedeutung
+ von Industrie und Unternehmen vor Ort
+ •   Ausgewogene Kombination aus unternehmens -   und
+ einwohnerbezogenen Einnahmen
+ Verkehrsanbindung:
+ •   Gute Lage nahe Halle (Saale) mit Anschluss an A38, A143, B80
+ •   Bahnanschluss (Strecke Halle – Nordhausen) und regionaler
+ Busverkehr
+ Tourismus:
+ •   Naherholung und Naturtourismus als wichtigste touristische Stärke
+ der Gemeinde
+ •   Größtes Event 2025 Motocross Weltmeisterschaft
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   17
+
+ 2. Digitaler Zwilling, virtuelle Touren
+ •   Virtuelle Tour = Verknüpfung von mindestens drei 360 ° -
+ Aufnahmen zu einer interaktiven Begehung
+ •   In Teutschenthal geringe Verbreitung, bisher vor allem bei
+ gewerblichen Anbietern und touristischen Standorten
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   18
+
+ 2. Digitaler Zwilling, virtuelle Touren
+ •   Virtuelle Tour = Verknüpfung von mindestens drei 360 ° -
+ Aufnahmen zu einer interaktiven Begehung
+ •   In Teutschenthal geringe Verbreitung, bisher vor allem bei
+ gewerblichen Anbietern und touristischen Standorten
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   19
+
+ 3. 360 - Grad - Ansichten aus Straßenperspektive
+ •   Besonders gute Abdeckung auf Hauptverkehrsstraßen
+ und zentralen Bereichen
+ •   Geringere Abdeckung in Nebenstraßen und ländlichen
+ Randlagen
+ •   Gesamtstraßennetz: 190.196m
+ •   Streetviewstraßennetz : 170.734m
+ •   Hohe Street - View - Abdeckung:   90%   der Straßenlänge
+ digital erfasst
+ •   Straßenanteil ohne   Streetview :   10%
+ •   35 Straßen haben gar kein   Streetview
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   20
+
+ 3. 360 - Grad - Ansichten aus Straßenperspektive
+ •   Besonders gute Abdeckung auf Hauptverkehrsstraßen
+ und zentralen Bereichen
+ •   Geringere Abdeckung in Nebenstraßen und ländlichen
+ Randlagen
+ •   Gesamtstraßennetz: 190.196m
+ •   Streetviewstraßennetz : 170.734m
+ •   Hohe Street - View - Abdeckung:   90%   der Straßenlänge
+ digital erfasst
+ •   Straßenanteil ohne   Streetview :   10%
+ •   35 Straßen haben gar kein   Streetview
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   21
+
+ 3. 360 - Grad - Ansichten aus Straßenperspektive
+ •   Besonders gute Abdeckung auf Hauptverkehrsstraßen
+ und zentralen Bereichen
+ •   Geringere Abdeckung in Nebenstraßen und ländlichen
+ Randlagen
+ •   Gesamtstraßennetz: 190.196m
+ •   Streetviewstraßennetz : 170.734m
+ •   Hohe Street - View - Abdeckung:   90%   der Straßenlänge
+ digital erfasst
+ •   Straßenanteil ohne   Streetview :   10%
+ •   35 Straßen haben gar kein   Streetview
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   22
+
+ 3. 360 - Grad - Ansichten aus Straßenperspektive
+ •   Besonders gute Abdeckung auf Hauptverkehrsstraßen
+ und zentralen Bereichen
+ •   Geringere Abdeckung in Nebenstraßen und ländlichen
+ Randlagen
+ •   Gesamtstraßennetz: 190.196m
+ •   Streetviewstraßennetz : 170.734m
+ •   Hohe Street - View - Abdeckung:   90%   der Straßenlänge
+ digital erfasst
+ •   Straßenanteil ohne   Streetview :   10%
+ •   35 Straßen haben gar kein   Streetview
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   23
+
+ 3. 360 - Grad - Ansichten aus Straßenperspektive
+ •   Besonders gute Abdeckung auf Hauptverkehrsstraßen
+ und zentralen Bereichen
+ •   Geringere Abdeckung in Nebenstraßen und ländlichen
+ Randlagen
+ •   Gesamtstraßennetz: 190.196m
+ •   Streetviewstraßennetz : 170.734m
+ •   Hohe Street - View - Abdeckung:   90%   der Straßenlänge
+ digital erfasst
+ •   Straßenanteil ohne   Streetview :   10%
+ •   35 Straßen haben gar kein   Streetview
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   24
+
+ 3. 360 - Grad - Ansichten aus Straßenperspektive
+ •   Besonders gute Abdeckung auf Hauptverkehrsstraßen
+ und zentralen Bereichen
+ •   Geringere Abdeckung in Nebenstraßen und ländlichen
+ Randlagen
+ •   Gesamtstraßennetz: 190.196m
+ •   Streetviewstraßennetz : 170.734m
+ •   Hohe Street - View - Abdeckung:   90%   der Straßenlänge
+ digital erfasst
+ •   Straßenanteil ohne   Streetview :   10%
+ •   35 Straßen haben gar kein   Streetview
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   25
+
+ 4. Öffentliche Ladeinfrastruktur
+ •   10 öffentliche Ladeplätze mit insgesamt 20 Ladepunkten im
+ Gemeindegebiet
+ •   Starke Konzentration im Kernort Teutschenthal, keine
+ flächendeckende Versorgung der Ortsteile
+ •   Ladeinfrastruktur überwiegend an Einzelhandel, Tankstellen und
+ Gewerbestandorten
+ •   Große Leistungsunterschiede von Normalladung bis Schnellladen
+ (bis ca. 300 kW)
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   26
+
+ 5. Festnetzverbindungen
+ •   Analyse mittels 500   ×   500 m Raster auf Basis von QGIS und
+ Breitbandatlas - Daten
+ •   Ländliche Außenbereiche dominieren niedrige Bandbreiten (0 – 2
+ Mbit/s)
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   27
+
+ 6. Mobilfunk -   Telekom
+ •   Analyse mit 500   ×   500 m Raster auf Basis von
+ CellMapper - Daten (4G/LTE)
+ •   Beste Versorgung in bebauten Ortslagen und entlang
+ Hauptverkehrsachsen
+ •   Telekom weist insgesamt die stabilste Netzabdeckung
+ auf, o2 folgt, Vodafone schwächer
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   28
+
+ 6. Mobilfunk -   Vodafone
+ •   Analyse mit 500   ×   500 m Raster auf Basis von
+ CellMapper - Daten (4G/LTE)
+ •   Beste Versorgung in bebauten Ortslagen und entlang
+ Hauptverkehrsachsen
+ •   Telekom weist insgesamt die stabilste Netzabdeckung
+ auf, o2 folgt, Vodafone schwächer
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   29
+
+ 6. Mobilfunk -   O2
+ •   Analyse mit 500   ×   500 m Raster auf Basis von
+ CellMapper - Daten (4G/LTE)
+ •   Beste Versorgung in bebauten Ortslagen und entlang
+ Hauptverkehrsachsen
+ •   Telekom weist insgesamt die stabilste Netzabdeckung
+ auf, o2 folgt, Vodafone schwächer
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   30
+
+ 7. Digitale Services in der öffentlichen Verwaltung
+ •   Bewertung digitaler Verwaltungsservices mit
+ dem OZG - Reifegradmodell (Stufen 0 – 4)  0
+ •   Datengrundlage: Online - Serviceübersicht der
+ 0
+ Gemeinde Teutschenthal
+ 0  •   Anteil Reifegrad 1: 82%
+ Once - Only - Antrag:
+ Daten aus
+ Verwaltungsregister  •   Anteil Reifegrad 2: 12%
+ 4
+ Antrag und
+ Nachweise  •   Anteil Reifegrad 3: 4%
+ vollständig digital,
+ 0
+ Bescheid digital  Online - Antrag
+ möglich, Nachweise
+ meist nicht digital
+ Leistungsbeschreibung
+ online, PDF zum
+ Download
+ Keine Informationen
+ online verfügbar
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   31
+
+ 7. Digitale Services in der öffentlichen Verwaltung
+ 0
+ 2
+ •   Bewertung digitaler Verwaltungsservices mit
+ dem OZG - Reifegradmodell (Stufen 0 – 4)
+ 6
+ •   Datengrundlage: Online - Serviceübersicht der
+ Gemeinde Teutschenthal
+ 42
+ •   Anteil Reifegrad 1: 82%
+ Once - Only - Antrag:
+ Daten aus
+ Verwaltungsregister  •   Anteil Reifegrad 2: 12%
+ 0
+ Antrag und
+ Nachweise  •   Anteil Reifegrad 3: 4%
+ vollständig digital,
+ Bescheid digital  Online - Antrag
+ möglich, Nachweise
+ meist nicht digital
+ Leistungsbeschreibung
+ online, PDF zum
+ Download
+ Keine Informationen
+ online verfügbar
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   32
+
+ 8.   Social   Media
+ •   169 aktive Social - Media - Kanäle im
+ Gemeindegebiet (Stand: 24.12.2025)
+ •   Starke räumliche Konzentration im Hauptort
+ Teutschenthal (ca. 40 % aller Aktivitäten)
+ •   Thematischer Schwerpunkt auf Kultur, Vereinen
+ und Wirtschaft, Politik und Bildung kaum
+ vertreten
+ •   Social   Media wird vor allem von Vereinen und
+ lokalen Unternehmen genutzt
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   33
+
+ 8.   Social   Media
+ •   169 aktive Social - Media - Kanäle im
+ Gemeindegebiet (Stand: 24.12.2025)
+ •   Starke räumliche Konzentration im Hauptort
+ Teutschenthal (ca. 40 % aller Aktivitäten)
+ •   Thematischer Schwerpunkt auf Kultur, Vereinen
+ und Wirtschaft, Politik und Bildung kaum
+ vertreten
+ •   Social   Media wird vor allem von Vereinen und
+ lokalen Unternehmen genutzt
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   34
+
+ 8.   Social   Media
+ •   169 aktive Social - Media - Kanäle im
+ Gemeindegebiet (Stand: 24.12.2025)
+ •   Starke räumliche Konzentration im Hauptort
+ Teutschenthal (ca. 40 % aller Aktivitäten)
+ •   Thematischer Schwerpunkt auf Kultur, Vereinen
+ und Wirtschaft, Politik und Bildung kaum
+ vertreten
+ •   Social   Media wird vor allem von Vereinen und
+ lokalen Unternehmen genutzt
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   35
+
+ 8.   Social   Media
+ •   169 aktive Social - Media - Kanäle im
+ Gemeindegebiet (Stand: 24.12.2025)
+ •   Starke räumliche Konzentration im Hauptort
+ Teutschenthal (ca. 40 % aller Aktivitäten)
+ •   Thematischer Schwerpunkt auf Kultur, Vereinen
+ und Wirtschaft, Politik und Bildung kaum
+ vertreten
+ •   Social   Media wird vor allem von Vereinen und
+ lokalen Unternehmen genutzt
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   36
+
+ 9. Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ •   Zentrale politische Gremien bilden die
+ Schlüsselknoten des lokalen Netzwerks
+ •   Kurze Kommunikationswege ermöglichen
+ effiziente Koordination
+ •   Netzwerk ist stabil, aber stark auf wenige
+ zentrale Akteure ausgerichtet
+ Auswertung   Adjazenmatrix :
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   37
+
+ 9. Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ •   Zentrale politische Gremien bilden die
+ Schlüsselknoten des lokalen Netzwerks
+ •   Kurze Kommunikationswege ermöglichen
+ effiziente Koordination
+ •   Netzwerk ist stabil, aber stark auf wenige
+ zentrale Akteure ausgerichtet
+ Auswertung   Adjazenmatrix :
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   38
+
+ 9. Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ •   Zentrale politische Gremien bilden die
+ Schlüsselknoten des lokalen Netzwerks
+ •   Kurze Kommunikationswege ermöglichen
+ effiziente Koordination
+ •   Netzwerk ist stabil, aber stark auf wenige
+ zentrale Akteure ausgerichtet
+ Auswertung   Adjazenmatrix :
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   39
+
+ 9. Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ •   Zentrale politische Gremien bilden die
+ Schlüsselknoten des lokalen Netzwerks
+ •   Kurze Kommunikationswege ermöglichen
+ effiziente Koordination
+ •   Netzwerk ist stabil, aber stark auf wenige
+ zentrale Akteure ausgerichtet
+ Auswertung   Adjazenmatrix :
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   40
+
+ 9. Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ •   Zentrale politische Gremien bilden die
+ Schlüsselknoten des lokalen Netzwerks
+ •   Kurze Kommunikationswege ermöglichen
+ effiziente Koordination
+ •   Netzwerk ist stabil, aber stark auf wenige
+ zentrale Akteure ausgerichtet
+ Auswertung   Adjazenmatrix :
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   41
+
+ 9. Vernetzung Lokalpolitik, Vereine, Lokalwirtschaft
+ •   Zentrale politische Gremien bilden die
+ Schlüsselknoten des lokalen Netzwerks
+ •   Kurze Kommunikationswege ermöglichen
+ effiziente Koordination
+ •   Netzwerk ist stabil, aber stark auf wenige
+ zentrale Akteure ausgerichtet
+ Auswertung   Adjazenmatrix :
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   42
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Schulen
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Schulstandorte mittels QGIS
+ •   Nur 2,05 % der Gemeindefläche (1,87 km²) sind
+ fußläufig durch Schulen abgedeckt
+ •   Starke Konzentration der Erreichbarkeit in Kernorten wie
+ Teutschenthal und Holleben
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   43
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Schulen
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Schulstandorte mittels QGIS
+ •   Nur 2,05 % der Gemeindefläche (1,87 km²) sind
+ fußläufig durch Schulen abgedeckt
+ •   Starke Konzentration der Erreichbarkeit in Kernorten wie
+ Teutschenthal und Holleben
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   44
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Schulen
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Schulstandorte mittels QGIS
+ •   Nur 2,05 % der Gemeindefläche (1,87 km²) sind
+ fußläufig durch Schulen abgedeckt
+ •   Starke Konzentration der Erreichbarkeit in Kernorten wie
+ Teutschenthal und Holleben
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   45
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Schulen
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Schulstandorte mittels QGIS
+ •   Nur 2,05 % der Gemeindefläche (1,87 km²) sind
+ fußläufig durch Schulen abgedeckt
+ •   Starke Konzentration der Erreichbarkeit in Kernorten wie
+ Teutschenthal und Holleben
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   46
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Schulen
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Schulstandorte mittels QGIS
+ •   Nur 2,05 % der Gemeindefläche (1,87 km²) sind
+ fußläufig durch Schulen abgedeckt
+ •   Starke Konzentration der Erreichbarkeit in Kernorten wie
+ Teutschenthal und Holleben
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   47
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Schulen
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Schulstandorte mittels QGIS
+ •   Nur 2,05 % der Gemeindefläche (1,87 km²) sind
+ fußläufig durch Schulen abgedeckt
+ •   Starke Konzentration der Erreichbarkeit in Kernorten wie
+ Teutschenthal und Holleben
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   48
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Kindergärten
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Kindergartenstandorte mittels QGIS
+ •   9,81 % der Gemeindefläche (8,943 km²) sind fußläufig
+ durch Kindergärten abgedeckt
+ •   Kindergärten sind in allen Ortschaften vorhanden
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   49
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Kindergärten
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Kindergartenstandorte mittels QGIS
+ •   9,81 % der Gemeindefläche (8,943 km²) sind fußläufig
+ durch Kindergärten abgedeckt
+ •   Kindergärten sind in allen Ortschaften vorhanden
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   50
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Kindergärten
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Kindergartenstandorte mittels QGIS
+ •   9,81 % der Gemeindefläche (8,943 km²) sind fußläufig
+ durch Kindergärten abgedeckt
+ •   Kindergärten sind in allen Ortschaften vorhanden
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   51
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Kindergärten
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Kindergartenstandorte mittels QGIS
+ •   9,81 % der Gemeindefläche (8,943 km²) sind fußläufig
+ durch Kindergärten abgedeckt
+ •   Kindergärten sind in allen Ortschaften vorhanden
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   52
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Kindergärten
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Kindergartenstandorte mittels QGIS
+ •   9,81 % der Gemeindefläche (8,943 km²) sind fußläufig
+ durch Kindergärten abgedeckt
+ •   Kindergärten sind in allen Ortschaften vorhanden
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   53
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Kindergärten
+ •   Analyse der fußläufigen Erreichbarkeit (10 - Minuten -
+ Radius) aller Kindergartenstandorte mittels QGIS
+ •   9,81 % der Gemeindefläche (8,943 km²) sind fußläufig
+ durch Kindergärten abgedeckt
+ •   Kindergärten sind in allen Ortschaften vorhanden
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   54
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Gewerbe
+ •   Gesamtfläche wirtschaftlicher Nutzungen: 2,779 km² (3,1 % der
+ Gemeindefläche)
+ •   Gewerbeflächen dominieren mit 1,446 km² (1,6 %) und sind
+ wichtigste Nutzungsform
+ •   Industrieflächen stark konzentriert auf wenige Standorte (1,166
+ km² / 1,3 %)
+ •   Einzelhandelsflächen sehr gering vertreten (0,167 km² / 0,18 %)
+ •   Gewerbe -   und Industrieflächen liegen vor allem entlang
+ Verkehrsachsen und Ortsrändern
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   55
+
+ 10. Existenz Daseinsvorsorge & öffentliche Einrichtungen
+ Bebauung:
+ •   Analyse basiert auf Wohnlagendaten des Capital - Immobilienatlas
+ •   Historisch gewachsene Siedlungsstruktur mit Ortskernen,
+ Bestandsgebieten und Neubauflächen
+ •   Hoher Sanierungsbedarf in älteren Ortskernen (Gebäude vor
+ 1950)
+ •   Bestandswohngebiete (1960 – 1980) mit Modernisierungsbedarf bei
+ Energieeffizienz und Barrierefreiheit
+ •   Neubaugebiete am Ortsrand mit guter Bauqualität, aber höherem
+ Flächen -   und Infrastrukturverbrauch
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   56
+
+ Quellen
+ [1]   G emeinde Teutschenthal. "Ortschaft Angersdorf: Geschichtliches." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// www.gemeinde - teutschenthal.de / de/ angersdorf.html
+ [2]   Gemeinde Teutschenthal. "Ortschaften." Zugriff am: 10. November 2025. [Online.] Verfügbar: https:// www.gemeinde - teutschenthal.de / de/ ortschaften.html
+ [3]   Siegfrieds Homepage. "Wappensuche: Sie suchen ein Wappen mit bestimmten Merkmalen?" Zugriff am: 30. Dezember 2025. [Online.]   Verfügbar: https:// www.ortswappen.de / index.php ? site = 14
+ [4]   Gemeinde Teutschenthal. "Geschichtliche Entwicklung der Einheitsgemeinde Teutschenthal." Zugriff am: 10. November 2025. [Onl ine.] Verfügbar: https:// www.gemeinde -
+ teutschenthal.de / de/ geschichte.html
+ [5]   Gemeinde Teutschenthal. "Ortschaften: Ortschaft Dornstedt." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// www.gemeinde -
+ teutschenthal.de / de/ ortschaftenortschaftsraete / ortschaftsraete - dornstedt.html
+ [6]   "Wappen Zscherben." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// upload.wikimedia.org / wikipedia / commons / c/ c5/ Wappen_ Zscherben.jpg
+ [7]   "Wappen Teutschenthal." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// de.wikipedia.org / wiki / Teutschenthal #/media/Datei:DE - ST_15 - 0 - 88 - 365_Teutschenthal_COA.png
+ [8]   Gemeinde Teutschenthal. "Wappen Holleben." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// www.gemeinde - teutschenthal.de / de/ ortschaftenortschaftsraete / ortschaftsraete -
+ holleben.html
+ [9]   Gemeinde Teutschenthal. "Wappen Steuden." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// www.gemeinde - teutschenthal.de / de/ ortschaftenortschaftsraete / ortschaftsraete -
+ steuden.html
+ [10]   "Wappen Langenbogen." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// upload.wikimedia.org / wikipedia / commons / e/ e0/ Wappen_ Langenbogen.png
+ [11]   Statistisches Landesamt Sachsen - Anhalt. "Tabellen Bevölkerungsstand: Bevölkerung nach Geschlecht und Gemeinden am 30.06.202 5." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar:
+ https:// statistik.sachsen - anhalt.de / themen / bevoelkerung - mikrozensus - freiwillige - haushaltserhebungen / bevoelkerung / tabellen - bevoelkerungsstand #c413474
+ [12]   Gemeinde Teutschenthal. "Integriertes Gemeindliches Entwicklungskonzept (IGEK) der Gemeinde Teutschenthal." Zugriff am: 30.   Dezember 2025. [Online.] Verfügbar: https:// www.gemeinde -
+ teutschenthal.de / de/ datei / anzeigen/ id / 19543, 1195/ 2022 - 06 - 30_ igek _ teutsch _ beschlussfassung.pdf
+ [13]   Wegweiser Kommune. "Teutschenthal (im Saalekreis)." Zugriff am: 30. Dezember 2025. [Online.] Verfügbar: https:// www.wegweiser - kommune.de / kommunen/ teutschenthal
+ [14]   Statistisches Landesamt Sachsen - Anhalt. "Bevölkerungsstand: Bevölkerung nach Altersgruppen und Geschlecht." Gemeinden. Zugr iff am: 30. Dezember 2025. [Online.] Verfügbar:
+ https:// statistik.sachsen - anhalt.de / fileadmin / Bibliothek/ Landesaemter / StaLa / startseite / Themen/ Bevoelkerung / Berichte/ Bevoelkerungsstand / 6A119_ 2024 - A.pdf
+ [15]   "Dorfgemeinschaft Zscherben: Veranstaltungen." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// dorfgemeinschaft - zscherben.de / veranstaltungen / liste/ seite / 2/ ? eventDisplay = past
+ [16]   "Gemeinde Teutschenthal: Veranstaltungen." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// www.gemeinde - teutschenthal.de /
+ [17]   "Heimatverein Holleben." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: http:// www.heimatvereinholleben.de /
+ [18]   "Motorcross Teutschenthal Talkessel." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// www.msc - teutschenthal.de / wm - termin - steht - fest - mxgp - of - germany - am - 31 - mai - und - 1 - juni - 2025/
+ [19]   "Pappelbeach." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// pappelbeach.de /
+ [20]   "Rittergut Etzdorf: Historisches Rittergut in Sachsen Anhalt." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// www.rittergut - etzdorf.de / veranstaltungen
+ [21]   "Schloss Teutschenthal: Hotels & Events." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// schloss - teutschenthal.de /
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   57
+
+ Quellen
+ [22]   Dr. Hans - Günther Bernstein. " Kulthaus   e.V. Teutschenthal: Veranstaltungskalender 2025." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// www.kulthaus - ev.de / veranstaltungskalender /
+ [23]   Teutsches   Theater Teutschenthal. " Teutsches   Theater Teutschenthal: kommende Veranstaltungen." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: http:// www.dorftheater -
+ teutschenthal.de / html / spielplan.html
+ [24]   Gemeinde Teutschenthal. "Gewerbeparks." Zugriff am: 4. Januar 2026. [Online.] Verfügbar: https:// www.gemeinde - teutschenthal.de / de/ gewerbeparks.html
+ [25]   "Google Maps." Zugriff am: 3. Januar 2026. [Online.] Verfügbar: https:// www.google.com / maps
+ [26]   Vetter Verkehrsbetriebe. "Mein Bus. Mein Ziel. Mein Linienverkehr." Zugriff am: 4. Januar 2026. [Online.] Verfügbar: https: // www.mein - bus.net / linienverkehr / index.html
+ [27]   NASA GmbH. "Verkehr & Planung." Zugriff am: 4. Januar 2026. [Online.] Verfügbar: https:// www.nasa.de / verkehr - planung
+ [28]   Wegweiser Kommune. "Finanzen." Zugriff am: 4. Januar 2026. [Online.] Verfügbar: https:// www.wegweiser - kommune.de / daten/ finanzen+teutschenthal+2021 - 2023+tabelle
+ [29]   "Charge   finder ." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// chargefinder.com / de/ stromtankstelle - zscherben - bmw - ehrl - gmbh - zscherben - ac - dedesebmw0307/ 8nn2m6
+ [30]   "Open Charge   Map ." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// www.openchargemap.org /
+ [31]   Bundesnetzagentur. "La de säu len kar te." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// www.bundesnetzagentur.de / DE/ Fachthemen/ ElektrizitaetundGas / E - Mobilitaet / Ladesaeulenkarte / start.html
+ [32]   Bundesnetz Agentur. "Breitbandatlas Karte." Zugriff am: 2. Januar 2026. [Online.] Verfügbar: https:// gigabitgrundbuch.bund.de / GIGA/ DE/ Breitbandatlas/ Vollbild/ start.html
+ [33]   Cellmapper . " Cellmapper   Karte." Zugriff am: 6.   Januar   2026. [Online.]   Verfügbar :
+ cellmapper.net/ map?MCC =262&MNC=2&type= LTE&latitude =51.46236143374148&longitude=11.93721467936178&zoom=12.14281098665534&showTowers= true&showIcons = true&showTowerLabels = true&cluster
+ Enabled = true&tilesEnabled = true&showOrphans = false&showNoFrequencyOnly = false&showFrequencyOnly = false&showBandwidthOnly = false&DateFilterType = Last&showHex = false&showVerifiedOnly = false&show
+ UnverifiedOnly = false&showLTECAOnly = false&showENDCOnly = false&showBand =0&showSectorColours= true&mapType = roadmap&darkMode = false&imperialUnits =false
+ [34]   Landesportal Sachsen Anhalt. "Reifegradmodell: #moderndenken." Zugriff am: 4. Januar 2026. [Online.] Verfügbar: https:// ozg.sachsen - anhalt.de / grundlagen / reifegradmodell
+ [35]   Gemeinde Teutschenthal. "Formulare im Überblick." Zugriff am: 4. Januar 2026. [Online.] Verfügbar: https:// www.gemeinde -
+ teutschenthal.de / de/ formulare.html ? tsaid_show02= 20& tsaid_check02= 5456489168& tsaid_index02= 0
+ [36]   Facebook. "Facebook." Zugriff am: 6. Januar 2026. [Online.] Verfügbar: https:// www.facebook.com /
+ [37]   Instagram. "Instagram." Zugriff am: 6. Januar 2026. [Online.] Verfügbar: https:// www.instagram.com /
+ [38]   LinkedIn. "LinkedIn." Zugriff am: 6. Januar 2026. [Online.] Verfügbar: https:// www.linkedin.com /
+ [39]   TikTok. "TikTok." Zugriff am: 6. Januar 2026. [Online.] Verfügbar: https:// www.tiktok.com / de - DE/
+ [40]   X. "X." Zugriff am: 6. Januar 2026. [Online.] Verfügbar: https:// x.com /
+ [41]   Youtube . " Youtube ." Zugriff am: 6. Januar 2026. [Online.] Verfügbar: https:// www.youtube.com /
+ [42]   Prof. Dr. Stefan   Grösser . "System Dynamics." [Online.] Verfügbar: https:// wirtschaftslexikon.gabler.de / definition / system - dynamics - 47445
+ [43]   Kanban Zone. "Jay Forrester and System Dynamics: Seeing Feedback Loops in Your Workflows: The Engineer Who Taught Us to See   Systems."   [Online.] Verfügbar: https:// kanbanzone.com / 2025/ jay - forrester -
+ and - system - dynamics /
+ [44]   meinestadt . "Sportvereine in Teutschenthal." Zugriff am: 7. Januar 2026. [Online.] Verfügbar: https:// home.meinestadt.de / teutschenthal / sport / sportverein
+ [45]   "Gelbe Seiten: Vereine." Zugriff am: 7. Januar 2026. [Online.] Verfügbar: https:// www.gelbeseiten.de / branchen / vereine/ teutschenthal ? utm
+ [46]   Marktplatz -   Teutschenthal.de. "Vereine." Zugriff am: 7. Januar 2026. [Online.] Verfügbar: https:// www.marktplatz - teutschenthal.de / 06179/ vereine ? utm
+ [47]   Gemeinde Teutschenthal. "Alle Schulen in der Gemeinde Teutschenthal." Zugriff am: 3. Januar 2026. [Online.] Verfügbar: http s:// www.gemeinde - teutschenthal.de / de/ schulen.html
+ [48]   Landesportal Sachsen Anhalt. "Kindertageseinrichtungen Sachsen Anhalt." Zugriff am: 3. Januar 2026. [Online.] Verfügbar: ht tps:// lvwa.sachsen -
+ anhalt.de / fileadmin / Bibliothek/ Politik_ und_ Verwaltung/ LVWA/ LVwA / Dokumente/ 5_ famgesjugvers / 501/ KITA/ KITA - Daten/ Saalekreis.pd f
+Case Study Digitaler Wandel: Benchmarking von Kleinstädten und Kommunen | Seite   58
+
+www.hs - merseburg.de

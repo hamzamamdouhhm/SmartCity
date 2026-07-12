@@ -1,8 +1,26 @@
 from flask import Flask, jsonify, send_from_directory, make_response, request, session
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
-import json, os, sqlite3, uuid
+import json, os, sqlite3, uuid, sys
+from pathlib import Path
 from datetime import datetime
+
+# Ensure backend dir and project root are importable
+BACKEND_DIR = Path(__file__).resolve().parent
+ROOT_DIR = BACKEND_DIR.parent
+sys.path.insert(0, str(BACKEND_DIR))
+sys.path.insert(0, str(ROOT_DIR))
+
+# Regenerate benchmark data and dashboard HTML on every app start
+print("Regenerating benchmark data and dashboard...")
+try:
+    import generate_data
+    generate_data.main()
+    import build_dashboard
+    build_dashboard.build_dashboard()
+    print("Startup generation complete.")
+except Exception as e:
+    print("Warning: startup generation failed:", e)
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "smartcity-dev-secret-key-change-in-production")

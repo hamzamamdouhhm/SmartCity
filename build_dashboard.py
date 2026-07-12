@@ -2,8 +2,10 @@ import json
 from string import Template
 from pathlib import Path
 
-DATA = json.load(open(r"C:\Users\d4\Documents\SmartCity\frontend\src\data\benchmarkData.json", "r", encoding="utf-8"))
-DATA_JS = json.dumps(DATA, ensure_ascii=False, indent=2)
+BASE = Path(__file__).resolve().parent
+DATA_PATH = BASE / "backend" / "data" / "benchmarkData.json"
+OUT_HTML = BASE / "index.html"
+OUT_STATIC_HTML = BASE / "backend" / "static" / "index.html"
 
 HTML_TEMPLATE = '''<!DOCTYPE html>
 <html lang="de">
@@ -131,7 +133,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       de: {
         appTitle: "Smart City Benchmarking",
         appSubtitle: "Digitaler Vergleich kommunaler Infrastruktur und Daseinsvorsorge",
-        dashboard: "Dashboard", municipalities: "Kommunen", comparison: "Vergleich", ranking: "Ranking", maps: "Karten",
+        dashboard: "Dashboard", municipalities: "Kommunen", comparison: "Vergleich", ranking: "Ranking", maps: "Karten", calculator: "Kennzahlen-Rechner",
         methodology: "Berechnungsmethoden", data: "Daten", api: "API", ai: "KI", login: "Anmelden", logout: "Abmelden",
         overallScore: "Gesamtscore", strongestKpi: "Stärkste KPI", weakestKpi: "Schwächste KPI", dataCompleteness: "Datenvollständigkeit",
         lastUpdate: "Letztes Update", rawValue: "Rohwert", score: "Score", status: "Status", source: "Quelle",
@@ -140,12 +142,19 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         presentationMode: "Präsentationsmodus", aiDemo: "KI-Demonstration", aiDemoNote: "Dies ist ein Demonstrationsmodus ohne Verbindung zu externen KI-Diensten.",
         export: "Exportieren", formulaReference: "Formelsammlung", stakeholderView: "Stakeholder-Sicht",
         profile: "Profil", csvIndicators: "CSV-Indikatoren", interpretation: "Interpretation",
-        exportPdf: "PDF exportieren", exportExcel: "Excel exportieren", exportCsv: "CSV exportieren"
+        exportPdf: "PDF exportieren", exportExcel: "Excel exportieren", exportCsv: "CSV exportieren",
+        selectMunicipality: "Kommune auswählen", selectKpi: "Kennzahl auswählen", calculate: "Berechnen",
+        calculatedValue: "Berechneter Wert", officialValue: "Offizieller Wert", difference: "Abweichung",
+        percentagePoints: "Prozentpunkte", toleranceWarning: "Die Abweichung ist größer als erwartet. Bitte überprüfen Sie die Eingabewerte und die Datengrundlage.",
+        missingValue: "Wert fehlt", enterManually: "Bitte manuell eingeben", viewMethodology: "Zur Methodik",
+        inputValues: "Eingabewerte", calculationSteps: "Rechenschritte", variableExplanation: "Bedeutung der Variablen",
+        dataSource: "Datenquelle", dataYear: "Datenjahr", definition: "Definition", unit: "Einheit",
+        result: "Ergebnis", notApplicable: "nicht zutreffend", invalidValue: "Ungültiger Wert", divisionByZero: "Division durch Null ist nicht erlaubt"
       },
       en: {
         appTitle: "Smart City Benchmarking",
         appSubtitle: "Digital comparison of municipal infrastructure and public services",
-        dashboard: "Dashboard", municipalities: "Municipalities", comparison: "Comparison", ranking: "Ranking", maps: "Maps",
+        dashboard: "Dashboard", municipalities: "Municipalities", comparison: "Comparison", ranking: "Ranking", maps: "Maps", calculator: "KPI Calculator",
         methodology: "Methodology", data: "Data", api: "API", ai: "AI", login: "Login", logout: "Logout",
         overallScore: "Overall Score", strongestKpi: "Strongest KPI", weakestKpi: "Weakest KPI", dataCompleteness: "Data Completeness",
         lastUpdate: "Last Update", rawValue: "Raw Value", score: "Score", status: "Status", source: "Source",
@@ -154,7 +163,14 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         presentationMode: "Presentation Mode", aiDemo: "AI Demo", aiDemoNote: "This is a demo mode without connection to external AI services.",
         export: "Export", formulaReference: "Formula Reference", stakeholderView: "Stakeholder View",
         profile: "Profile", csvIndicators: "CSV Indicators", interpretation: "Interpretation",
-        exportPdf: "Export PDF", exportExcel: "Export Excel", exportCsv: "Export CSV"
+        exportPdf: "Export PDF", exportExcel: "Export Excel", exportCsv: "Export CSV",
+        selectMunicipality: "Select municipality", selectKpi: "Select KPI", calculate: "Calculate",
+        calculatedValue: "Calculated value", officialValue: "Official value", difference: "Difference",
+        percentagePoints: "percentage points", toleranceWarning: "The difference is larger than expected. Please review the input values and data basis.",
+        missingValue: "Value missing", enterManually: "Please enter manually", viewMethodology: "View Methodology",
+        inputValues: "Input values", calculationSteps: "Calculation steps", variableExplanation: "Meaning of variables",
+        dataSource: "Data source", dataYear: "Data year", definition: "Definition", unit: "Unit",
+        result: "Result", notApplicable: "not applicable", invalidValue: "Invalid value", divisionByZero: "Division by zero is not allowed"
       }
     };
     const useT = () => {
@@ -405,6 +421,25 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       const score = scores[municipality.id].kpis[kpi.id];
       const info = statusInfo(score, kpi.thresholds);
       const isDe = currentLang === "de";
+      // Compute calculation values per sub-indicator
+      const calcSubs = kpi.subIndicators.map(sub => {
+        const sv = v.sub[sub.id];
+        const allRaw = BENCHMARK_DATA.municipalities.map(m => {
+          const val = BENCHMARK_DATA.values[m.id] && BENCHMARK_DATA.values[m.id][kpi.id] && BENCHMARK_DATA.values[m.id][kpi.id].sub ? BENCHMARK_DATA.values[m.id][kpi.id].sub[sub.id].raw : null;
+          return val;
+        }).filter(r => r !== null && r !== undefined);
+        const min = allRaw.length ? Math.min(...allRaw) : null;
+        const max = allRaw.length ? Math.max(...allRaw) : null;
+        let norm = null;
+        let weighted = null;
+        if (sv.raw !== null && sv.raw !== undefined && min !== null && max !== null && min !== max) {
+          norm = sub.higherIsBetter ? ((sv.raw - min) / (max - min)) * 100 : ((max - sv.raw) / (max - min)) * 100;
+          weighted = norm * sub.weight;
+        }
+        return { sub, sv, min, max, norm, weighted };
+      });
+      const totalWeight = calcSubs.reduce((sum, s) => s.norm !== null ? sum + s.sub.weight : sum, 0);
+      const totalWeighted = calcSubs.reduce((sum, s) => s.weighted !== null ? sum + s.weighted : sum, 0);
       return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 card-shadow" onClick={e => e.stopPropagation()}>
@@ -425,9 +460,30 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             <p className="text-gray-700 mb-4">{kpi.description[currentLang]}</p>
             <h3 className="font-semibold mb-2">{isDe ? "Formel" : "Formula"}</h3>
             <div className="font-mono text-sm bg-slate-50 p-3 rounded-lg mb-4 overflow-x-auto">{kpi.formula}</div>
+            <h3 className="font-semibold mb-2">{isDe ? "Berechnung" : "Calculation"}</h3>
+            <div className="font-mono text-sm bg-slate-50 p-3 rounded-lg mb-4 overflow-x-auto">
+              {calcSubs.map(({ sub, sv, min, max, norm, weighted }, idx) => {
+                if (sv.raw === null || sv.raw === undefined || min === null || max === null || min === max) {
+                  return <div key={sub.id} className={idx > 0 ? "mt-2 pt-2 border-t border-gray-200" : ""}>{sub.name[currentLang] || sub.name}: {isDe ? "Keine Berechnung möglich" : "No calculation possible"}</div>;
+                }
+                const formulaText = sub.higherIsBetter ? (isDe ? "(Wert − Min) / (Max − Min) × 100" : "(Value − Min) / (Max − Min) × 100") : (isDe ? "(Max − Wert) / (Max − Min) × 100" : "(Max − Value) / (Max − Min) × 100");
+                const substText = sub.higherIsBetter ? `(${fmt(sv.raw,2)} − ${fmt(min,2)}) / (${fmt(max,2)} − ${fmt(min,2)}) × 100 = ${fmt(norm,1)}%` : `(${fmt(max,2)} − ${fmt(sv.raw,2)}) / (${fmt(max,2)} − ${fmt(min,2)}) × 100 = ${fmt(norm,1)}%`;
+                return (
+                  <div key={sub.id} className={idx > 0 ? "mt-2 pt-2 border-t border-gray-200" : ""}>
+                    <div className="font-semibold">{sub.name[currentLang] || sub.name}</div>
+                    <div className="pl-2">{isDe ? "Normierung" : "Normalization"}: {formulaText}</div>
+                    <div className="pl-2">{substText}</div>
+                    <div className="pl-2">{isDe ? "Gewichteter Beitrag" : "Weighted contribution"}: {fmt(norm,1)}% × {fmt(sub.weight*100,0)}% = {fmt(weighted,2)}</div>
+                  </div>
+                );
+              })}
+              <div className="mt-3 pt-2 border-t border-gray-400 font-semibold">
+                {isDe ? "Kategorie-Score" : "Category score"} = {totalWeighted > 0 ? `${fmt(totalWeighted,2)} / ${fmt(totalWeight,2)} = ${fmt(score,1)}` : (isDe ? "nicht berechenbar" : "not calculable")}
+              </div>
+            </div>
             <h3 className="font-semibold mb-2">{isDe ? "Rohdaten und Quellen" : "Raw data and sources"}</h3>
             <table className="w-full text-sm mb-4">
-              <thead><tr className="text-left text-muted border-b"><th className="pb-2">{isDe ? "Indikator" : "Indicator"}</th><th className="pb-2">{isDe ? "Rohwert" : "Raw value"}</th><th className="pb-2">{isDe ? "Normiert" : "Normalized"}</th><th className="pb-2">{isDe ? "Quelle" : "Source"}</th><th className="pb-2">{isDe ? "Jahr" : "Year"}</th></tr></thead>
+              <thead><tr className="text-left text-muted border-b"><th className="pb-2">{isDe ? "Indikator" : "Indicator"}</th><th className="pb-2">{isDe ? "Rohwert" : "Raw value"}</th><th className="pb-2">{isDe ? "Richtung" : "Direction"}</th><th className="pb-2">{isDe ? "Gewicht" : "Weight"}</th><th className="pb-2">{isDe ? "Normiert" : "Normalized"}</th><th className="pb-2">{isDe ? "Quelle" : "Source"}</th><th className="pb-2">{isDe ? "Jahr" : "Year"}</th></tr></thead>
               <tbody>
                 {kpi.subIndicators.map(sub => {
                   const sv = v.sub[sub.id];
@@ -435,6 +491,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                     <tr key={sub.id} className="border-b border-gray-50">
                       <td className="py-2 font-medium">{sub.name[currentLang] || sub.name}</td>
                       <td className="py-2">{sv.raw !== null && sv.raw !== undefined ? fmt(sv.raw, 2) + " " + sv.unit : <span className="text-gray-400 italic">{TRANSLATIONS[currentLang].noData}</span>}</td>
+                      <td className="py-2 text-xs">{sub.higherIsBetter ? (isDe ? "Höher ist besser" : "Higher is better") : (isDe ? "Niedriger ist besser" : "Lower is better")}</td>
+                      <td className="py-2 text-muted">{fmt(sub.weight*100,0)}%</td>
                       <td className="py-2">{sv.normalized !== null && sv.normalized !== undefined ? sv.normalized + "%" : "-"}</td>
                       <td className="py-2 text-muted">{sv.source || "-"}</td>
                       <td className="py-2 text-muted">{sv.date || "-"}</td>
@@ -444,6 +502,78 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
               </tbody>
             </table>
             <div className="text-xs text-muted">{isDe ? "Datenquelle KPI: " : "KPI data source: "}{kpi.source[currentLang] || kpi.source} · {isDe ? "Letztes Update: " : "Last update: "}{kpi.lastUpdate}</div>
+          </div>
+        </div>
+      );
+    };
+
+    const CategoryDetailModal = ({ kpi, onClose, scores }) => {
+      if (!kpi) return null;
+      const isDe = currentLang === "de";
+      // Min/max per sub-indicator for normalization
+      const subStats = kpi.subIndicators.map(sub => {
+        const allRaw = BENCHMARK_DATA.municipalities.map(m => {
+          const sv = BENCHMARK_DATA.values && BENCHMARK_DATA.values[m.id] && BENCHMARK_DATA.values[m.id][kpi.id] && BENCHMARK_DATA.values[m.id][kpi.id].sub ? BENCHMARK_DATA.values[m.id][kpi.id].sub[sub.id] : { raw: null };
+          return sv.raw;
+        }).filter(r => r !== null && r !== undefined);
+        return { sub, min: allRaw.length ? Math.min(...allRaw) : null, max: allRaw.length ? Math.max(...allRaw) : null };
+      });
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
+          <div className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 card-shadow" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-ink">{kpi.name[currentLang]}</h2>
+                <div className="text-muted text-sm">{isDe ? "Vergleich aller Kommunen" : "Comparison of all municipalities"}</div>
+              </div>
+              <button onClick={onClose} className="text-2xl text-gray-400 hover:text-ink">×</button>
+            </div>
+            <p className="text-gray-700 mb-4">{kpi.description[currentLang]}</p>
+            <div className="mb-4 p-4 rounded-xl bg-paper border border-gray-100">
+              <h3 className="font-semibold mb-2">{isDe ? "Formel" : "Formula"}</h3>
+              <div className="font-mono text-sm bg-white border border-gray-200 p-3 rounded-lg overflow-x-auto mb-3">{kpi.formula}</div>
+              <h3 className="font-semibold mb-2">{isDe ? "Normierung je Indikator" : "Normalization per indicator"}</h3>
+              <div className="font-mono text-sm bg-white border border-gray-200 p-3 rounded-lg overflow-x-auto">
+                {subStats.map(({ sub, min, max }, idx) => {
+                  if (min === null || max === null || min === max) return <div key={sub.id}>{sub.name[currentLang] || sub.name}: {isDe ? "keine Varianz" : "no variance"}</div>;
+                  const dir = sub.higherIsBetter ? (isDe ? "Höher ist besser" : "Higher is better") : (isDe ? "Niedriger ist besser" : "Lower is better");
+                  const formula = sub.higherIsBetter ? (isDe ? "(Wert − Min) / (Max − Min) × 100" : "(Value − Min) / (Max − Min) × 100") : (isDe ? "(Max − Wert) / (Max − Min) × 100" : "(Max − Value) / (Max − Min) × 100");
+                  return <div key={sub.id}>{sub.name[currentLang] || sub.name}: {dir}, Min={fmt(min,2)}, Max={fmt(max,2)} → {formula}</div>;
+                })}
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[700px] text-sm">
+                <thead className="bg-paper">
+                  <tr className="text-left text-muted border-b">
+                    <th className="p-3">{isDe ? "Kommune" : "Municipality"}</th>
+                    <th className="p-3">{isDe ? "Gesamtscore" : "Total score"}</th>
+                    {kpi.subIndicators.map(sub => <th key={sub.id} className="p-3">{sub.name[currentLang] || sub.name}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {BENCHMARK_DATA.municipalities.map(m => {
+                    const score = scores && scores[m.id] && scores[m.id].kpis ? scores[m.id].kpis[kpi.id] : null;
+                    return (
+                      <tr key={m.id} className="border-b border-gray-50">
+                        <td className="p-3 font-medium">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</td>
+                        <td className="p-3"><TrafficLight score={score} thresholds={kpi.thresholds} /></td>
+                        {kpi.subIndicators.map(sub => {
+                          const sv = BENCHMARK_DATA.values && BENCHMARK_DATA.values[m.id] && BENCHMARK_DATA.values[m.id][kpi.id] && BENCHMARK_DATA.values[m.id][kpi.id].sub ? BENCHMARK_DATA.values[m.id][kpi.id].sub[sub.id] : { raw: null, normalized: null, unit: sub.unit };
+                          return (
+                            <td key={sub.id} className="p-3">
+                              <div className="font-mono">{sv.raw !== null && sv.raw !== undefined ? fmt(sv.raw, 2) + " " + sv.unit : <span className="text-gray-400 italic">{TRANSLATIONS[currentLang].noData}</span>}</div>
+                              <div className="text-xs text-muted">{sv.normalized !== null && sv.normalized !== undefined ? fmt(sv.normalized, 0) + "%" : "-"}</div>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="text-xs text-muted mt-4">{isDe ? "Datenquelle KPI: " : "KPI data source: "}{kpi.source[currentLang] || kpi.source} · {isDe ? "Letztes Update: " : "Last update: "}{kpi.lastUpdate}</div>
           </div>
         </div>
       );
@@ -460,6 +590,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         { to: "/compare", label: t("comparison") },
         { to: "/ranking", label: t("ranking") },
         { to: "/maps", label: t("maps") },
+        { to: "/calculator", label: t("calculator") },
         { to: "/methodology", label: t("methodology") },
         { to: "/catalogue", label: currentLang === "de" ? "KPI-Katalog" : "KPI Catalogue" },
         { to: "/ai", label: t("ai") },
@@ -555,7 +686,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       return <div ref={containerRef} style={{ height }} className="rounded-2xl border border-gray-100 w-full" />;
     };
 
-    const Dashboard = ({ scores, setModal, stakeholder, setStakeholder }) => {
+    const Dashboard = ({ scores, setModal, setCategoryModal, stakeholder, setStakeholder }) => {
       const { t } = useT();
       const isDe = currentLang === "de";
       const chartRef = useRef(null);
@@ -567,14 +698,14 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           data: {
             labels: BENCHMARK_DATA.municipalities.map(m => m.name[currentLang]),
             datasets: BENCHMARK_DATA.kpis.map((kpi, i) => (
-              { label: kpi.name[currentLang], data: BENCHMARK_DATA.municipalities.map(m => scores[m.id].kpis[kpi.id] || 0), backgroundColor: ["#064E3B", "#1A3A4A", "#D4A017", "#7A4E6D"][i] }
+              { label: kpi.name[currentLang], data: BENCHMARK_DATA.municipalities.map(m => scores && scores[m.id] && scores[m.id].kpis ? (scores[m.id].kpis[kpi.id] || 0) : 0), backgroundColor: ["#064E3B", "#1A3A4A", "#D4A017", "#7A4E6D"][i] }
             ))
           },
           options: { responsive: true, plugins: { legend: { position: "bottom" } }, scales: { y: { beginAtZero: true, max: 100 } } }
         });
         return () => chart.destroy();
       }, [scores]);
-      const sorted = [...BENCHMARK_DATA.municipalities].sort((a,b) => (scores[b.id].overall||0) - (scores[a.id].overall||0));
+      const sorted = [...BENCHMARK_DATA.municipalities].sort((a,b) => ((scores && scores[b.id] ? scores[b.id].overall : 0)||0) - ((scores && scores[a.id] ? scores[a.id].overall : 0)||0));
       return (
         <div>
           <section className="premium-gradient rounded-3xl p-8 md:p-12 text-white mb-8 hero-pattern">
@@ -599,29 +730,30 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                   <h3 className="text-lg font-bold text-ink mb-1">{kpi.name[currentLang]}</h3>
                   <p className="text-xs text-muted mb-3 line-clamp-2">{kpi.description[currentLang]}</p>
                   <div className="text-xs text-gray-500 mb-3">{isDe ? "Gewicht:" : "Weight:"} {fmt(kpi.weight*100,0)}%</div>
-                  <button onClick={()=>setModal({ kpi, municipality: BENCHMARK_DATA.municipalities[0] })} className="w-full py-1.5 text-sm font-medium text-forest bg-forest/5 rounded-lg hover:bg-forest/10">{isDe ? "Details anzeigen" : "Show details"}</button>
+                  <button onClick={()=>setCategoryModal({ kpi })} className="w-full py-1.5 text-sm font-medium text-forest bg-forest/5 rounded-lg hover:bg-forest/10">{isDe ? "Details anzeigen" : "Show details"}</button>
                 </div>
               );
             })}
           </section>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
             {BENCHMARK_DATA.municipalities.map(m => {
-              const sc = scores[m.id];
-              const kpisArr = BENCHMARK_DATA.kpis.map(k => ({ id: k.id, name: k.name[currentLang], score: sc.kpis[k.id] }));
-              const best = kpisArr.filter(k=>k.score!==null).sort((a,b)=>b.score-a.score)[0];
-              const worst = kpisArr.filter(k=>k.score!==null).sort((a,b)=>a.score-b.score)[0];
+              if (!m || !m.id) return null;
+              const sc = scores && scores[m.id] ? scores[m.id] : {};
+              const kpisArr = BENCHMARK_DATA.kpis.map(k => ({ id: k.id, name: k.name[currentLang], score: sc.kpis ? sc.kpis[k.id] : null }));
+              const best = kpisArr.filter(k=>k.score!==null && k.score!==undefined).sort((a,b)=>b.score-a.score)[0];
+              const worst = kpisArr.filter(k=>k.score!==null && k.score!==undefined).sort((a,b)=>a.score-b.score)[0];
               return (
                 <Link key={m.id} to={`/municipality/${m.id}`} className="bg-white rounded-2xl p-5 card-shadow border border-gray-100 block">
                   <div className="flex justify-between items-start mb-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{ background: m.color }}>{m.name[currentLang][0]}</div>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{ background: m.color || "#064E3B" }}>{m.name && m.name[currentLang] ? m.name[currentLang][0] : "?"}</div>
                     <ScoreRing score={sc.overall} size={56} stroke={5} />
                   </div>
-                  <h3 className="text-lg font-bold text-ink mb-1">{m.name[currentLang]}</h3>
-                  <div className="text-xs text-muted mb-3">{m.kreis} · {fmt(m.population)} EW</div>
+                  <h3 className="text-lg font-bold text-ink mb-1">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</h3>
+                  <div className="text-xs text-muted mb-3">{m.kreis || ""} · {fmt(m.population)} EW</div>
                   <div className="space-y-1 text-sm">
                     {best && <div className="flex justify-between"><span className="text-gray-500">{t("strongestKpi")}:</span><span className="font-medium text-good">{best.name}</span></div>}
                     {worst && <div className="flex justify-between"><span className="text-gray-500">{t("weakestKpi")}:</span><span className="font-medium text-low">{worst.name}</span></div>}
-                    <div className="flex justify-between"><span className="text-gray-500">{t("dataCompleteness")}:</span><span className="font-medium">{sc.completeness}%</span></div>
+                    <div className="flex justify-between"><span className="text-gray-500">{t("dataCompleteness")}:</span><span className="font-medium">{sc.completeness !== undefined ? sc.completeness + "%" : "-"}</span></div>
                   </div>
                 </Link>
               );
@@ -635,15 +767,19 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             <div className="bg-white rounded-2xl p-6 card-shadow border border-gray-100">
               <h2 className="text-xl font-bold text-ink mb-4">{t("ranking")}</h2>
               <ol className="space-y-3">
-                {sorted.map((m, i) => (
-                  <li key={m.id} className="flex items-center justify-between p-3 rounded-xl bg-paper">
-                    <div className="flex items-center gap-3">
-                      <span className="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-bold">{i+1}</span>
-                      <span className="font-medium">{m.name[currentLang]}</span>
-                    </div>
-                    <span className="font-bold" style={{ color: statusInfo(scores[m.id].overall, BENCHMARK_DATA.config.scoreThresholds).color }}>{scores[m.id].overall !== null ? scores[m.id].overall + "%" : "-"}</span>
-                  </li>
-                ))}
+                {sorted.map((m, i) => {
+                  if (!m || !m.id) return null;
+                  const ov = scores && scores[m.id] ? scores[m.id].overall : null;
+                  return (
+                    <li key={m.id} className="flex items-center justify-between p-3 rounded-xl bg-paper">
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 h-6 rounded-full bg-forest text-white text-xs flex items-center justify-center font-bold">{i+1}</span>
+                        <span className="font-medium">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</span>
+                      </div>
+                      <span className="font-bold" style={{ color: statusInfo(ov, BENCHMARK_DATA.config.scoreThresholds).color }}>{ov !== null && ov !== undefined ? ov + "%" : "-"}</span>
+                    </li>
+                  );
+                })}
               </ol>
             </div>
           </section>
@@ -684,7 +820,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
               <thead className="bg-paper">
                 <tr>
                   <th className="text-left p-4 font-semibold text-ink">{isDe ? "Kennzahl" : "Indicator"}</th>
-                  {BENCHMARK_DATA.municipalities.map(m => <th key={m.id} className="p-4 text-center font-semibold text-ink">{m.name[currentLang]}</th>)}
+                  {BENCHMARK_DATA.municipalities.map(m => m && m.id ? <th key={m.id} className="p-4 text-center font-semibold text-ink">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</th> : null)}
                 </tr>
               </thead>
               <tbody>
@@ -696,14 +832,15 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                       <button onClick={()=>setModal({ kpi, municipality: BENCHMARK_DATA.municipalities[0] })} className="text-xs text-forest hover:underline mt-1">{t("howCalculated")}</button>
                     </td>
                     {BENCHMARK_DATA.municipalities.map(m => {
-                      const score = scores[m.id].kpis[kpi.id];
+                      if (!m || !m.id) return null;
+                      const score = scores && scores[m.id] && scores[m.id].kpis ? scores[m.id].kpis[kpi.id] : null;
                       return (
                         <td key={m.id} className="p-4 align-top">
                           <div className="flex flex-col items-center gap-2">
                             {!showRaw ? (
                               <TrafficLight score={score} thresholds={kpi.thresholds} />
                             ) : (
-                              <div className="text-center font-mono font-medium">{score !== null && score !== undefined ? score + " " + kpi.unit[currentLang] : <span className="text-gray-400 italic">{t("noData")}</span>}</div>
+                              <div className="text-center font-mono font-medium">{score !== null && score !== undefined ? score + " " + (kpi.unit[currentLang] || "") : <span className="text-gray-400 italic">{t("noData")}</span>}</div>
                             )}
                             <button onClick={()=>setModal({ kpi, municipality: m })} className="text-xs text-gray-400 hover:text-forest">{isDe ? "Details" : "Details"}</button>
                           </div>
@@ -718,7 +855,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                       <div className="text-xs text-muted">{ind.categoryName} · {fmt(ind.weight*100,1)}%</div>
                     </td>
                     {BENCHMARK_DATA.municipalities.map(m => {
-                      const sv = scores[m.id][ind.categoryId].sub[ind.id];
+                      if (!m || !m.id) return null;
+                      const sv = scores && scores[m.id] && scores[m.id][ind.categoryId] && scores[m.id][ind.categoryId].sub ? scores[m.id][ind.categoryId].sub[ind.id] : { raw: null, normalized: null, unit: ind.unit };
                       return (
                         <td key={m.id} className="p-4 align-top">
                           <div className="flex flex-col items-center gap-1">
@@ -754,14 +892,14 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           <div className="bg-white rounded-2xl p-6 card-shadow border border-gray-100 mb-6">
             <h2 className="font-semibold mb-2">{isDe ? "Aktive Gewichtung" : "Active weights"}</h2>
             <div className="flex flex-wrap gap-3">
-              {BENCHMARK_DATA.kpis.map(k => <span key={k.id} className="px-3 py-1 rounded-lg bg-paper text-sm">{k.name[currentLang]}: {fmt((categoryWeights[k.id] ?? k.weight)*100,0)}%</span>)}
+              {BENCHMARK_DATA.kpis.map(k => <span key={k.id} className="px-3 py-1 rounded-lg bg-paper text-sm">{k.name[currentLang]}: {fmt((categoryWeights && categoryWeights[k.id] !== undefined ? categoryWeights[k.id] : k.weight)*100,0)}%</span>)}
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {categories.map(cat => {
               const list = [...BENCHMARK_DATA.municipalities].sort((a,b) => {
-                const av = cat.id === "overall" ? scores[a.id].overall : scores[a.id].kpis[cat.id];
-                const bv = cat.id === "overall" ? scores[b.id].overall : scores[b.id].kpis[cat.id];
+                const av = cat.id === "overall" ? (scores && scores[a.id] ? scores[a.id].overall : null) : (scores && scores[a.id] && scores[a.id].kpis ? scores[a.id].kpis[cat.id] : null);
+                const bv = cat.id === "overall" ? (scores && scores[b.id] ? scores[b.id].overall : null) : (scores && scores[b.id] && scores[b.id].kpis ? scores[b.id].kpis[cat.id] : null);
                 return (bv||0) - (av||0);
               });
               return (
@@ -769,15 +907,16 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                   <h3 className="font-bold text-ink mb-3">{cat.name}</h3>
                   <ol className="space-y-2">
                     {list.map((m, i) => {
-                      const score = cat.id === "overall" ? scores[m.id].overall : scores[m.id].kpis[cat.id];
+                      if (!m || !m.id) return null;
+                      const score = cat.id === "overall" ? (scores && scores[m.id] ? scores[m.id].overall : null) : (scores && scores[m.id] && scores[m.id].kpis ? scores[m.id].kpis[cat.id] : null);
                       const info = statusInfo(score, BENCHMARK_DATA.config.scoreThresholds);
                       return (
                         <li key={m.id} className="flex items-center justify-between p-2 rounded-lg bg-paper">
                           <div className="flex items-center gap-2">
                             <span className="w-5 h-5 rounded-full bg-white border border-gray-200 text-xs flex items-center justify-center font-bold">{i+1}</span>
-                            <span className="text-sm font-medium">{m.name[currentLang]}</span>
+                            <span className="text-sm font-medium">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</span>
                           </div>
-                          <span className="text-sm font-bold" style={{ color: info.color }}>{score !== null ? score + "%" : "-"}</span>
+                          <span className="text-sm font-bold" style={{ color: info.color }}>{score !== null && score !== undefined ? score + "%" : "-"}</span>
                         </li>
                       );
                     })}
@@ -794,13 +933,27 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       const { t } = useT();
       const isDe = currentLang === "de";
       const [openId, setOpenId] = useState(null);
+      useEffect(() => {
+        const saved = localStorage.getItem("methodologyOpen");
+        if (saved) {
+          const match = BENCHMARK_DATA.kpis.find(k => k.id === saved);
+          if (match) setOpenId(saved);
+          localStorage.removeItem("methodologyOpen");
+        }
+      }, []);
+      useEffect(() => {
+        if (openId) {
+          const el = document.getElementById(`methodology-${openId}`);
+          if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+        }
+      }, [openId]);
       return (
         <div>
           <h1 className="text-3xl font-bold text-ink mb-2">{t("methodology")}</h1>
           <p className="text-gray-600 mb-8">{isDe ? "Transparente Dokumentation aller Berechnungsmethoden." : "Transparent documentation of all calculation methods."}</p>
           <div className="space-y-4">
             {BENCHMARK_DATA.kpis.map(kpi => (
-              <div key={kpi.id} className="bg-white rounded-2xl card-shadow border border-gray-100 overflow-hidden">
+              <div key={kpi.id} id={`methodology-${kpi.id}`} className="bg-white rounded-2xl card-shadow border border-gray-100 overflow-hidden">
                 <button onClick={()=>setOpenId(openId===kpi.id?null:kpi.id)} className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold" style={{ background: ["#064E3B", "#1A3A4A", "#D4A017", "#7A4E6D"][BENCHMARK_DATA.kpis.indexOf(kpi)] }}>{kpi.name[currentLang][0]}</div>
@@ -847,21 +1000,331 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       );
     };
 
+    // --- KPI Calculator configurations ---
+    const CALCULATORS = [
+      {
+        id: "beschaeftigtenquote",
+        category: "daseinsvorsorge",
+        name: { de: "Beschäftigtenquote", en: "Employment rate" },
+        description: { de: "Anteil der Beschäftigten an der Bevölkerung im erwerbsfähigen Alter.", en: "Share of employed people in the working-age population." },
+        formula: { de: "Beschäftigte / Bevölkerung im erwerbsfähigen Alter × 100", en: "Employed / working-age population × 100" },
+        unit: "%",
+        higherIsBetter: true,
+        tolerance: 1.0,
+        inputs: [
+          { id: "beschaeftigte", name: { de: "Beschäftigte", en: "Employed" }, source: null, explanation: { de: "Anzahl der erwerbstätigen Personen.", en: "Number of employed persons." }, min: 0 },
+          { id: "erwerbsfaehige", name: { de: "Bevölkerung im erwerbsfähigen Alter", en: "Working-age population" }, source: null, explanation: { de: "Bevölkerung zwischen 15 und 64 Jahren.", en: "Population aged 15 to 64." }, min: 0 }
+        ],
+        officialComparison: { indicatorId: "beschaeftigtenquote", unit: "%" },
+        calculate: (vals, isDe) => {
+          const result = (vals.beschaeftigte / vals.erwerbsfaehige) * 100;
+          return {
+            result,
+            steps: [
+              isDe ? "Beschäftigtenquote = Beschäftigte / Bevölkerung im erwerbsfähigen Alter × 100" : "Employment rate = Employed / working-age population × 100",
+              `= ${fmt(vals.beschaeftigte, 0)} / ${fmt(vals.erwerbsfaehige, 0)} × 100`,
+              `= ${fmt(result / 100, 4)} × 100`,
+              `= ${fmt(result, 2)}%`
+            ]
+          };
+        }
+      },
+      {
+        id: "arbeitslosenquote",
+        category: "daseinsvorsorge",
+        name: { de: "Arbeitslosenquote", en: "Unemployment rate" },
+        description: { de: "Anteil der Arbeitslosen an den Erwerbspersonen. Nicht auf Basis der Gesamtbevölkerung.", en: "Share of unemployed people in the labour force. Not based on total population." },
+        formula: { de: "Arbeitslose / Erwerbspersonen × 100", en: "Unemployed / labour force × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        tolerance: 1.0,
+        inputs: [
+          { id: "arbeitslose", name: { de: "Arbeitslose", en: "Unemployed" }, source: "arbeitslose", explanation: { de: "Anzahl der Arbeitslosen.", en: "Number of unemployed persons." }, min: 0 },
+          { id: "erwerbspersonen", name: { de: "Erwerbspersonen", en: "Labour force" }, source: null, explanation: { de: "Erwerbspersonen (Erwerbstätige + Arbeitslose). Muss manuell eingegeben werden.", en: "Labour force (employed + unemployed). Must be entered manually." }, min: 0 }
+        ],
+        officialComparison: null,
+        info: { de: "Die Arbeitslosenquote wird auf Basis der Erwerbspersonen berechnet, nicht auf Basis der Gesamtbevölkerung.", en: "The unemployment rate is calculated using the labour force, not the total population." },
+        calculate: (vals, isDe) => {
+          const result = (vals.arbeitslose / vals.erwerbspersonen) * 100;
+          return {
+            result,
+            steps: [
+              isDe ? "Arbeitslosenquote = Arbeitslose / Erwerbspersonen × 100" : "Unemployment rate = Unemployed / labour force × 100",
+              `= ${fmt(vals.arbeitslose, 0)} / ${fmt(vals.erwerbspersonen, 0)} × 100`,
+              `= ${fmt(result / 100, 4)} × 100`,
+              `= ${fmt(result, 2)}%`
+            ]
+          };
+        }
+      },
+      {
+        id: "arbeitslose_pro_1000",
+        category: "daseinsvorsorge",
+        name: { de: "Arbeitslose je 1.000 Einwohner", en: "Unemployed per 1,000 inhabitants" },
+        description: { de: "Anzahl der Arbeitslosen bezogen auf 1.000 Einwohner.", en: "Number of unemployed persons per 1,000 inhabitants." },
+        formula: { de: "Arbeitslose / Bevölkerung × 1.000", en: "Unemployed / population × 1,000" },
+        unit: { de: "je 1.000 EW", en: "per 1,000 inh." },
+        higherIsBetter: false,
+        tolerance: 0.5,
+        inputs: [
+          { id: "arbeitslose", name: { de: "Arbeitslose", en: "Unemployed" }, source: "arbeitslose", explanation: { de: "Anzahl der Arbeitslosen.", en: "Number of unemployed persons." }, min: 0 },
+          { id: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, source: "bevoelkerung", explanation: { de: "Gesamtbevölkerung der Kommune.", en: "Total population of the municipality." }, min: 0 }
+        ],
+        officialComparison: null,
+        calculate: (vals, isDe) => {
+          const result = (vals.arbeitslose / vals.bevoelkerung) * 1000;
+          return {
+            result,
+            steps: [
+              isDe ? "Arbeitslose je 1.000 Einwohner = Arbeitslose / Bevölkerung × 1.000" : "Unemployed per 1,000 inhabitants = Unemployed / population × 1,000",
+              `= ${fmt(vals.arbeitslose, 0)} / ${fmt(vals.bevoelkerung, 0)} × 1.000`,
+              `= ${fmt(result / 1000, 6)} × 1.000`,
+              `= ${fmt(result, 2)}`
+            ]
+          };
+        }
+      },
+      {
+        id: "kaufkraft_pro_ew",
+        category: "daseinsvorsorge",
+        name: { de: "Kaufkraft je Einwohner", en: "Purchasing power per inhabitant" },
+        description: { de: "Verfügbares Einkommen der Kommune dividiert durch die Bevölkerung.", en: "Disposable income of the municipality divided by population." },
+        formula: { de: "verfügbares Einkommen / Bevölkerung", en: "disposable income / population" },
+        unit: "EUR/EW",
+        higherIsBetter: true,
+        tolerance: 100000,
+        inputs: [
+          { id: "einkommen", name: { de: "verfügbares Einkommen", en: "disposable income" }, source: "kaufkraft", explanation: { de: "Verfügbares Einkommen der Kommune (vom CSV-Wert 'Kaufkraft' übernommen).", en: "Disposable income of the municipality (prefilled from CSV value 'Kaufkraft')." }, min: 0 },
+          { id: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, source: "bevoelkerung", explanation: { de: "Gesamtbevölkerung der Kommune.", en: "Total population of the municipality." }, min: 0 }
+        ],
+        officialComparison: { indicatorId: "kaufkraft", unit: "EUR/EW" },
+        calculate: (vals, isDe) => {
+          const result = vals.einkommen / vals.bevoelkerung;
+          return {
+            result,
+            steps: [
+              isDe ? "Kaufkraft je Einwohner = verfügbares Einkommen / Bevölkerung" : "Purchasing power per inhabitant = disposable income / population",
+              `= ${fmt(vals.einkommen, 2)} / ${fmt(vals.bevoelkerung, 0)}`,
+              `= ${fmt(result, 2)} EUR/EW`
+            ]
+          };
+        }
+      }
+    ];
+
+    const KpiCalculator = () => {
+      const { t } = useT();
+      const isDe = currentLang === "de";
+      const [municipalityId, setMunicipalityId] = useState("");
+      const [calculatorId, setCalculatorId] = useState("");
+      const [inputs, setInputs] = useState({});
+      const [result, setResult] = useState(null);
+      const [error, setError] = useState(null);
+
+      const selectedMunicipality = municipalityId ? BENCHMARK_DATA.municipalities.find(m => m.id === municipalityId) : null;
+      const selectedCalc = calculatorId ? CALCULATORS.find(c => c.id === calculatorId) : null;
+      const unitText = (u) => {
+        if (!u) return "";
+        return typeof u === "object" ? (u[isDe ? "de" : "en"] || "") : u;
+      };
+
+      const getIndicatorValue = (indicatorId) => {
+        if (!selectedMunicipality || !indicatorId) return null;
+        const ind = BENCHMARK_DATA.values[selectedMunicipality.id] && BENCHMARK_DATA.values[selectedMunicipality.id].indicators ? BENCHMARK_DATA.values[selectedMunicipality.id].indicators[indicatorId] : null;
+        return ind && ind.raw !== undefined && ind.raw !== null ? ind.raw : null;
+      };
+
+      const getIndicatorMeta = (indicatorId) => {
+        if (!selectedMunicipality || !indicatorId) return null;
+        const ind = BENCHMARK_DATA.values[selectedMunicipality.id] && BENCHMARK_DATA.values[selectedMunicipality.id].indicators ? BENCHMARK_DATA.values[selectedMunicipality.id].indicators[indicatorId] : null;
+        return ind ? { source: ind.source || "", date: ind.date || "" } : null;
+      };
+
+      useEffect(() => {
+        if (!selectedCalc || !selectedMunicipality) {
+          setInputs({});
+          setResult(null);
+          setError(null);
+          return;
+        }
+        const prefilled = {};
+        selectedCalc.inputs.forEach(input => {
+          const val = input.source ? getIndicatorValue(input.source) : null;
+          prefilled[input.id] = val !== null && val !== undefined ? String(val).replace(".", ",") : "";
+        });
+        setInputs(prefilled);
+        setResult(null);
+        setError(null);
+      }, [municipalityId, calculatorId]);
+
+      const handleInputChange = (inputId, value) => {
+        setInputs(prev => ({ ...prev, [inputId]: value }));
+        setResult(null);
+        setError(null);
+      };
+
+      const parseInput = (value) => {
+        if (value === "" || value === null || value === undefined) return null;
+        const normalized = String(value).replace(/\./g, "").replace(",", ".");
+        const num = parseFloat(normalized);
+        return isNaN(num) ? NaN : num;
+      };
+
+      const handleCalculate = () => {
+        if (!selectedCalc) return;
+        const values = {};
+        const missing = [];
+        const invalid = [];
+        for (const input of selectedCalc.inputs) {
+          const raw = inputs[input.id];
+          if (raw === "" || raw === null || raw === undefined) {
+            missing.push(input.name[isDe ? "de" : "en"]);
+            continue;
+          }
+          const num = parseInput(raw);
+          if (isNaN(num)) {
+            invalid.push(input.name[isDe ? "de" : "en"]);
+            continue;
+          }
+          if (input.min !== undefined && num < input.min) {
+            invalid.push(input.name[isDe ? "de" : "en"]);
+            continue;
+          }
+          if (input.id === "erwerbsfaehige" || input.id === "erwerbspersonen" || input.id === "bevoelkerung") {
+            if (num === 0) {
+              setError(t("divisionByZero"));
+              setResult(null);
+              return;
+            }
+          }
+          values[input.id] = num;
+        }
+        if (missing.length) {
+          setError((isDe ? "Folgende Werte fehlen: " : "Missing values: ") + missing.join(", "));
+          setResult(null);
+          return;
+        }
+        if (invalid.length) {
+          setError((isDe ? "Ungültige Werte: " : "Invalid values: ") + invalid.join(", "));
+          setResult(null);
+          return;
+        }
+        const calcResult = selectedCalc.calculate(values, isDe);
+        setResult(calcResult);
+        setError(null);
+      };
+
+      const renderOfficialComparison = () => {
+        if (!selectedCalc || !selectedCalc.officialComparison || !result) return null;
+        const official = getIndicatorValue(selectedCalc.officialComparison.indicatorId);
+        if (official === null || official === undefined) return <div className="text-sm text-muted mt-2">{t("noData")}</div>;
+        const diff = result.result - official;
+        const absDiff = Math.abs(diff);
+        const warn = absDiff > selectedCalc.tolerance;
+        return (
+          <div className="mt-4 p-4 rounded-xl bg-paper border border-gray-100">
+            <h4 className="font-semibold mb-2">{isDe ? "Vergleich mit offiziellem Wert" : "Comparison with official value"}</h4>
+                    <div className="text-sm">{t("officialValue")}: {fmt(official, 2)} {selectedCalc.officialComparison.unit}</div>
+                    <div className="text-sm">{t("calculatedValue")}: {fmt(result.result, 2)} {unitText(selectedCalc.unit)}</div>
+                    <div className="text-sm">{t("difference")}: {fmt(absDiff, 2)} {unitText(selectedCalc.unit) === "%" ? t("percentagePoints") : unitText(selectedCalc.unit)}</div>
+            {warn && <div className="text-sm text-low mt-2">{t("toleranceWarning")}</div>}
+          </div>
+        );
+      };
+
+      const goToMethodology = () => {
+        if (selectedCalc) localStorage.setItem("methodologyOpen", selectedCalc.category);
+        window.location.hash = "#/methodology";
+      };
+
+      return (
+        <div>
+          <h1 className="text-3xl font-bold text-ink mb-2">{t("calculator")}</h1>
+          <p className="text-gray-600 mb-6">{isDe ? "Berechnen Sie ausgewählte Kennzahlen selbst und vergleichen Sie sie mit den offiziellen Werten." : "Calculate selected KPIs yourself and compare them with official values."}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <label className="block text-sm font-medium mb-1">{t("selectMunicipality")}</label>
+              <select value={municipalityId} onChange={e=>setMunicipalityId(e.target.value)} className="w-full border border-gray-300 rounded-lg p-2">
+                <option value="">{isDe ? "Bitte wählen" : "Please select"}</option>
+                {BENCHMARK_DATA.municipalities.map(m => <option key={m.id} value={m.id}>{m.name[currentLang]}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">{t("selectKpi")}</label>
+              <select value={calculatorId} onChange={e=>setCalculatorId(e.target.value)} className="w-full border border-gray-300 rounded-lg p-2">
+                <option value="">{isDe ? "Bitte wählen" : "Please select"}</option>
+                {CALCULATORS.map(c => <option key={c.id} value={c.id}>{c.name[currentLang]}</option>)}
+              </select>
+            </div>
+          </div>
+          {selectedCalc && selectedMunicipality && (
+            <div className="bg-white rounded-2xl p-6 card-shadow border border-gray-100 mb-6">
+              <h2 className="text-xl font-bold text-ink mb-2">{selectedCalc.name[currentLang]}</h2>
+              <p className="text-gray-700 mb-4">{selectedCalc.description[currentLang]}</p>
+              {selectedCalc.info && <div className="mb-4 p-3 rounded-lg bg-blue-50 text-sm text-blue-900">{selectedCalc.info[isDe ? "de" : "en"]}</div>}
+              <div className="mb-4 p-4 rounded-xl bg-paper border border-gray-100">
+                <h3 className="font-semibold mb-2">{isDe ? "Formel" : "Formula"}</h3>
+                <div className="font-mono text-sm bg-white border border-gray-200 p-3 rounded-lg overflow-x-auto">{selectedCalc.formula[currentLang]}</div>
+              </div>
+              <h3 className="font-semibold mb-2">{t("inputValues")}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                {selectedCalc.inputs.map(input => {
+                  const officialValue = input.source ? getIndicatorValue(input.source) : null;
+                  const meta = input.source ? getIndicatorMeta(input.source) : null;
+                  return (
+                    <div key={input.id}>
+                      <label className="block text-sm font-medium mb-1">{input.name[currentLang]}</label>
+                      <input type="text" value={inputs[input.id] || ""} onChange={e=>handleInputChange(input.id, e.target.value)} className="w-full border border-gray-300 rounded-lg p-2" placeholder={officialValue !== null ? fmt(officialValue, 2) : t("enterManually")} />
+                      <div className="text-xs text-muted mt-1">{input.explanation[currentLang]}</div>
+                      {input.source && officialValue !== null && meta && <div className="text-xs text-forest mt-1">{t("source")}: {meta.source} {meta.date ? "· " + meta.date : ""}</div>}
+                      {input.source && officialValue === null && <div className="text-xs text-low mt-1">{t("noData")} · {t("enterManually")}</div>}
+                      {!input.source && <div className="text-xs text-muted mt-1">{t("enterManually")}</div>}
+                    </div>
+                  );
+                })}
+              </div>
+              <button onClick={handleCalculate} className="px-4 py-2 bg-forest text-white rounded-lg hover:bg-forest/90">{t("calculate")}</button>
+              {error && <div className="mt-4 text-low text-sm">{error}</div>}
+              {result && (
+                <div className="mt-6">
+                  <div className="p-4 rounded-xl bg-paper border border-gray-100 mb-4">
+                    <h3 className="font-semibold mb-2">{t("result")}</h3>
+                    <div className="text-2xl font-bold text-ink">{fmt(result.result, 2)} {unitText(selectedCalc.unit)}</div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-paper border border-gray-100 mb-4">
+                    <h3 className="font-semibold mb-2">{t("calculationSteps")}</h3>
+                    {result.steps.map((step, idx) => <div key={idx} className="font-mono text-sm mb-1">{step}</div>)}
+                  </div>
+                  {renderOfficialComparison()}
+                  <div className="mt-4">
+                    <button onClick={goToMethodology} className="text-sm text-forest hover:underline">{t("viewMethodology")}</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      );
+    };
+
     const MapsPage = () => {
       const { t } = useT();
       return (
         <div>
           <h1 className="text-3xl font-bold text-ink mb-6">{t("maps")}</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {BENCHMARK_DATA.municipalities.map(m => (
-              <Link key={m.id} to={`/municipality/${m.id}`} className="block bg-white rounded-2xl p-4 card-shadow border border-gray-100 hover:shadow-lg transition">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: m.color }}>{m.name[currentLang][0]}</div>
-                  <h3 className="font-bold text-ink">{m.name[currentLang]}</h3>
-                </div>
-                <MunicipalityMap municipality={m} height="250px" />
-              </Link>
-            ))}
+            {BENCHMARK_DATA.municipalities.map(m => {
+              if (!m || !m.id) return null;
+              return (
+                <Link key={m.id} to={`/municipality/${m.id}`} className="block bg-white rounded-2xl p-4 card-shadow border border-gray-100 hover:shadow-lg transition">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: m.color || "#064E3B" }}>{m.name && m.name[currentLang] ? m.name[currentLang][0] : "?"}</div>
+                    <h3 className="font-bold text-ink">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</h3>
+                  </div>
+                  <MunicipalityMap municipality={m} height="250px" />
+                </Link>
+              );
+            })}
           </div>
         </div>
       );
@@ -873,17 +1336,21 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         <div>
           <h1 className="text-3xl font-bold text-ink mb-6">{t("municipalities")}</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {BENCHMARK_DATA.municipalities.map(m => (
-              <Link key={m.id} to={`/municipality/${m.id}`} className="flex items-center gap-4 bg-white rounded-2xl p-5 card-shadow border border-gray-100 hover:shadow-lg transition">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-2xl" style={{ background: m.color }}>{m.name[currentLang][0]}</div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-ink text-lg">{m.name[currentLang]}</h3>
-                  <div className="text-sm text-muted mb-1">{m.kreis}</div>
-                  <div className="text-sm text-gray-600">{m.description[currentLang]}</div>
-                </div>
-                <ScoreRing score={scores[m.id].overall} size={60} stroke={5} />
-              </Link>
-            ))}
+            {BENCHMARK_DATA.municipalities.map(m => {
+              if (!m || !m.id) return null;
+              const ov = scores && scores[m.id] ? scores[m.id].overall : null;
+              return (
+                <Link key={m.id} to={`/municipality/${m.id}`} className="flex items-center gap-4 bg-white rounded-2xl p-5 card-shadow border border-gray-100 hover:shadow-lg transition">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-bold text-2xl" style={{ background: m.color || "#064E3B" }}>{m.name && m.name[currentLang] ? m.name[currentLang][0] : "?"}</div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-ink text-lg">{m.name && m.name[currentLang] ? m.name[currentLang] : m.id}</h3>
+                    <div className="text-sm text-muted mb-1">{m.kreis || ""}</div>
+                    <div className="text-sm text-gray-600">{m.description && m.description[currentLang] ? m.description[currentLang] : ""}</div>
+                  </div>
+                  <ScoreRing score={ov} size={60} stroke={5} />
+                </Link>
+              );
+            })}
           </div>
         </div>
       );
@@ -895,11 +1362,11 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       const { t } = useT();
       const isDe = currentLang === "de";
       const stakeholderObj = BENCHMARK_DATA.stakeholders[stakeholder];
-      if (!m) return <div className="text-center py-20">{t("noData")}</div>;
-      const sc = scores[m.id];
-      const kpisArr = BENCHMARK_DATA.kpis.map(k => ({ id: k.id, name: k.name[currentLang], score: sc.kpis[k.id] }));
-      const best = kpisArr.filter(k=>k.score!==null).sort((a,b)=>b.score-a.score)[0];
-      const worst = kpisArr.filter(k=>k.score!==null).sort((a,b)=>a.score-b.score)[0];
+      if (!m || !m.id) return <div className="text-center py-20">{t("noData")}</div>;
+      const sc = scores && scores[m.id] ? scores[m.id] : {};
+      const kpisArr = BENCHMARK_DATA.kpis.map(k => ({ id: k.id, name: k.name[currentLang], score: sc.kpis ? sc.kpis[k.id] : null }));
+      const best = kpisArr.filter(k=>k.score!==null && k.score!==undefined).sort((a,b)=>b.score-a.score)[0];
+      const worst = kpisArr.filter(k=>k.score!==null && k.score!==undefined).sort((a,b)=>a.score-b.score)[0];
       const priorityKpis = stakeholderObj.focus;
       const prioritySubIds = stakeholderObj.priorityIndicators;
       return (
@@ -907,15 +1374,15 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           <div className="premium-gradient rounded-3xl p-8 md:p-12 text-white mb-8 hero-pattern relative overflow-hidden">
             <div className="relative z-10 max-w-4xl">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
-                <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-4xl glass-card" style={{ background: m.color }}>{m.name[currentLang][0]}</div>
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-4xl glass-card" style={{ background: m.color || "#064E3B" }}>{m.name && m.name[currentLang] ? m.name[currentLang][0] : "?"}</div>
                 <div className="flex-1">
-                  <h1 className="text-4xl md:text-5xl font-bold mb-2">{m.name[currentLang]}</h1>
-                  <div className="text-emerald-100 text-lg">{m.kreis} · {fmt(m.population)} EW</div>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-2">{m.name && m.name[currentLang] ? m.name[currentLang] : (m.id || "-")}</h1>
+                  <div className="text-emerald-100 text-lg">{m.kreis || ""} · {fmt(m.population)} EW</div>
                 </div>
                 <div className="glass-card rounded-2xl p-5 flex flex-col items-center">
                   <div className="text-sm text-emerald-100 mb-1">{t("overallScore")}</div>
                   <ScoreRing score={sc.overall} size={100} stroke={10} />
-                  <div className="mt-2 font-semibold">{sc.completeness}% {t("dataCompleteness")}</div>
+                  <div className="mt-2 font-semibold">{sc.completeness !== undefined ? sc.completeness + "%" : "-"} {t("dataCompleteness")}</div>
                 </div>
               </div>
             </div>
@@ -932,11 +1399,11 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                 <h3 className="font-bold text-ink mb-3">{isDe ? "Kommunalprofil" : "Municipality Profile"}</h3>
                 <div className="space-y-2 text-sm">
                   {BENCHMARK_DATA.profileIndicators.map(pi => {
-                    const pv = BENCHMARK_DATA.values[m.id].profile[pi.id];
+                    const pv = BENCHMARK_DATA.values && BENCHMARK_DATA.values[m.id] && BENCHMARK_DATA.values[m.id].profile ? BENCHMARK_DATA.values[m.id].profile[pi.id] : null;
                     return (
                       <div key={pi.id} className="flex justify-between">
                         <span className="text-gray-500">{pi.name[currentLang]}</span>
-                        <span className="font-mono font-medium">{pv.raw !== null && pv.raw !== undefined ? fmt(pv.raw, pi.unit === "EUR/EW" ? 2 : 1) + " " + pv.unit : "-"}</span>
+                        <span className="font-mono font-medium">{pv && pv.raw !== null && pv.raw !== undefined ? fmt(pv.raw, pi.unit === "EUR/EW" ? 2 : 1) + " " + pv.unit : "-"}</span>
                       </div>
                     );
                   })}
@@ -954,8 +1421,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           <h2 className="text-2xl font-bold text-ink mb-4">{isDe ? "KPI-Übersicht" : "KPI Overview"}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
             {BENCHMARK_DATA.kpis.map(kpi => {
-              const score = sc.kpis[kpi.id];
-              const v = BENCHMARK_DATA.values[m.id][kpi.id];
+              const score = sc.kpis ? sc.kpis[kpi.id] : null;
+              const v = BENCHMARK_DATA.values && BENCHMARK_DATA.values[m.id] && BENCHMARK_DATA.values[m.id][kpi.id] ? BENCHMARK_DATA.values[m.id][kpi.id] : { sub: {} };
               const isPriority = priorityKpis.includes(kpi.id);
               return (
                 <div key={kpi.id} className={`bg-white rounded-2xl p-5 card-shadow border ${isPriority ? "border-forest/30 ring-1 ring-forest/10" : "border-gray-100"}`}>
@@ -988,14 +1455,19 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             <h2 className="text-xl font-bold text-ink mb-4">{isDe ? "Vergleich mit anderen Kommunen" : "Comparison with other municipalities"}</h2>
             <div className="space-y-3">
               {BENCHMARK_DATA.kpis.map(kpi => {
-                const sorted = [...BENCHMARK_DATA.municipalities].sort((a,b) => (scores[b.id].kpis[kpi.id]||0) - (scores[a.id].kpis[kpi.id]||0));
+                const sorted = [...BENCHMARK_DATA.municipalities].sort((a,b) => {
+                  const av = scores && scores[a.id] && scores[a.id].kpis ? scores[a.id].kpis[kpi.id] : null;
+                  const bv = scores && scores[b.id] && scores[b.id].kpis ? scores[b.id].kpis[kpi.id] : null;
+                  return (bv||0) - (av||0);
+                });
                 const rank = sorted.findIndex(x => x.id === m.id) + 1;
+                const score = sc.kpis ? sc.kpis[kpi.id] : null;
                 return (
                   <div key={kpi.id} className="flex items-center justify-between p-3 rounded-xl bg-paper">
                     <span className="font-medium">{kpi.name[currentLang]}</span>
                     <div className="flex items-center gap-4">
                       <span className="text-sm text-muted">{isDe ? "Platz" : "Rank"} {rank} / {sorted.length}</span>
-                      <span className="font-bold" style={{ color: statusInfo(sc.kpis[kpi.id], kpi.thresholds).color }}>{sc.kpis[kpi.id] !== null ? sc.kpis[kpi.id] + "%" : "-"}</span>
+                      <span className="font-bold" style={{ color: statusInfo(score, kpi.thresholds).color }}>{score !== null && score !== undefined ? score + "%" : "-"}</span>
                     </div>
                   </div>
                 );
@@ -1012,7 +1484,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         <div>
           <h1 className="text-3xl font-bold text-ink mb-4">{TRANSLATIONS[currentLang].data}</h1>
           <div className="bg-white rounded-2xl p-6 card-shadow border border-gray-100">
-            <p className="text-gray-700 mb-4">{isDe ? "Rohdaten aus Tabelle Abfrage1.csv. CSV-Import-Assistent ist als UI-Platzhalter vorgesehen." : "Raw data from Tabelle Abfrage1.csv. CSV import wizard is planned as a UI placeholder."}</p>
+            <p className="text-gray-700 mb-4">{isDe ? "Rohdaten aus backend/data/csv/. CSV-Import-Assistent ist als UI-Platzhalter vorgesehen." : "Raw data from backend/data/csv/. CSV import wizard is planned as a UI placeholder."}</p>
             <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-500">
               <div className="text-4xl mb-2">📁</div>
               <div className="font-medium">{isDe ? "CSV-Datei hier ablegen" : "Drop CSV file here"}</div>
@@ -1150,8 +1622,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                       </td>
                       <td className="p-4 align-top">{cat ? cat.name[currentLang] : "-"}</td>
                       <td className="p-4 align-top font-mono">{ind.unit}</td>
-                      <td className="p-4 align-top">{indicators.find(x=>x.id===ind.id) ? (BENCHMARK_DATA.values["landsberg"][ind.category].sub[ind.id].date || "-") : "-"}</td>
-                      <td className="p-4 align-top text-muted">{BENCHMARK_DATA.values["landsberg"][ind.category].sub[ind.id].source || "-"}</td>
+                      <td className="p-4 align-top">{indicators.find(x=>x.id===ind.id) && BENCHMARK_DATA.values && BENCHMARK_DATA.values["landsberg"] && BENCHMARK_DATA.values["landsberg"][ind.category] && BENCHMARK_DATA.values["landsberg"][ind.category].sub && BENCHMARK_DATA.values["landsberg"][ind.category].sub[ind.id] ? (BENCHMARK_DATA.values["landsberg"][ind.category].sub[ind.id].date || "-") : "-"}</td>
+                      <td className="p-4 align-top text-muted">{ind.source || "-"}</td>
                       <td className="p-4 align-top">{ind.higherIsBetter ? (isDe ? "Höher ist besser" : "Higher is better") : (isDe ? "Niedriger ist besser" : "Lower is better")}</td>
                       <td className="p-4 align-top">{fmt(ind.weight*100,1)}%</td>
                       <td className="p-4 align-top font-mono text-xs">{ind.formula}</td>
@@ -1265,8 +1737,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       const isDe = currentLang === "de";
       const { user, loading, logout, updateProfile } = useAuth();
       const navigate = (path) => { window.location.hash = "#" + path; };
-      const [name, setName] = useState(user?.name || "");
-      const [language, setLanguage] = useState(user?.language || currentLang);
+      const [name, setName] = useState(user && user.name ? user.name : "");
+      const [language, setLanguage] = useState(user && user.language ? user.language : currentLang);
       const [currentPwd, setCurrentPwd] = useState("");
       const [newPwd, setNewPwd] = useState("");
       const [confirmPwd, setConfirmPwd] = useState("");
@@ -1336,6 +1808,12 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
     };
 
     const computeScores = (indicatorWeights, categoryWeights) => {
+      // With default weights, use the precomputed scores from the backend data.
+      const hasCustomInd = indicatorWeights && Object.keys(indicatorWeights).length > 0;
+      const hasCustomCat = categoryWeights && Object.keys(categoryWeights).length > 0;
+      if (!hasCustomInd && !hasCustomCat) {
+        return JSON.parse(JSON.stringify(BENCHMARK_DATA.values));
+      }
       const scores = JSON.parse(JSON.stringify(BENCHMARK_DATA.values));
       for (const m of BENCHMARK_DATA.municipalities) {
         const mid = m.id;
@@ -1344,7 +1822,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           const catId = cat.id;
           let num = 0, den = 0;
           for (const sub of cat.subIndicators) {
-            const w = indicatorWeights[catId]?.[sub.id] ?? sub.weight;
+            const customW = indicatorWeights && indicatorWeights[catId] && indicatorWeights[catId][sub.id];
+            const w = customW !== undefined && customW !== null ? customW : sub.weight;
             const sv = scores[mid][catId].sub[sub.id];
             if (sv.normalized !== null && sv.normalized !== undefined) {
               num += sv.normalized * w;
@@ -1358,7 +1837,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         let onum = 0, oden = 0;
         for (const cat of BENCHMARK_DATA.kpis) {
           const s = scores[mid].kpis[cat.id];
-          const w = categoryWeights[cat.id] ?? cat.weight;
+          const customCW = categoryWeights && categoryWeights[cat.id];
+          const w = customCW !== undefined && customCW !== null ? customCW : cat.weight;
           if (s !== null && s !== undefined) {
             onum += s * w;
             oden += w;
@@ -1393,8 +1873,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                 <div key={cat.id} className="flex items-center justify-between p-3 rounded-lg bg-paper">
                   <span className="font-medium">{cat.name[currentLang]}</span>
                   <div className="flex items-center gap-2">
-                    <input type="range" min="0" max="100" value={round((categoryWeights[cat.id] ?? cat.weight)*100,0)} onChange={e=>updateCatWeight(cat.id, e.target.value)} className="w-32" />
-                    <span className="w-12 text-right font-mono text-sm">{fmt((categoryWeights[cat.id] ?? cat.weight)*100,0)}%</span>
+                    <input type="range" min="0" max="100" value={round(((categoryWeights && categoryWeights[cat.id] !== undefined ? categoryWeights[cat.id] : cat.weight))*100,0)} onChange={e=>updateCatWeight(cat.id, e.target.value)} className="w-32" />
+                    <span className="w-12 text-right font-mono text-sm">{fmt((categoryWeights && categoryWeights[cat.id] !== undefined ? categoryWeights[cat.id] : cat.weight)*100,0)}%</span>
                   </div>
                 </div>
               ))}
@@ -1408,8 +1888,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                   <div key={sub.id} className="flex items-center justify-between p-3 rounded-lg bg-paper">
                     <span className="text-sm">{sub.name[currentLang] || sub.name}</span>
                     <div className="flex items-center gap-2">
-                      <input type="range" min="0" max="100" value={round((indicatorWeights[cat.id]?.[sub.id] ?? sub.weight)*100,0)} onChange={e=>updateIndWeight(cat.id, sub.id, e.target.value)} className="w-32" />
-                      <span className="w-12 text-right font-mono text-sm">{fmt((indicatorWeights[cat.id]?.[sub.id] ?? sub.weight)*100,0)}%</span>
+                      <input type="range" min="0" max="100" value={round(((indicatorWeights && indicatorWeights[cat.id] && indicatorWeights[cat.id][sub.id] !== undefined ? indicatorWeights[cat.id][sub.id] : sub.weight))*100,0)} onChange={e=>updateIndWeight(cat.id, sub.id, e.target.value)} className="w-32" />
+                      <span className="w-12 text-right font-mono text-sm">{fmt((indicatorWeights && indicatorWeights[cat.id] && indicatorWeights[cat.id][sub.id] !== undefined ? indicatorWeights[cat.id][sub.id] : sub.weight)*100,0)}%</span>
                     </div>
                   </div>
                 ))}
@@ -1430,6 +1910,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
 
     const AppInner = () => {
       const [modal, setModal] = useState(null);
+      const [categoryModal, setCategoryModal] = useState(null);
       const [stakeholder, setStakeholder] = useState("stadt");
       const [indicatorWeights, setIndicatorWeights] = useState({});
       const [categoryWeights, setCategoryWeights] = useState({});
@@ -1439,13 +1920,14 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         <Router>
           <Layout stakeholder={stakeholder} setStakeholder={setStakeholder}>
             <Routes>
-              <Route path="/" element={<Dashboard scores={scores} setModal={setModal} stakeholder={stakeholder} setStakeholder={setStakeholder} />} />
+              <Route path="/" element={<Dashboard scores={scores} setModal={setModal} setCategoryModal={setCategoryModal} stakeholder={stakeholder} setStakeholder={setStakeholder} />} />
               <Route path="/municipalities" element={<MunicipalitiesPage scores={scores} />} />
               <Route path="/municipality/:id" element={<MunicipalityDetail scores={scores} setModal={setModal} stakeholder={stakeholder} setStakeholder={setStakeholder} />} />
               <Route path="/compare" element={<Compare scores={scores} setModal={setModal} stakeholder={stakeholder} setStakeholder={setStakeholder} />} />
               <Route path="/ranking" element={<Ranking scores={scores} categoryWeights={categoryWeights} />} />
               <Route path="/weights" element={<WeightsPage indicatorWeights={indicatorWeights} setIndicatorWeights={setIndicatorWeights} categoryWeights={categoryWeights} setCategoryWeights={setCategoryWeights} resetWeights={resetWeights} />} />
               <Route path="/maps" element={<MapsPage />} />
+              <Route path="/calculator" element={<KpiCalculator />} />
               <Route path="/methodology" element={<Methodology />} />
               <Route path="/data" element={<DataPage />} />
               <Route path="/catalogue" element={<KpiCatalogue />} />
@@ -1456,6 +1938,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
             {modal && <KpiDetailModal kpi={modal.kpi} municipality={modal.municipality} onClose={()=>setModal(null)} scores={scores} />}
+            {categoryModal && <CategoryDetailModal kpi={categoryModal.kpi} onClose={()=>setCategoryModal(null)} scores={scores} />}
           </Layout>
         </Router>
       );
@@ -1468,7 +1951,15 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
 </html>
 '''
 
-HTML = HTML_TEMPLATE.replace("__DATA__", DATA_JS)
-open(r"C:\Users\d4\Documents\SmartCity\index.html", "w", encoding="utf-8").write(HTML)
-open(r"C:\Users\d4\Documents\SmartCity\backend\static\index.html", "w", encoding="utf-8").write(HTML)
-print("Generated new index.html")
+def build_dashboard():
+    DATA = json.load(open(DATA_PATH, "r", encoding="utf-8"))
+    DATA_JS = json.dumps(DATA, ensure_ascii=False, indent=2)
+    HTML = HTML_TEMPLATE.replace("__DATA__", DATA_JS)
+    OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
+    OUT_STATIC_HTML.parent.mkdir(parents=True, exist_ok=True)
+    open(OUT_HTML, "w", encoding="utf-8").write(HTML)
+    open(OUT_STATIC_HTML, "w", encoding="utf-8").write(HTML)
+    print("Generated new index.html")
+
+if __name__ == "__main__":
+    build_dashboard()

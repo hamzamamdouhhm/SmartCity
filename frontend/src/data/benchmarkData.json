@@ -2229,7 +2229,7 @@
           }
         },
         "gewerbegebiet": {
-          "raw": 236.0,
+          "raw": 236000.0,
           "unit": "m²",
           "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
           "date": "",
@@ -2517,7 +2517,7 @@
             "weight": 0.05
           },
           "gewerbegebiet": {
-            "raw": 236.0,
+            "raw": 236000.0,
             "unit": "m²",
             "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
             "date": "",
@@ -2536,7 +2536,7 @@
     "leuna": {
       "kpis": {
         "festnetz": 65.0,
-        "mobilfunk": 0.0,
+        "mobilfunk": 86.0,
         "digitale_services": 100.0,
         "daseinsvorsorge": 71.4
       },
@@ -2583,7 +2583,7 @@
           "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": 0.0,
+          "normalized": 78.4,
           "weight": 0.333,
           "category": "mobilfunk",
           "name": {
@@ -2601,7 +2601,7 @@
           "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": 0.0,
+          "normalized": 83.4,
           "weight": 0.333,
           "category": "mobilfunk",
           "name": {
@@ -2619,7 +2619,7 @@
           "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": 0.0,
+          "normalized": 96.3,
           "weight": 0.334,
           "category": "mobilfunk",
           "name": {
@@ -3046,7 +3046,7 @@
           }
         },
         "gewerbegebiet": {
-          "raw": 646.941,
+          "raw": 646941.0,
           "unit": "m²",
           "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
           "date": "",
@@ -3095,7 +3095,7 @@
             "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": 0.0,
+            "normalized": 78.4,
             "weight": 0.333
           },
           "mobil_vodafone": {
@@ -3104,7 +3104,7 @@
             "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": 0.0,
+            "normalized": 83.4,
             "weight": 0.333
           },
           "mobil_telekom": {
@@ -3113,11 +3113,11 @@
             "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": 0.0,
+            "normalized": 96.3,
             "weight": 0.334
           }
         },
-        "score": 0.0
+        "score": 86.0
       },
       "digitale_services": {
         "sub": {
@@ -3334,7 +3334,7 @@
             "weight": 0.05
           },
           "gewerbegebiet": {
-            "raw": 646.941,
+            "raw": 646941.0,
             "unit": "m²",
             "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
             "date": "",
@@ -3345,7 +3345,7 @@
         },
         "score": 71.4
       },
-      "overall": 59.1,
+      "overall": 80.6,
       "completeness": 86.2,
       "completeFields": 25,
       "totalFields": 29
@@ -3353,8 +3353,8 @@
     "teutschenthal": {
       "kpis": {
         "festnetz": 65.0,
-        "mobilfunk": null,
-        "digitale_services": null,
+        "mobilfunk": 0.0,
+        "digitale_services": 9.4,
         "daseinsvorsorge": 84.8
       },
       "indicators": {
@@ -3395,12 +3395,12 @@
           }
         },
         "mobil_o2": {
-          "raw": null,
+          "raw": -129.18,
           "unit": "dBm",
           "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": null,
+          "normalized": 0.0,
           "weight": 0.333,
           "category": "mobilfunk",
           "name": {
@@ -3413,12 +3413,12 @@
           }
         },
         "mobil_vodafone": {
-          "raw": null,
+          "raw": -133.88,
           "unit": "dBm",
           "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": null,
+          "normalized": 0.0,
           "weight": 0.333,
           "category": "mobilfunk",
           "name": {
@@ -3431,12 +3431,12 @@
           }
         },
         "mobil_telekom": {
-          "raw": null,
+          "raw": -125.16,
           "unit": "dBm",
           "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": null,
+          "normalized": 0.0,
           "weight": 0.334,
           "category": "mobilfunk",
           "name": {
@@ -3449,12 +3449,12 @@
           }
         },
         "ozg_reifegrad": {
-          "raw": null,
+          "raw": 1.2,
           "unit": "Level 0-4",
           "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": null,
+          "normalized": 6.4,
           "weight": 0.5,
           "category": "digitale_services",
           "name": {
@@ -3467,12 +3467,12 @@
           }
         },
         "ozg_pct_level2": {
-          "raw": null,
+          "raw": 16.0,
           "unit": "%",
           "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
           "date": "",
           "higherIsBetter": true,
-          "normalized": null,
+          "normalized": 12.5,
           "weight": 0.5,
           "category": "digitale_services",
           "name": {
@@ -3907,57 +3907,57 @@
       "mobilfunk": {
         "sub": {
           "mobil_o2": {
-            "raw": null,
+            "raw": -129.18,
             "unit": "dBm",
             "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": null,
+            "normalized": 0.0,
             "weight": 0.333
           },
           "mobil_vodafone": {
-            "raw": null,
+            "raw": -133.88,
             "unit": "dBm",
             "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": null,
+            "normalized": 0.0,
             "weight": 0.333
           },
           "mobil_telekom": {
-            "raw": null,
+            "raw": -125.16,
             "unit": "dBm",
             "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": null,
+            "normalized": 0.0,
             "weight": 0.334
           }
         },
-        "score": null
+        "score": 0.0
       },
       "digitale_services": {
         "sub": {
           "ozg_reifegrad": {
-            "raw": null,
+            "raw": 1.2,
             "unit": "Level 0-4",
             "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": null,
+            "normalized": 6.4,
             "weight": 0.5
           },
           "ozg_pct_level2": {
-            "raw": null,
+            "raw": 16.0,
             "unit": "%",
             "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
             "date": "",
             "higherIsBetter": true,
-            "normalized": null,
+            "normalized": 12.5,
             "weight": 0.5
           }
         },
-        "score": null
+        "score": 9.4
       },
       "daseinsvorsorge": {
         "sub": {
@@ -4162,9 +4162,9 @@
         },
         "score": 84.8
       },
-      "overall": 74.9,
-      "completeness": 58.6,
-      "completeFields": 17,
+      "overall": 39.8,
+      "completeness": 75.9,
+      "completeFields": 22,
       "totalFields": 29
     }
   },
@@ -4202,7 +4202,7 @@
       "weight": 0.35,
       "higherIsBetter": true,
       "csvKey": "Bandbreitenverfügbarkeit mindestens 100 Mbit/s",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.",
         "en": "Share of households with at least 100 Mbit/s bandwidth."
@@ -4220,7 +4220,7 @@
       "weight": 0.65,
       "higherIsBetter": true,
       "csvKey": "Mittelwert Festnetzempfang (Download) in Mbit/s",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Festnetz).csv",
       "description": {
         "de": "Mittlere Downloadgeschwindigkeit im Festnetz.",
         "en": "Average fixed-network download speed."
@@ -4238,7 +4238,7 @@
       "weight": 0.333,
       "higherIsBetter": true,
       "csvKey": "Mobilfunk O2",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
       "description": {
         "de": "Durchschnittlicher Mobilfunkempfang O2. Weniger negative Werte sind besser.",
         "en": "Average mobile reception O2. Less negative values are better."
@@ -4256,7 +4256,7 @@
       "weight": 0.333,
       "higherIsBetter": true,
       "csvKey": "Mobilfunk Vodafone",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
       "description": {
         "de": "Durchschnittlicher Mobilfunkempfang Vodafone. Weniger negative Werte sind besser.",
         "en": "Average mobile reception Vodafone. Less negative values are better."
@@ -4274,7 +4274,7 @@
       "weight": 0.334,
       "higherIsBetter": true,
       "csvKey": "Mobilfunk Telekom",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Mobilfunk).csv",
       "description": {
         "de": "Durchschnittlicher Mobilfunkempfang Telekom. Weniger negative Werte sind besser.",
         "en": "Average mobile reception Telekom. Less negative values are better."
@@ -4292,7 +4292,7 @@
       "weight": 0.5,
       "higherIsBetter": true,
       "csvKey": "OZG Reifegrad-Mittelwert",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
       "description": {
         "de": "Durchschnittlicher OZG-Reifegrad aller Services (Stufen 0–4).",
         "en": "Average OZG maturity level of all services (levels 0-4)."
@@ -4310,7 +4310,7 @@
       "weight": 0.5,
       "higherIsBetter": true,
       "csvKey": "OZG Prozentanteil ab Stufe 2",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Digitale Services).csv",
       "description": {
         "de": "Anteil der Services mit Reifegrad 2 oder höher.",
         "en": "Share of services with maturity level 2 or higher."
@@ -4328,7 +4328,7 @@
       "weight": 0.03,
       "higherIsBetter": true,
       "csvKey": "Bevölkerung gesamt",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Gesamtbevölkerung der Kommune.",
         "en": "Total population of the municipality."
@@ -4346,7 +4346,7 @@
       "weight": 0.04,
       "higherIsBetter": false,
       "csvKey": "Arbeitslose",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anzahl der Arbeitslosen. Niedrigere Werte sind besser.",
         "en": "Number of unemployed people. Lower values are better."
@@ -4364,7 +4364,7 @@
       "weight": 0.03,
       "higherIsBetter": true,
       "csvKey": "Neubauwohnungen in Ein- und Zweifamilienhäusern",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anzahl neuer Wohnungen in Ein- und Zweifamilienhäusern.",
         "en": "Number of new dwellings in single and two-family houses."
@@ -4382,7 +4382,7 @@
       "weight": 0.07,
       "higherIsBetter": true,
       "csvKey": "Beschäftigtenquote",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anteil der erwerbstätigen Bevölkerung. Höhere Werte sind besser.",
         "en": "Share of employed population. Higher values are better."
@@ -4400,7 +4400,7 @@
       "weight": 0.03,
       "higherIsBetter": false,
       "csvKey": "Anteil Minijobs (Nebenverdienst)",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anteil der Beschäftigten in geringfügiger Beschäftigung. Niedrigere Werte sind besser.",
         "en": "Share of employees in marginal employment. Lower values are better."
@@ -4418,7 +4418,7 @@
       "weight": 0.03,
       "higherIsBetter": false,
       "csvKey": "Durchschnittsalter der Bevölkerung",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittsalter der Bevölkerung. Niedrigere Werte deuten auf mehr Dynamik hin.",
         "en": "Average age of population. Lower values indicate more dynamism."
@@ -4436,7 +4436,7 @@
       "weight": 0.03,
       "higherIsBetter": true,
       "csvKey": "Studierende",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anzahl der Studierenden. Höhere Werte sind besser.",
         "en": "Number of students. Higher values are better."
@@ -4454,7 +4454,7 @@
       "weight": 0.07,
       "higherIsBetter": true,
       "csvKey": "Kaufkraft",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Kaufkraft pro Einwohner. Höhere Werte sind besser.",
         "en": "Purchasing power per inhabitant. Higher values are better."
@@ -4472,7 +4472,7 @@
       "weight": 0.03,
       "higherIsBetter": true,
       "csvKey": "Haushalte mit mittlerem Einkommen",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anteil der Haushalte mit mittlerem Einkommen. Höhere Werte sind besser.",
         "en": "Share of middle-income households. Higher values are better."
@@ -4490,7 +4490,7 @@
       "weight": 0.05,
       "higherIsBetter": true,
       "csvKey": "Kinderärzte",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anzahl der Kinderärzte. Höhere Werte sind besser.",
         "en": "Number of paediatricians. Higher values are better."
@@ -4508,7 +4508,7 @@
       "weight": 0.05,
       "higherIsBetter": true,
       "csvKey": "Hausärzte",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anzahl der Hausärzte. Höhere Werte sind besser.",
         "en": "Number of general practitioners. Higher values are better."
@@ -4526,7 +4526,7 @@
       "weight": 0.05,
       "higherIsBetter": false,
       "csvKey": "Entfernung zum Supermarkt/Discounter",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Entfernung zum nächsten Supermarkt oder Discounter. Niedrigere Werte sind besser.",
         "en": "Average distance to nearest supermarket or discounter. Lower values are better."
@@ -4544,7 +4544,7 @@
       "weight": 0.05,
       "higherIsBetter": false,
       "csvKey": "Entfernung zum Hausarzt",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.",
         "en": "Average distance to nearest GP. Lower values are better."
@@ -4562,7 +4562,7 @@
       "weight": 0.05,
       "higherIsBetter": false,
       "csvKey": "Entfernung zur Apotheke",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.",
         "en": "Average distance to nearest pharmacy. Lower values are better."
@@ -4580,7 +4580,7 @@
       "weight": 0.05,
       "higherIsBetter": false,
       "csvKey": "Entfernung zur ÖV Haltestelle",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Entfernung zur nächsten ÖV-Haltestelle. Niedrigere Werte sind besser.",
         "en": "Average distance to nearest public transport stop. Lower values are better."
@@ -4598,7 +4598,7 @@
       "weight": 0.05,
       "higherIsBetter": false,
       "csvKey": "Entfernung zur Grundschule",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.",
         "en": "Average distance to nearest primary school. Lower values are better."
@@ -4616,7 +4616,7 @@
       "weight": 0.04,
       "higherIsBetter": false,
       "csvKey": "Straßenverkehrsunfälle",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Anzahl der Straßenverkehrsunfälle. Niedrigere Werte sind besser.",
         "en": "Number of road traffic accidents. Lower values are better."
@@ -4634,7 +4634,7 @@
       "weight": 0.06,
       "higherIsBetter": false,
       "csvKey": "Erreichbarkeit von Autobahnen",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.",
         "en": "Average travel time to nearest motorway junction. Lower values are better."
@@ -4652,7 +4652,7 @@
       "weight": 0.04,
       "higherIsBetter": false,
       "csvKey": "Erreichbarkeit von Flughäfen",
-      "source": "s. Datenquelle im Wert",
+      "source": "Tabelle Abfrage1.csv / INKAR / BBSR",
       "description": {
         "de": "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.",
         "en": "Average travel time to nearest airport. Lower values are better."
@@ -4670,7 +4670,7 @@
       "weight": 0.05,
       "higherIsBetter": true,
       "csvKey": "Schulabdeckung",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
       "description": {
         "de": "Anteil der Fläche mit Schulversorgung. Höhere Werte sind besser.",
         "en": "Share of area with school coverage. Higher values are better."
@@ -4688,7 +4688,7 @@
       "weight": 0.05,
       "higherIsBetter": true,
       "csvKey": "Kitas-Abdeckung",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
       "description": {
         "de": "Anteil der Fläche mit Kita-Versorgung. Höhere Werte sind besser.",
         "en": "Share of area with kindergarten coverage. Higher values are better."
@@ -4706,7 +4706,7 @@
       "weight": 0.04,
       "higherIsBetter": true,
       "csvKey": "Gewerbegebiet pro 1.000 EW",
-      "source": "s. Datenquelle im Wert",
+      "source": "Digitaler_Wandel_Benchmarking(Existenz Daseinsvorsorge).csv",
       "description": {
         "de": "Gewerbegebiet pro 1.000 Einwohner. Höhere Werte sind besser.",
         "en": "Commercial area per 1,000 inhabitants. Higher values are better."
