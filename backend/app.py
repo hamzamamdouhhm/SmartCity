@@ -22,7 +22,13 @@ except Exception as e:
 
 app = Flask(__name__, static_folder=None)
 app.secret_key = os.environ.get("SECRET_KEY", "smartcity-dev-secret-key-change-in-production")
-CORS(app, supports_credentials=True)
+
+# CORS: allow the deployed frontend origin and local dev servers.
+# When the backend also serves the frontend from the same origin, CORS is not used,
+# but this keeps the API usable for a separate frontend host as well.
+_default_origins = "http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,http://127.0.0.1:3001"
+allowed_origins = os.environ.get("FRONTEND_URL", _default_origins).split(",")
+CORS(app, resources={r"/api/*": {"origins": allowed_origins}}, supports_credentials=True)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "data", "benchmarkData.json")

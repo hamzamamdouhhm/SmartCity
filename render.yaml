@@ -1,0 +1,22 @@
+# Render Blueprint: single web service that builds the Vite frontend and serves it from Flask.
+# Usage: create a new Render service, choose "Blueprint", and point it at this repo.
+services:
+  - type: web
+    name: smartcity-dashboard
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: cd frontend && npm install && npm run build && cd ../backend && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn app:app --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12"
+      - key: NODE_VERSION
+        value: "20"
+      - key: SECRET_KEY
+        generateValue: true
+      # If you ever host the frontend on a different domain, set that domain here.
+      # With the default single-service setup the backend serves the frontend, so
+      # CORS is not required and this can be left unset.
+      # - key: FRONTEND_URL
+      #   value: https://smartcity-dashboard.onrender.com
