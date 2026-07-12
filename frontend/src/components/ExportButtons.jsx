@@ -1,7 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { FileText, FileSpreadsheet, FileCode } from "lucide-react";
 import { useData } from "../hooks/useData";
 import { exportCSV, exportExcel, exportPDF } from "../utils/exports";
+import { Button } from "./ui";
 
 const ExportButtons = ({ municipalityIds, stakeholderId }) => {
   const { i18n } = useTranslation();
@@ -9,11 +11,33 @@ const ExportButtons = ({ municipalityIds, stakeholderId }) => {
   const { data } = useData();
   if (!data) return null;
   const isDe = currentLang === "de";
+
   return (
     <div className="flex flex-wrap gap-2">
-      <button onClick={() => exportPDF(data, municipalityIds, stakeholderId)} className="px-3 py-1.5 rounded-lg bg-low text-white text-sm font-medium hover:bg-low/90">{isDe ? "PDF exportieren" : "Export PDF"}</button>
-      <button onClick={() => exportExcel(data, municipalityIds, stakeholderId)} className="px-3 py-1.5 rounded-lg bg-good text-white text-sm font-medium hover:bg-good/90">{isDe ? "Excel exportieren" : "Export Excel"}</button>
-      <button onClick={() => exportCSV(data, municipalityIds, stakeholderId)} className="px-3 py-1.5 rounded-lg bg-navy text-white text-sm font-medium hover:bg-navy/90">{isDe ? "CSV exportieren" : "Export CSV"}</button>
+      <Button
+        variant="secondary"
+        size="sm"
+        leftIcon={<FileText className="w-4 h-4" />}
+        onClick={() => exportPDF(data, municipalityIds, stakeholderId)}
+      >
+        {isDe ? "PDF" : "PDF"}
+      </Button>
+      <Button
+        variant="secondary"
+        size="sm"
+        leftIcon={<FileSpreadsheet className="w-4 h-4" />}
+        onClick={() => exportExcel(data, municipalityIds, stakeholderId)}
+      >
+        {isDe ? "Excel" : "Excel"}
+      </Button>
+      <Button
+        variant="secondary"
+        size="sm"
+        leftIcon={<FileCode className="w-4 h-4" />}
+        onClick={() => exportCSV(data, municipalityIds, stakeholderId)}
+      >
+        {isDe ? "CSV" : "CSV"}
+      </Button>
     </div>
   );
 };

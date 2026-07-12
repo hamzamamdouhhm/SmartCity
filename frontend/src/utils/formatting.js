@@ -12,17 +12,25 @@ export const round = (v, dec = 0) => {
   return Math.round(v * f) / f;
 };
 
+// Semantic status colors aligned with the design system
+const STATUS_COLORS = {
+  success: "#059669",
+  warning: "#D97706",
+  danger: "#DC2626",
+  neutral: "#6B7A75",
+};
+
 export const statusInfo = (score, thresholds) => {
   if (score === null || score === undefined) {
-    return { text: "noData", color: "#9AA69B", label: i18n.t("noData") };
+    return { text: "noData", variant: "neutral", color: STATUS_COLORS.neutral, label: i18n.t("noData") };
   }
   if (score >= thresholds.green) {
-    return { text: "excellent", color: "#059669", label: i18n.t("excellent") };
+    return { text: "excellent", variant: "success", color: STATUS_COLORS.success, label: i18n.t("excellent") };
   }
   if (score >= thresholds.yellow) {
-    return { text: "good", color: "#D97706", label: i18n.t("good") };
+    return { text: "medium", variant: "warning", color: STATUS_COLORS.warning, label: i18n.t("medium") };
   }
-  return { text: "weak", color: "#DC2626", label: i18n.t("weak") };
+  return { text: "weak", variant: "danger", color: STATUS_COLORS.danger, label: i18n.t("weak") };
 };
 
 export const formatDate = (date) =>

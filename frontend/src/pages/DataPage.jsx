@@ -1,21 +1,38 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { UploadCloud, FileSpreadsheet } from "lucide-react";
+import { Card, PageHeader } from "../components/ui";
 
 const DataPage = () => {
-  const { t, i18n } = useTranslation();
-  const currentLang = i18n.language?.startsWith("en") ? "en" : "de";
-  const isDe = currentLang === "de";
+  const { t } = useTranslation();
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-ink mb-4">{t("data")}</h1>
-      <div className="bg-white rounded-2xl p-6 card-shadow border border-gray-100">
-        <p className="text-gray-700 mb-4">{isDe ? "Rohdaten aus backend/data/csv/. CSV-Import-Assistent ist als UI-Platzhalter vorgesehen." : "Raw data from backend/data/csv/. CSV import wizard is planned as a UI placeholder."}</p>
-        <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-500">
-          <div className="text-4xl mb-2">📁</div>
-          <div className="font-medium">{isDe ? "CSV-Datei hier ablegen" : "Drop CSV file here"}</div>
-          <div className="text-sm">{isDe ? "nur Südharz, Landsberg, Leuna, Teutschenthal" : "only Südharz, Landsberg, Leuna, Teutschenthal"}</div>
+    <div className="animate-fade-in-up">
+      <PageHeader
+        title={t("data")}
+        description={t("dataPageDescription")}
+      />
+
+      <Card>
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-md bg-info-50 dark:bg-info-50/10 flex items-center justify-center shrink-0">
+            <FileSpreadsheet className="w-5 h-5 text-info-600" />
+          </div>
+          <div className="flex-1">
+            <p className="text-body text-text-secondary mb-5">
+              {t("dataPageUploadHint")}
+            </p>
+            <div className="border-2 border-dashed border-border rounded-xl p-10 text-center hover:bg-subtle/50 transition-colors cursor-pointer">
+              <UploadCloud className="w-10 h-10 text-text-tertiary mx-auto mb-3" />
+              <div className="font-medium text-text-primary">
+                {t("dropCsvFileHere")}
+              </div>
+              <div className="text-sm text-text-tertiary mt-1">
+                {t("csvUploadMunicipalityHint")}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
