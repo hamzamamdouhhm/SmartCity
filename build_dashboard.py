@@ -1000,20 +1000,94 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       );
     };
 
+
     // --- KPI Calculator configurations ---
+    const CALCULATOR_SECTIONS = [
+      { id: "demografie", name: { de: "Bevölkerung & Demografie", en: "Population & Demographics" } },
+      { id: "arbeitsmarkt", name: { de: "Arbeitsmarkt", en: "Labour Market" } },
+      { id: "kaufkraft", name: { de: "Kaufkraft", en: "Purchasing Power" } },
+      { id: "gesundheit", name: { de: "Gesundheit", en: "Healthcare" } },
+      { id: "daseinsvorsorge", name: { de: "Daseinsvorsorge", en: "Public Services" } },
+      { id: "festnetz", name: { de: "Festnetz", en: "Fixed Network" } },
+      { id: "mobilitaet", name: { de: "Mobilität & Sicherheit", en: "Mobility & Safety" } }
+    ];
+
     const CALCULATORS = [
+      // A. Demografie
+      {
+        id: "bevoelkerung",
+        section: "demografie",
+        name: { de: "Bevölkerung gesamt", en: "Total population" },
+        description: { de: "Gesamtbevölkerung der ausgewählten Kommune.", en: "Total population of the selected municipality." },
+        type: "display",
+        formula: { de: "Bevölkerung gesamt", en: "Total population" },
+        unit: "EW",
+        input: { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung gesamt", en: "Total population" }, explanation: { de: "Gesamtbevölkerung laut CSV/INKAR.", en: "Total population according to CSV/INKAR." } },
+        officialComparison: { indicatorId: "bevoelkerung", unit: "EW" }
+      },
+      {
+        id: "durchschnittsalter",
+        section: "demografie",
+        name: { de: "Durchschnittsalter", en: "Average age" },
+        description: { de: "Durchschnittsalter der Bevölkerung in Jahren.", en: "Average age of the population in years." },
+        type: "display",
+        formula: { de: "Durchschnittsalter der Bevölkerung", en: "Average age of population" },
+        unit: "Jahre",
+        input: { id: "durchschnittsalter", source: "durchschnittsalter", name: { de: "Durchschnittsalter", en: "Average age" }, explanation: { de: "Durchschnittsalter in Jahren.", en: "Average age in years." } },
+        officialComparison: { indicatorId: "durchschnittsalter", unit: "Jahre" }
+      },
+      {
+        id: "studierende",
+        section: "demografie",
+        name: { de: "Studierende", en: "Students" },
+        description: { de: "Anzahl der Studierenden in der Kommune.", en: "Number of students in the municipality." },
+        type: "display",
+        formula: { de: "Anzahl der Studierenden", en: "Number of students" },
+        unit: "Anzahl",
+        input: { id: "studierende", source: "studierende", name: { de: "Studierende", en: "Students" }, explanation: { de: "Anzahl der Studierenden.", en: "Number of students." } },
+        officialComparison: { indicatorId: "studierende", unit: "Anzahl" }
+      },
+      {
+        id: "studierende_pro_1000",
+        section: "demografie",
+        name: { de: "Studierende je 1.000 Einwohner", en: "Students per 1,000 inhabitants" },
+        description: { de: "Anzahl der Studierenden bezogen auf 1.000 Einwohner.", en: "Number of students per 1,000 inhabitants." },
+        type: "rate",
+        formula: { de: "Studierende / Bevölkerung × 1.000", en: "Students / population × 1,000" },
+        unit: { de: "je 1.000 EW", en: "per 1,000 inh." },
+        higherIsBetter: true,
+        tolerance: 0.5,
+        inputs: [
+          { id: "studierende", source: "studierende", name: { de: "Studierende", en: "Students" }, explanation: { de: "Anzahl der Studierenden.", en: "Number of students." }, min: 0 },
+          { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, explanation: { de: "Gesamtbevölkerung.", en: "Total population." }, min: 0 }
+        ],
+        officialComparison: null,
+        calculate: (vals, isDe) => {
+          const result = (vals.studierende / vals.bevoelkerung) * 1000;
+          return {
+            result,
+            steps: [
+              isDe ? "Studierende je 1.000 EW = Studierende / Bevölkerung × 1.000" : "Students per 1,000 inh. = Students / population × 1,000",
+              `= ${fmt(vals.studierende, 0)} / ${fmt(vals.bevoelkerung, 0)} × 1.000`,
+              `= ${fmt(result, 2)}`
+            ]
+          };
+        }
+      },
+      // B. Arbeitsmarkt
       {
         id: "beschaeftigtenquote",
-        category: "daseinsvorsorge",
+        section: "arbeitsmarkt",
         name: { de: "Beschäftigtenquote", en: "Employment rate" },
         description: { de: "Anteil der Beschäftigten an der Bevölkerung im erwerbsfähigen Alter.", en: "Share of employed people in the working-age population." },
+        type: "formula",
         formula: { de: "Beschäftigte / Bevölkerung im erwerbsfähigen Alter × 100", en: "Employed / working-age population × 100" },
         unit: "%",
         higherIsBetter: true,
         tolerance: 1.0,
         inputs: [
-          { id: "beschaeftigte", name: { de: "Beschäftigte", en: "Employed" }, source: null, explanation: { de: "Anzahl der erwerbstätigen Personen.", en: "Number of employed persons." }, min: 0 },
-          { id: "erwerbsfaehige", name: { de: "Bevölkerung im erwerbsfähigen Alter", en: "Working-age population" }, source: null, explanation: { de: "Bevölkerung zwischen 15 und 64 Jahren.", en: "Population aged 15 to 64." }, min: 0 }
+          { id: "beschaeftigte", source: null, name: { de: "Beschäftigte", en: "Employed" }, explanation: { de: "Anzahl der erwerbstätigen Personen (manuell einzugeben).", en: "Number of employed persons (enter manually)." }, min: 0 },
+          { id: "erwerbsfaehige", source: null, name: { de: "Bevölkerung im erwerbsfähigen Alter", en: "Working-age population" }, explanation: { de: "Bevölkerung zwischen 15 und 64 Jahren (manuell einzugeben).", en: "Population aged 15 to 64 (enter manually)." }, min: 0 }
         ],
         officialComparison: { indicatorId: "beschaeftigtenquote", unit: "%" },
         calculate: (vals, isDe) => {
@@ -1031,27 +1105,30 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       },
       {
         id: "arbeitslosenquote",
-        category: "daseinsvorsorge",
+        section: "arbeitsmarkt",
         name: { de: "Arbeitslosenquote", en: "Unemployment rate" },
-        description: { de: "Anteil der Arbeitslosen an den Erwerbspersonen. Nicht auf Basis der Gesamtbevölkerung.", en: "Share of unemployed people in the labour force. Not based on total population." },
+        description: { de: "Anteil der Arbeitslosen an den Erwerbspersonen.", en: "Share of unemployed people in the labour force." },
+        type: "formula",
         formula: { de: "Arbeitslose / Erwerbspersonen × 100", en: "Unemployed / labour force × 100" },
         unit: "%",
         higherIsBetter: false,
         tolerance: 1.0,
         inputs: [
-          { id: "arbeitslose", name: { de: "Arbeitslose", en: "Unemployed" }, source: "arbeitslose", explanation: { de: "Anzahl der Arbeitslosen.", en: "Number of unemployed persons." }, min: 0 },
-          { id: "erwerbspersonen", name: { de: "Erwerbspersonen", en: "Labour force" }, source: null, explanation: { de: "Erwerbspersonen (Erwerbstätige + Arbeitslose). Muss manuell eingegeben werden.", en: "Labour force (employed + unemployed). Must be entered manually." }, min: 0 }
+          { id: "arbeitslose", source: "arbeitslose", name: { de: "Arbeitslose", en: "Unemployed" }, explanation: { de: "Anzahl der Arbeitslosen.", en: "Number of unemployed persons." }, min: 0 },
+          { id: "beschaeftigte", source: null, name: { de: "Beschäftigte", en: "Employed" }, explanation: { de: "Anzahl der Beschäftigten. Erwerbspersonen = Beschäftigte + Arbeitslose.", en: "Number of employed persons. Labour force = employed + unemployed." }, min: 0 }
         ],
         officialComparison: null,
-        info: { de: "Die Arbeitslosenquote wird auf Basis der Erwerbspersonen berechnet, nicht auf Basis der Gesamtbevölkerung.", en: "The unemployment rate is calculated using the labour force, not the total population." },
+        info: { de: "Die Arbeitslosenquote wird auf Basis der Erwerbspersonen berechnet, nicht auf Basis der Gesamtbevölkerung. Erwerbspersonen = Beschäftigte + Arbeitslose.", en: "The unemployment rate is calculated using the labour force, not the total population. Labour force = employed + unemployed." },
         calculate: (vals, isDe) => {
-          const result = (vals.arbeitslose / vals.erwerbspersonen) * 100;
+          const erwerbspersonen = vals.beschaeftigte + vals.arbeitslose;
+          const result = (vals.arbeitslose / erwerbspersonen) * 100;
           return {
             result,
             steps: [
-              isDe ? "Arbeitslosenquote = Arbeitslose / Erwerbspersonen × 100" : "Unemployment rate = Unemployed / labour force × 100",
-              `= ${fmt(vals.arbeitslose, 0)} / ${fmt(vals.erwerbspersonen, 0)} × 100`,
-              `= ${fmt(result / 100, 4)} × 100`,
+              isDe ? "Erwerbspersonen = Beschäftigte + Arbeitslose" : "Labour force = employed + unemployed",
+              `= ${fmt(vals.beschaeftigte, 0)} + ${fmt(vals.arbeitslose, 0)} = ${fmt(erwerbspersonen, 0)}`,
+              isDe ? "Arbeitslosenquote = Arbeitslose / Erwerbspersonen × 100" : "Unemployment rate = unemployed / labour force × 100",
+              `= ${fmt(vals.arbeitslose, 0)} / ${fmt(erwerbspersonen, 0)} × 100`,
               `= ${fmt(result, 2)}%`
             ]
           };
@@ -1059,16 +1136,17 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       },
       {
         id: "arbeitslose_pro_1000",
-        category: "daseinsvorsorge",
+        section: "arbeitsmarkt",
         name: { de: "Arbeitslose je 1.000 Einwohner", en: "Unemployed per 1,000 inhabitants" },
         description: { de: "Anzahl der Arbeitslosen bezogen auf 1.000 Einwohner.", en: "Number of unemployed persons per 1,000 inhabitants." },
+        type: "rate",
         formula: { de: "Arbeitslose / Bevölkerung × 1.000", en: "Unemployed / population × 1,000" },
         unit: { de: "je 1.000 EW", en: "per 1,000 inh." },
         higherIsBetter: false,
         tolerance: 0.5,
         inputs: [
-          { id: "arbeitslose", name: { de: "Arbeitslose", en: "Unemployed" }, source: "arbeitslose", explanation: { de: "Anzahl der Arbeitslosen.", en: "Number of unemployed persons." }, min: 0 },
-          { id: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, source: "bevoelkerung", explanation: { de: "Gesamtbevölkerung der Kommune.", en: "Total population of the municipality." }, min: 0 }
+          { id: "arbeitslose", source: "arbeitslose", name: { de: "Arbeitslose", en: "Unemployed" }, explanation: { de: "Anzahl der Arbeitslosen.", en: "Number of unemployed persons." }, min: 0 },
+          { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, explanation: { de: "Gesamtbevölkerung.", en: "Total population." }, min: 0 }
         ],
         officialComparison: null,
         calculate: (vals, isDe) => {
@@ -1076,28 +1154,58 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           return {
             result,
             steps: [
-              isDe ? "Arbeitslose je 1.000 Einwohner = Arbeitslose / Bevölkerung × 1.000" : "Unemployed per 1,000 inhabitants = Unemployed / population × 1,000",
+              isDe ? "Arbeitslose je 1.000 EW = Arbeitslose / Bevölkerung × 1.000" : "Unemployed per 1,000 inh. = unemployed / population × 1,000",
               `= ${fmt(vals.arbeitslose, 0)} / ${fmt(vals.bevoelkerung, 0)} × 1.000`,
-              `= ${fmt(result / 1000, 6)} × 1.000`,
               `= ${fmt(result, 2)}`
             ]
           };
         }
       },
       {
+        id: "anteil_minijobs",
+        section: "arbeitsmarkt",
+        name: { de: "Anteil Minijobs", en: "Share of mini-jobs" },
+        description: { de: "Anteil der Beschäftigten in geringfügiger Beschäftigung.", en: "Share of employees in marginal employment." },
+        type: "formula",
+        formula: { de: "Minijob-Beschäftigte / Alle Beschäftigten × 100", en: "Mini-job employees / all employed × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        tolerance: 1.0,
+        inputs: [
+          { id: "minijobs", source: null, name: { de: "Minijob-Beschäftigte", en: "Mini-job employees" }, explanation: { de: "Anzahl der Minijob-Beschäftigten (nicht in CSV vorhanden).", en: "Number of mini-job employees (not available in CSV)." }, min: 0 },
+          { id: "beschaeftigte", source: null, name: { de: "Beschäftigte", en: "Employed" }, explanation: { de: "Anzahl aller Beschäftigten.", en: "Number of all employed persons." }, min: 0 }
+        ],
+        officialComparison: { indicatorId: "anteil_minijobs", unit: "%" },
+        info: { de: "Der CSV-Wert 'Anteil Minijobs' ist bereits als Prozentsatz vorhanden. Hier können Sie die zugrunde liegenden absoluten Zahlen eingeben.", en: "The CSV value 'Share of mini-jobs' is already available as a percentage. Here you can enter the underlying absolute numbers." },
+        calculate: (vals, isDe) => {
+          const result = (vals.minijobs / vals.beschaeftigte) * 100;
+          return {
+            result,
+            steps: [
+              isDe ? "Anteil Minijobs = Minijob-Beschäftigte / Beschäftigte × 100" : "Share of mini-jobs = mini-job employees / employed × 100",
+              `= ${fmt(vals.minijobs, 0)} / ${fmt(vals.beschaeftigte, 0)} × 100`,
+              `= ${fmt(result, 2)}%`
+            ]
+          };
+        }
+      },
+      // C. Kaufkraft
+      {
         id: "kaufkraft_pro_ew",
-        category: "daseinsvorsorge",
+        section: "kaufkraft",
         name: { de: "Kaufkraft je Einwohner", en: "Purchasing power per inhabitant" },
         description: { de: "Verfügbares Einkommen der Kommune dividiert durch die Bevölkerung.", en: "Disposable income of the municipality divided by population." },
+        type: "formula",
         formula: { de: "verfügbares Einkommen / Bevölkerung", en: "disposable income / population" },
         unit: "EUR/EW",
         higherIsBetter: true,
         tolerance: 100000,
         inputs: [
-          { id: "einkommen", name: { de: "verfügbares Einkommen", en: "disposable income" }, source: "kaufkraft", explanation: { de: "Verfügbares Einkommen der Kommune (vom CSV-Wert 'Kaufkraft' übernommen).", en: "Disposable income of the municipality (prefilled from CSV value 'Kaufkraft')." }, min: 0 },
-          { id: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, source: "bevoelkerung", explanation: { de: "Gesamtbevölkerung der Kommune.", en: "Total population of the municipality." }, min: 0 }
+          { id: "einkommen", source: "kaufkraft", name: { de: "verfügbares Einkommen", en: "disposable income" }, explanation: { de: "Verfügbares Einkommen (vom CSV-Wert 'Kaufkraft' übernommen).", en: "Disposable income (prefilled from CSV value 'Kaufkraft')." }, min: 0 },
+          { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, explanation: { de: "Gesamtbevölkerung.", en: "Total population." }, min: 0 }
         ],
         officialComparison: { indicatorId: "kaufkraft", unit: "EUR/EW" },
+        info: { de: "Hinweis: Die CSV-Spalte 'Kaufkraft' ist bereits als Pro-Kopf-Wert hinterlegt. Sie können die Eingabe anpassen, um Szenarien zu berechnen.", en: "Note: The CSV column 'Kaufkraft' is already stored as a per-capita value. You can adjust the input to calculate scenarios." },
         calculate: (vals, isDe) => {
           const result = vals.einkommen / vals.bevoelkerung;
           return {
@@ -1109,6 +1217,291 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             ]
           };
         }
+      },
+      // D. Gesundheit
+      {
+        id: "hausaerzte",
+        section: "gesundheit",
+        name: { de: "Hausärzte", en: "General practitioners" },
+        description: { de: "Anzahl der Hausärzte in der Kommune.", en: "Number of general practitioners in the municipality." },
+        type: "display",
+        formula: { de: "Anzahl der Hausärzte", en: "Number of general practitioners" },
+        unit: "Anzahl",
+        input: { id: "hausaerzte", source: "hausaerzte", name: { de: "Hausärzte", en: "General practitioners" }, explanation: { de: "Anzahl der Hausärzte.", en: "Number of GPs." } },
+        officialComparison: { indicatorId: "hausaerzte", unit: "Anzahl" }
+      },
+      {
+        id: "hausaerzte_pro_10000",
+        section: "gesundheit",
+        name: { de: "Hausärzte je 10.000 Einwohner", en: "General practitioners per 10,000 inhabitants" },
+        description: { de: "Anzahl der Hausärzte bezogen auf 10.000 Einwohner.", en: "Number of GPs per 10,000 inhabitants." },
+        type: "rate",
+        formula: { de: "Hausärzte / Bevölkerung × 10.000", en: "GPs / population × 10,000" },
+        unit: { de: "je 10.000 EW", en: "per 10,000 inh." },
+        higherIsBetter: true,
+        tolerance: 0.5,
+        inputs: [
+          { id: "hausaerzte", source: "hausaerzte", name: { de: "Hausärzte", en: "General practitioners" }, explanation: { de: "Anzahl der Hausärzte.", en: "Number of GPs." }, min: 0 },
+          { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, explanation: { de: "Gesamtbevölkerung.", en: "Total population." }, min: 0 }
+        ],
+        officialComparison: null,
+        calculate: (vals, isDe) => {
+          const result = (vals.hausaerzte / vals.bevoelkerung) * 10000;
+          return {
+            result,
+            steps: [
+              isDe ? "Hausärzte je 10.000 EW = Hausärzte / Bevölkerung × 10.000" : "GPs per 10,000 inh. = GPs / population × 10,000",
+              `= ${fmt(vals.hausaerzte, 0)} / ${fmt(vals.bevoelkerung, 0)} × 10.000`,
+              `= ${fmt(result, 2)}`
+            ]
+          };
+        }
+      },
+      {
+        id: "kinderaerzte",
+        section: "gesundheit",
+        name: { de: "Kinderärzte", en: "Paediatricians" },
+        description: { de: "Anzahl der Kinderärzte in der Kommune.", en: "Number of paediatricians in the municipality." },
+        type: "display",
+        formula: { de: "Anzahl der Kinderärzte", en: "Number of paediatricians" },
+        unit: "Anzahl",
+        input: { id: "kinderaerzte", source: "kinderaerzte", name: { de: "Kinderärzte", en: "Paediatricians" }, explanation: { de: "Anzahl der Kinderärzte.", en: "Number of paediatricians." } },
+        officialComparison: { indicatorId: "kinderaerzte", unit: "Anzahl" }
+      },
+      {
+        id: "kinderaerzte_pro_10000",
+        section: "gesundheit",
+        name: { de: "Kinderärzte je 10.000 Einwohner", en: "Paediatricians per 10,000 inhabitants" },
+        description: { de: "Anzahl der Kinderärzte bezogen auf 10.000 Einwohner.", en: "Number of paediatricians per 10,000 inhabitants." },
+        type: "rate",
+        formula: { de: "Kinderärzte / Bevölkerung × 10.000", en: "Paediatricians / population × 10,000" },
+        unit: { de: "je 10.000 EW", en: "per 10,000 inh." },
+        higherIsBetter: true,
+        tolerance: 0.5,
+        inputs: [
+          { id: "kinderaerzte", source: "kinderaerzte", name: { de: "Kinderärzte", en: "Paediatricians" }, explanation: { de: "Anzahl der Kinderärzte.", en: "Number of paediatricians." }, min: 0 },
+          { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, explanation: { de: "Gesamtbevölkerung.", en: "Total population." }, min: 0 }
+        ],
+        officialComparison: null,
+        calculate: (vals, isDe) => {
+          const result = (vals.kinderaerzte / vals.bevoelkerung) * 10000;
+          return {
+            result,
+            steps: [
+              isDe ? "Kinderärzte je 10.000 EW = Kinderärzte / Bevölkerung × 10.000" : "Paediatricians per 10,000 inh. = paediatricians / population × 10,000",
+              `= ${fmt(vals.kinderaerzte, 0)} / ${fmt(vals.bevoelkerung, 0)} × 10.000`,
+              `= ${fmt(result, 2)}`
+            ]
+          };
+        }
+      },
+      {
+        id: "aerzte_score",
+        section: "gesundheit",
+        name: { de: "Ärzte-Gesamtscore", en: "Physicians overall score" },
+        description: { de: "Gewichteter Durchschnitt der normalisierten Hausarzt- und Kinderarzt-Werte.", en: "Weighted average of normalized GP and paediatrician values." },
+        type: "composite",
+        formula: { de: "Σ(Score_i × Gewicht_i) / Σ(Gewichte)", en: "Σ(Score_i × Weight_i) / Σ(Weights)" },
+        unit: "Punkte",
+        higherIsBetter: true,
+        tolerance: 5.0,
+        subIndicators: [
+          { id: "hausaerzte", name: { de: "Hausärzte", en: "General practitioners" }, source: "hausaerzte", weight: 0.5, higherIsBetter: true, unit: "Anzahl" },
+          { id: "kinderaerzte", name: { de: "Kinderärzte", en: "Paediatricians" }, source: "kinderaerzte", weight: 0.5, higherIsBetter: true, unit: "Anzahl" }
+        ],
+        officialComparison: null
+      },
+      // E. Daseinsvorsorge
+      {
+        id: "ent_hausarzt",
+        section: "daseinsvorsorge",
+        name: { de: "Entfernung zum Hausarzt", en: "Distance to GP" },
+        description: { de: "Durchschnittliche Entfernung zum nächsten Hausarzt. Niedrigere Werte sind besser.", en: "Average distance to the nearest GP. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "ent_hausarzt", source: "ent_hausarzt", name: { de: "Entfernung zum Hausarzt", en: "Distance to GP" }, explanation: { de: "Durchschnittliche Entfernung in Metern.", en: "Average distance in meters." }, unit: "m" },
+        officialComparison: { indicatorId: "ent_hausarzt", unit: "m" },
+        tolerance: 10
+      },
+      {
+        id: "ent_apo",
+        section: "daseinsvorsorge",
+        name: { de: "Entfernung zur Apotheke", en: "Distance to pharmacy" },
+        description: { de: "Durchschnittliche Entfernung zur nächsten Apotheke. Niedrigere Werte sind besser.", en: "Average distance to the nearest pharmacy. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "ent_apo", source: "ent_apo", name: { de: "Entfernung zur Apotheke", en: "Distance to pharmacy" }, explanation: { de: "Durchschnittliche Entfernung in Metern.", en: "Average distance in meters." }, unit: "m" },
+        officialComparison: { indicatorId: "ent_apo", unit: "m" },
+        tolerance: 10
+      },
+      {
+        id: "ent_super",
+        section: "daseinsvorsorge",
+        name: { de: "Entfernung zum Supermarkt", en: "Distance to supermarket" },
+        description: { de: "Durchschnittliche Entfernung zum nächsten Supermarkt. Niedrigere Werte sind besser.", en: "Average distance to the nearest supermarket. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "ent_super", source: "ent_super", name: { de: "Entfernung zum Supermarkt", en: "Distance to supermarket" }, explanation: { de: "Durchschnittliche Entfernung in Metern.", en: "Average distance in meters." }, unit: "m" },
+        officialComparison: { indicatorId: "ent_super", unit: "m" },
+        tolerance: 10
+      },
+      {
+        id: "ent_grund",
+        section: "daseinsvorsorge",
+        name: { de: "Entfernung zur Grundschule", en: "Distance to primary school" },
+        description: { de: "Durchschnittliche Entfernung zur nächsten Grundschule. Niedrigere Werte sind besser.", en: "Average distance to the nearest primary school. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "ent_grund", source: "ent_grund", name: { de: "Entfernung zur Grundschule", en: "Distance to primary school" }, explanation: { de: "Durchschnittliche Entfernung in Metern.", en: "Average distance in meters." }, unit: "m" },
+        officialComparison: { indicatorId: "ent_grund", unit: "m" },
+        tolerance: 10
+      },
+      {
+        id: "ent_oev",
+        section: "daseinsvorsorge",
+        name: { de: "Entfernung zur ÖPNV-Haltestelle", en: "Distance to public transport" },
+        description: { de: "Durchschnittliche Entfernung zur nächsten ÖPNV-Haltestelle. Niedrigere Werte sind besser.", en: "Average distance to the nearest public transport stop. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "ent_oev", source: "ent_oev", name: { de: "Entfernung zur ÖPNV-Haltestelle", en: "Distance to public transport" }, explanation: { de: "Durchschnittliche Entfernung in Metern.", en: "Average distance in meters." }, unit: "m" },
+        officialComparison: { indicatorId: "ent_oev", unit: "m" },
+        tolerance: 10
+      },
+      {
+        id: "daseinsvorsorge_score",
+        section: "daseinsvorsorge",
+        name: { de: "Daseinsvorsorge-Gesamtscore", en: "Public services overall score" },
+        description: { de: "Gewichteter Durchschnitt aller Daseinsvorsorge-Indikatoren. Niedrigere Entfernungen ergeben höhere Scores.", en: "Weighted average of all public-service indicators. Lower distances yield higher scores." },
+        type: "composite",
+        formula: { de: "Σ(Score_i × Gewicht_i) / Σ(Gewichte)", en: "Σ(Score_i × Weight_i) / Σ(Weights)" },
+        unit: "Punkte",
+        higherIsBetter: true,
+        tolerance: 5.0,
+        subIndicators: [
+          { id: "hausaerzte", name: { de: "Hausärzte", en: "General practitioners" }, source: "hausaerzte", weight: 0.15, higherIsBetter: true, unit: "Anzahl" },
+          { id: "kinderaerzte", name: { de: "Kinderärzte", en: "Paediatricians" }, source: "kinderaerzte", weight: 0.10, higherIsBetter: true, unit: "Anzahl" },
+          { id: "ent_hausarzt", name: { de: "Entfernung Hausarzt", en: "Distance to GP" }, source: "ent_hausarzt", weight: 0.15, higherIsBetter: false, unit: "m" },
+          { id: "ent_apo", name: { de: "Entfernung Apotheke", en: "Distance to pharmacy" }, source: "ent_apo", weight: 0.15, higherIsBetter: false, unit: "m" },
+          { id: "ent_super", name: { de: "Entfernung Supermarkt", en: "Distance to supermarket" }, source: "ent_super", weight: 0.15, higherIsBetter: false, unit: "m" },
+          { id: "ent_grund", name: { de: "Entfernung Grundschule", en: "Distance to primary school" }, source: "ent_grund", weight: 0.15, higherIsBetter: false, unit: "m" },
+          { id: "ent_oev", name: { de: "Entfernung ÖPNV", en: "Distance to public transport" }, source: "ent_oev", weight: 0.15, higherIsBetter: false, unit: "m" }
+        ],
+        officialComparison: { indicatorId: "ent_oev", unit: "m" }
+      },
+      // F. Festnetz
+      {
+        id: "breitband_100",
+        section: "festnetz",
+        name: { de: "Bandbreite ≥100 Mbit/s", en: "Bandwidth ≥100 Mbit/s" },
+        description: { de: "Anteil der Haushalte mit mindestens 100 Mbit/s Bandbreite.", en: "Share of households with at least 100 Mbit/s bandwidth." },
+        type: "display",
+        formula: { de: "Haushalte ≥100 Mbit/s / Gesamthaushalte × 100", en: "Households ≥100 Mbit/s / total households × 100" },
+        unit: "%",
+        input: { id: "breitband_100", source: "breitband_100", name: { de: "Bandbreite ≥100 Mbit/s", en: "Bandwidth ≥100 Mbit/s" }, explanation: { de: "Anteil in Prozent (bereits aus CSV vorhanden).", en: "Share in percent (already available in CSV)." } },
+        officialComparison: { indicatorId: "breitband_100", unit: "%" },
+        info: { de: "Der CSV-Wert ist bereits als Prozentsatz vorhanden. Eine Berechnung aus Einzelhaushalten ist nicht möglich.", en: "The CSV value is already available as a percentage. Calculation from individual households is not possible." }
+      },
+      {
+        id: "festnetz_download",
+        section: "festnetz",
+        name: { de: "Durchschnittliche Festnetzgeschwindigkeit", en: "Average fixed-network speed" },
+        description: { de: "Mittlere Downloadgeschwindigkeit im Festnetz.", en: "Average fixed-network download speed." },
+        type: "display",
+        formula: { de: "Mittelwert Festnetzempfang (Download)", en: "Average fixed-network reception (download)" },
+        unit: "Mbit/s",
+        input: { id: "festnetz_download", source: "festnetz_download", name: { de: "Durchschnittliche Geschwindigkeit", en: "Average speed" }, explanation: { de: "Mittlere Downloadgeschwindigkeit.", en: "Average download speed." } },
+        officialComparison: { indicatorId: "festnetz_download", unit: "Mbit/s" }
+      },
+      {
+        id: "festnetz_score",
+        section: "festnetz",
+        name: { de: "Festnetz-Gesamtscore", en: "Fixed-network overall score" },
+        description: { de: "Gewichteter Durchschnitt der Festnetz-Indikatoren.", en: "Weighted average of fixed-network indicators." },
+        type: "composite",
+        formula: { de: "Σ(Score_i × Gewicht_i) / Σ(Gewichte)", en: "Σ(Score_i × Weight_i) / Σ(Weights)" },
+        unit: "Punkte",
+        higherIsBetter: true,
+        tolerance: 5.0,
+        subIndicators: [
+          { id: "breitband_100", name: { de: "Bandbreite ≥100 Mbit/s", en: "Bandwidth ≥100 Mbit/s" }, source: "breitband_100", weight: 0.5, higherIsBetter: true, unit: "%" },
+          { id: "festnetz_download", name: { de: "Durchschnittliche Geschwindigkeit", en: "Average speed" }, source: "festnetz_download", weight: 0.5, higherIsBetter: true, unit: "Mbit/s" }
+        ],
+        officialComparison: null
+      },
+      // G. Mobilität & Sicherheit
+      {
+        id: "strassen_unfaelle",
+        section: "mobilitaet",
+        name: { de: "Verkehrsunfälle", en: "Traffic accidents" },
+        description: { de: "Anzahl der Straßenverkehrsunfälle.", en: "Number of road traffic accidents." },
+        type: "display",
+        formula: { de: "Anzahl der Straßenverkehrsunfälle", en: "Number of road traffic accidents" },
+        unit: "Anzahl",
+        input: { id: "strassen_unfaelle", source: "strassen_unfaelle", name: { de: "Verkehrsunfälle", en: "Traffic accidents" }, explanation: { de: "Anzahl der Unfälle.", en: "Number of accidents." } },
+        officialComparison: { indicatorId: "strassen_unfaelle", unit: "Anzahl" }
+      },
+      {
+        id: "unfaelle_pro_1000",
+        section: "mobilitaet",
+        name: { de: "Verkehrsunfälle je 1.000 Einwohner", en: "Traffic accidents per 1,000 inhabitants" },
+        description: { de: "Anzahl der Verkehrsunfälle bezogen auf 1.000 Einwohner.", en: "Number of traffic accidents per 1,000 inhabitants." },
+        type: "rate",
+        formula: { de: "Verkehrsunfälle / Bevölkerung × 1.000", en: "Traffic accidents / population × 1,000" },
+        unit: { de: "je 1.000 EW", en: "per 1,000 inh." },
+        higherIsBetter: false,
+        tolerance: 0.5,
+        inputs: [
+          { id: "strassen_unfaelle", source: "strassen_unfaelle", name: { de: "Verkehrsunfälle", en: "Traffic accidents" }, explanation: { de: "Anzahl der Unfälle.", en: "Number of accidents." }, min: 0 },
+          { id: "bevoelkerung", source: "bevoelkerung", name: { de: "Bevölkerung", en: "Population" }, explanation: { de: "Gesamtbevölkerung.", en: "Total population." }, min: 0 }
+        ],
+        officialComparison: null,
+        calculate: (vals, isDe) => {
+          const result = (vals.strassen_unfaelle / vals.bevoelkerung) * 1000;
+          return {
+            result,
+            steps: [
+              isDe ? "Unfälle je 1.000 EW = Unfälle / Bevölkerung × 1.000" : "Accidents per 1,000 inh. = accidents / population × 1,000",
+              `= ${fmt(vals.strassen_unfaelle, 0)} / ${fmt(vals.bevoelkerung, 0)} × 1.000`,
+              `= ${fmt(result, 2)}`
+            ]
+          };
+        }
+      },
+      {
+        id: "erreichbarkeit_autobahn",
+        section: "mobilitaet",
+        name: { de: "Erreichbarkeit Autobahn", en: "Accessibility of motorway" },
+        description: { de: "Durchschnittliche Reisezeit zur nächsten Autobahnanschlussstelle. Niedrigere Werte sind besser.", en: "Average travel time to nearest motorway junction. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "erreichbarkeit_autobahn", source: "erreichbarkeit_autobahn", name: { de: "Erreichbarkeit Autobahn", en: "Accessibility of motorway" }, explanation: { de: "Durchschnittliche Reisezeit in Minuten.", en: "Average travel time in minutes." }, unit: "min" },
+        officialComparison: { indicatorId: "erreichbarkeit_autobahn", unit: "min" },
+        tolerance: 10
+      },
+      {
+        id: "erreichbarkeit_flughafen",
+        section: "mobilitaet",
+        name: { de: "Erreichbarkeit Flughafen", en: "Accessibility of airport" },
+        description: { de: "Durchschnittliche Reisezeit zum nächsten Flughafen. Niedrigere Werte sind besser.", en: "Average travel time to nearest airport. Lower values are better." },
+        type: "normalized",
+        formula: { de: "(Max − Wert) / (Max − Min) × 100", en: "(Max − Value) / (Max − Min) × 100" },
+        unit: "%",
+        higherIsBetter: false,
+        input: { id: "erreichbarkeit_flughafen", source: "erreichbarkeit_flughafen", name: { de: "Erreichbarkeit Flughafen", en: "Accessibility of airport" }, explanation: { de: "Durchschnittliche Reisezeit in Minuten.", en: "Average travel time in minutes." }, unit: "min" },
+        officialComparison: { indicatorId: "erreichbarkeit_flughafen", unit: "min" },
+        tolerance: 10
       }
     ];
 
@@ -1116,17 +1509,13 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       const { t } = useT();
       const isDe = currentLang === "de";
       const [municipalityId, setMunicipalityId] = useState("");
-      const [calculatorId, setCalculatorId] = useState("");
       const [inputs, setInputs] = useState({});
-      const [result, setResult] = useState(null);
-      const [error, setError] = useState(null);
+      const [results, setResults] = useState({});
+      const [errors, setErrors] = useState({});
+      const [weights, setWeights] = useState({});
+      const [expandedSections, setExpandedSections] = useState({ daseinsvorsorge: true });
 
       const selectedMunicipality = municipalityId ? BENCHMARK_DATA.municipalities.find(m => m.id === municipalityId) : null;
-      const selectedCalc = calculatorId ? CALCULATORS.find(c => c.id === calculatorId) : null;
-      const unitText = (u) => {
-        if (!u) return "";
-        return typeof u === "object" ? (u[isDe ? "de" : "en"] || "") : u;
-      };
 
       const getIndicatorValue = (indicatorId) => {
         if (!selectedMunicipality || !indicatorId) return null;
@@ -1137,30 +1526,28 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
       const getIndicatorMeta = (indicatorId) => {
         if (!selectedMunicipality || !indicatorId) return null;
         const ind = BENCHMARK_DATA.values[selectedMunicipality.id] && BENCHMARK_DATA.values[selectedMunicipality.id].indicators ? BENCHMARK_DATA.values[selectedMunicipality.id].indicators[indicatorId] : null;
-        return ind ? { source: ind.source || "", date: ind.date || "" } : null;
+        return ind ? { source: ind.source || "", date: ind.date || "", unit: ind.unit || "" } : null;
       };
 
-      useEffect(() => {
-        if (!selectedCalc || !selectedMunicipality) {
-          setInputs({});
-          setResult(null);
-          setError(null);
-          return;
-        }
-        const prefilled = {};
-        selectedCalc.inputs.forEach(input => {
-          const val = input.source ? getIndicatorValue(input.source) : null;
-          prefilled[input.id] = val !== null && val !== undefined ? String(val).replace(".", ",") : "";
+      const getMinMax = (indicatorId) => {
+        const vals = [];
+        BENCHMARK_DATA.municipalities.forEach(m => {
+          const ind = BENCHMARK_DATA.values[m.id] && BENCHMARK_DATA.values[m.id].indicators ? BENCHMARK_DATA.values[m.id].indicators[indicatorId] : null;
+          if (ind && ind.raw !== null && ind.raw !== undefined) vals.push(ind.raw);
         });
-        setInputs(prefilled);
-        setResult(null);
-        setError(null);
-      }, [municipalityId, calculatorId]);
+        if (vals.length === 0) return { min: null, max: null };
+        return { min: Math.min(...vals), max: Math.max(...vals) };
+      };
 
-      const handleInputChange = (inputId, value) => {
-        setInputs(prev => ({ ...prev, [inputId]: value }));
-        setResult(null);
-        setError(null);
+      const normalize = (value, min, max, higherIsBetter) => {
+        if (value === null || value === undefined || min === null || max === null || min === max) return null;
+        let n = higherIsBetter ? (value - min) / (max - min) : (max - value) / (max - min);
+        return Math.max(0, Math.min(100, n * 100));
+      };
+
+      const unitText = (u) => {
+        if (!u) return "";
+        return typeof u === "object" ? (u[isDe ? "de" : "en"] || "") : u;
       };
 
       const parseInput = (value) => {
@@ -1170,13 +1557,41 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         return isNaN(num) ? NaN : num;
       };
 
-      const handleCalculate = () => {
-        if (!selectedCalc) return;
+      const handleMunicipalityChange = (mid) => {
+        setMunicipalityId(mid);
+        setInputs({});
+        setResults({});
+        setErrors({});
+        const initialWeights = {};
+        CALCULATORS.forEach(calc => {
+          if (calc.type === "composite") {
+            calc.subIndicators.forEach(sub => { initialWeights[`${calc.id}-${sub.id}`] = sub.weight; });
+          }
+        });
+        setWeights(initialWeights);
+      };
+
+      const handleInputChange = (calcId, inputId, value) => {
+        setInputs(prev => ({ ...prev, [`${calcId}-${inputId}`]: value }));
+        setResults(prev => ({ ...prev, [calcId]: null }));
+        setErrors(prev => ({ ...prev, [calcId]: null }));
+      };
+
+      const handleWeightChange = (calcId, subId, value) => {
+        const num = parseFloat(value);
+        if (!isNaN(num) && num >= 0) {
+          setWeights(prev => ({ ...prev, [`${calcId}-${subId}`]: num }));
+          setResults(prev => ({ ...prev, [calcId]: null }));
+        }
+      };
+
+      const validateAndGetValues = (calc) => {
         const values = {};
         const missing = [];
         const invalid = [];
-        for (const input of selectedCalc.inputs) {
-          const raw = inputs[input.id];
+        const inputList = calc.type === "composite" ? calc.subIndicators : (calc.type === "display" || calc.type === "normalized" ? [calc.input] : calc.inputs);
+        for (const input of inputList) {
+          const raw = inputs[`${calc.id}-${input.id}`];
           if (raw === "" || raw === null || raw === undefined) {
             missing.push(input.name[isDe ? "de" : "en"]);
             continue;
@@ -1190,119 +1605,207 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             invalid.push(input.name[isDe ? "de" : "en"]);
             continue;
           }
-          if (input.id === "erwerbsfaehige" || input.id === "erwerbspersonen" || input.id === "bevoelkerung") {
-            if (num === 0) {
-              setError(t("divisionByZero"));
-              setResult(null);
-              return;
-            }
-          }
           values[input.id] = num;
         }
+        return { values, missing, invalid };
+      };
+
+      const handleCalculate = (calc) => {
+        if (!selectedMunicipality) return;
+        let { values, missing, invalid } = validateAndGetValues(calc);
         if (missing.length) {
-          setError((isDe ? "Folgende Werte fehlen: " : "Missing values: ") + missing.join(", "));
-          setResult(null);
+          setErrors(prev => ({ ...prev, [calc.id]: (isDe ? "Folgende Werte fehlen: " : "Missing values: ") + missing.join(", ") }));
+          setResults(prev => ({ ...prev, [calc.id]: null }));
           return;
         }
         if (invalid.length) {
-          setError((isDe ? "Ungültige Werte: " : "Invalid values: ") + invalid.join(", "));
-          setResult(null);
+          setErrors(prev => ({ ...prev, [calc.id]: (isDe ? "Ungültige Werte: " : "Invalid values: ") + invalid.join(", ") }));
+          setResults(prev => ({ ...prev, [calc.id]: null }));
           return;
         }
-        const calcResult = selectedCalc.calculate(values, isDe);
-        setResult(calcResult);
-        setError(null);
+
+        let result = null;
+        try {
+          if (calc.type === "display") {
+            const val = values[calc.input.id];
+            result = { result: val, steps: [`${calc.formula[isDe ? "de" : "en"]} = ${fmt(val, 2)} ${unitText(calc.unit)}`] };
+          } else if (calc.type === "rate" || calc.type === "formula") {
+            result = calc.calculate(values, isDe);
+          } else if (calc.type === "normalized") {
+            const val = values[calc.input.id];
+            const { min, max } = getMinMax(calc.input.source);
+            const norm = normalize(val, min, max, calc.higherIsBetter);
+            const formulaText = calc.higherIsBetter
+              ? (isDe ? "Score = (Wert − Min) / (Max − Min) × 100" : "Score = (Value − Min) / (Max − Min) × 100")
+              : (isDe ? "Score = (Max − Wert) / (Max − Min) × 100" : "Score = (Max − Value) / (Max − Min) × 100");
+            if (norm === null) {
+              result = { result: null, steps: [formulaText, isDe ? "Keine aussagekräftige Normalisierung möglich (Min = Max oder keine Daten)." : "No meaningful normalization possible (Min = Max or no data)."] };
+            } else {
+              const subst = calc.higherIsBetter
+                ? `= (${fmt(val, 2)} − ${fmt(min, 2)}) / (${fmt(max, 2)} − ${fmt(min, 2)}) × 100`
+                : `= (${fmt(max, 2)} − ${fmt(val, 2)}) / (${fmt(max, 2)} − ${fmt(min, 2)}) × 100`;
+              result = { result: norm, steps: [formulaText, subst, `= ${fmt(norm, 1)}%`] };
+            }
+          } else if (calc.type === "composite") {
+            const steps = [];
+            steps.push(calc.formula[isDe ? "de" : "en"]);
+            let totalWeight = 0;
+            let totalScore = 0;
+            calc.subIndicators.forEach(sub => {
+              const val = values[sub.id];
+              const { min, max } = getMinMax(sub.source);
+              const norm = normalize(val, min, max, sub.higherIsBetter);
+              const weight = weights[`${calc.id}-${sub.id}`] !== undefined ? weights[`${calc.id}-${sub.id}`] : sub.weight;
+              if (norm !== null) {
+                const formula = sub.higherIsBetter
+                  ? `${sub.name[isDe ? "de" : "en"]}: (${fmt(val, 2)} − ${fmt(min, 2)}) / (${fmt(max, 2)} − ${fmt(min, 2)}) × 100 = ${fmt(norm, 1)}%`
+                  : `${sub.name[isDe ? "de" : "en"]}: (${fmt(max, 2)} − ${fmt(val, 2)}) / (${fmt(max, 2)} − ${fmt(min, 2)}) × 100 = ${fmt(norm, 1)}%`;
+                steps.push(formula + ` · Gewicht ${fmt(weight * 100, 0)}% = ${fmt(norm * weight, 2)}`);
+                totalWeight += weight;
+                totalScore += norm * weight;
+              } else {
+                steps.push(`${sub.name[isDe ? "de" : "en"]}: ${t("noData")}`);
+              }
+            });
+            const final = totalWeight > 0 ? totalScore / totalWeight : null;
+            steps.push((isDe ? "Gesamtscore = " : "Overall score = ") + (final !== null ? `${fmt(totalScore, 2)} / ${fmt(totalWeight, 2)} = ${fmt(final, 1)} Punkte` : t("noData")));
+            result = { result: final, steps };
+          }
+        } catch (e) {
+          setErrors(prev => ({ ...prev, [calc.id]: t("invalidValue") }));
+          setResults(prev => ({ ...prev, [calc.id]: null }));
+          return;
+        }
+        setResults(prev => ({ ...prev, [calc.id]: result }));
+        setErrors(prev => ({ ...prev, [calc.id]: null }));
       };
 
-      const renderOfficialComparison = () => {
-        if (!selectedCalc || !selectedCalc.officialComparison || !result) return null;
-        const official = getIndicatorValue(selectedCalc.officialComparison.indicatorId);
+      const renderOfficialComparison = (calc) => {
+        const res = results[calc.id];
+        if (!calc.officialComparison || !res || res.result === null || res.result === undefined) return null;
+        const official = getIndicatorValue(calc.officialComparison.indicatorId);
         if (official === null || official === undefined) return <div className="text-sm text-muted mt-2">{t("noData")}</div>;
-        const diff = result.result - official;
+        const diff = res.result - official;
         const absDiff = Math.abs(diff);
-        const warn = absDiff > selectedCalc.tolerance;
+        const warn = calc.tolerance !== undefined && absDiff > calc.tolerance;
         return (
-          <div className="mt-4 p-4 rounded-xl bg-paper border border-gray-100">
-            <h4 className="font-semibold mb-2">{isDe ? "Vergleich mit offiziellem Wert" : "Comparison with official value"}</h4>
-                    <div className="text-sm">{t("officialValue")}: {fmt(official, 2)} {selectedCalc.officialComparison.unit}</div>
-                    <div className="text-sm">{t("calculatedValue")}: {fmt(result.result, 2)} {unitText(selectedCalc.unit)}</div>
-                    <div className="text-sm">{t("difference")}: {fmt(absDiff, 2)} {unitText(selectedCalc.unit) === "%" ? t("percentagePoints") : unitText(selectedCalc.unit)}</div>
-            {warn && <div className="text-sm text-low mt-2">{t("toleranceWarning")}</div>}
+          <div className="mt-3 p-3 rounded-lg bg-paper border border-gray-100 text-sm">
+            <div className="font-semibold mb-1">{isDe ? "Vergleich mit offiziellem Wert" : "Comparison with official value"}</div>
+            <div>{t("officialValue")}: {fmt(official, 2)} {calc.officialComparison.unit}</div>
+            <div>{t("calculatedValue")}: {fmt(res.result, 2)} {unitText(calc.unit)}</div>
+            <div>{t("difference")}: {fmt(absDiff, 2)} {unitText(calc.unit) === "%" ? t("percentagePoints") : unitText(calc.unit)}</div>
+            {warn && <div className="text-low mt-1">{t("toleranceWarning")}</div>}
           </div>
         );
       };
 
-      const goToMethodology = () => {
-        if (selectedCalc) localStorage.setItem("methodologyOpen", selectedCalc.category);
+      const goToMethodology = (calc) => {
+        const target = calc.type === "composite" ? (calc.subIndicators[0] ? BENCHMARK_DATA.kpis.find(k => k.id === calc.section) : null) : BENCHMARK_DATA.kpis.find(k => k.id === calc.section);
+        if (target) localStorage.setItem("methodologyOpen", target.id);
         window.location.hash = "#/methodology";
       };
+
+      const renderInput = (calc, input) => {
+        const officialValue = input.source ? getIndicatorValue(input.source) : null;
+        const meta = input.source ? getIndicatorMeta(input.source) : null;
+        const value = inputs[`${calc.id}-${input.id}`] || "";
+        return (
+          <div key={input.id} className="mb-3">
+            <label className="block text-sm font-medium mb-1">{input.name[currentLang]} {input.unit ? `(${input.unit})` : ""}</label>
+            <input type="text" value={value} onChange={e=>handleInputChange(calc.id, input.id, e.target.value)} className="w-full border border-gray-300 rounded-lg p-2" placeholder={officialValue !== null ? fmt(officialValue, 2) : t("enterManually")} />
+            <div className="text-xs text-muted mt-1">{input.explanation ? input.explanation[currentLang] : ""}</div>
+            {input.source && officialValue !== null && meta && <div className="text-xs text-forest mt-1">{t("source")}: {meta.source} {meta.date ? "· " + meta.date : ""}</div>}
+            {input.source && officialValue === null && <div className="text-xs text-low mt-1">{t("noData")} · {t("enterManually")}</div>}
+            {!input.source && <div className="text-xs text-muted mt-1">{t("enterManually")}</div>}
+          </div>
+        );
+      };
+
+      const renderCalculatorCard = (calc) => {
+        const res = results[calc.id];
+        const err = errors[calc.id];
+        return (
+          <div key={calc.id} className="bg-white rounded-2xl p-5 card-shadow border border-gray-100">
+            <h3 className="font-bold text-ink text-lg mb-1">{calc.name[currentLang]}</h3>
+            <p className="text-sm text-gray-600 mb-3">{calc.description[currentLang]}</p>
+            {calc.info && <div className="mb-3 p-2 rounded-lg bg-blue-50 text-xs text-blue-900">{calc.info[isDe ? "de" : "en"]}</div>}
+            <div className="mb-3 p-3 rounded-lg bg-paper border border-gray-100">
+              <div className="text-xs text-muted mb-1">{isDe ? "Formel" : "Formula"}</div>
+              <div className="font-mono text-sm">{calc.formula[currentLang]}</div>
+            </div>
+            {calc.type === "composite" ? (
+              <div className="mb-3">
+                <div className="text-xs text-muted mb-1">{t("inputValues")} & {isDe ? "Gewichte" : "Weights"}</div>
+                {calc.subIndicators.map(sub => (
+                  <div key={sub.id} className="mb-2">
+                    {renderInput(calc, { ...sub, explanation: { de: `${sub.name.de} (${sub.unit})`, en: `${sub.name.en} (${sub.unit})` } })}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted">{isDe ? "Gewicht" : "Weight"}:</span>
+                      <input type="number" min="0" step="0.05" value={weights[`${calc.id}-${sub.id}`] !== undefined ? weights[`${calc.id}-${sub.id}`] : sub.weight} onChange={e=>handleWeightChange(calc.id, sub.id, e.target.value)} className="w-20 border border-gray-300 rounded p-1 text-sm" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : calc.type === "display" || calc.type === "normalized" ? (
+              renderInput(calc, calc.input)
+            ) : (
+              <div className="mb-3">{calc.inputs.map(input => renderInput(calc, input))}</div>
+            )}
+            <div className="flex gap-2 flex-wrap">
+              <button onClick={()=>handleCalculate(calc)} className="px-3 py-1.5 bg-forest text-white text-sm rounded-lg hover:bg-forest/90">{t("calculate")}</button>
+              <button onClick={()=>goToMethodology(calc)} className="px-3 py-1.5 text-forest bg-forest/5 text-sm rounded-lg hover:bg-forest/10">{isDe ? "Formel erklären" : "Explain formula"}</button>
+            </div>
+            {err && <div className="mt-3 text-low text-sm">{err}</div>}
+            {res && (
+              <div className="mt-4">
+                <div className="p-3 rounded-lg bg-paper border border-gray-100 mb-3">
+                  <div className="text-xs text-muted mb-1">{t("result")}</div>
+                  <div className="text-xl font-bold text-ink">{res.result !== null ? fmt(res.result, 2) : t("noData")} {res.result !== null ? unitText(calc.unit) : ""}</div>
+                </div>
+                <div className="p-3 rounded-lg bg-paper border border-gray-100 mb-3">
+                  <div className="text-xs text-muted mb-1">{t("calculationSteps")}</div>
+                  {res.steps.map((step, idx) => <div key={idx} className="font-mono text-sm mb-1">{step}</div>)}
+                </div>
+                {renderOfficialComparison(calc)}
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      const grouped = {};
+      CALCULATOR_SECTIONS.forEach(sec => grouped[sec.id] = []);
+      CALCULATORS.forEach(calc => { if (grouped[calc.section]) grouped[calc.section].push(calc); });
 
       return (
         <div>
           <h1 className="text-3xl font-bold text-ink mb-2">{t("calculator")}</h1>
-          <p className="text-gray-600 mb-6">{isDe ? "Berechnen Sie ausgewählte Kennzahlen selbst und vergleichen Sie sie mit den offiziellen Werten." : "Calculate selected KPIs yourself and compare them with official values."}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
-              <label className="block text-sm font-medium mb-1">{t("selectMunicipality")}</label>
-              <select value={municipalityId} onChange={e=>setMunicipalityId(e.target.value)} className="w-full border border-gray-300 rounded-lg p-2">
-                <option value="">{isDe ? "Bitte wählen" : "Please select"}</option>
-                {BENCHMARK_DATA.municipalities.map(m => <option key={m.id} value={m.id}>{m.name[currentLang]}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">{t("selectKpi")}</label>
-              <select value={calculatorId} onChange={e=>setCalculatorId(e.target.value)} className="w-full border border-gray-300 rounded-lg p-2">
-                <option value="">{isDe ? "Bitte wählen" : "Please select"}</option>
-                {CALCULATORS.map(c => <option key={c.id} value={c.id}>{c.name[currentLang]}</option>)}
-              </select>
-            </div>
+          <p className="text-gray-600 mb-6">{isDe ? "Berechnen Sie kommunale Kennzahlen selbst, vergleichen Sie mit offiziellen Werten und testen Sie verschiedene Szenarien." : "Calculate municipal KPIs yourself, compare with official values, and test different scenarios."}</p>
+          <div className="mb-6 max-w-md">
+            <label className="block text-sm font-medium mb-1">{t("selectMunicipality")}</label>
+            <select value={municipalityId} onChange={e=>handleMunicipalityChange(e.target.value)} className="w-full border border-gray-300 rounded-lg p-2">
+              <option value="">{isDe ? "Bitte wählen" : "Please select"}</option>
+              {BENCHMARK_DATA.municipalities.map(m => <option key={m.id} value={m.id}>{m.name[currentLang]}</option>)}
+            </select>
           </div>
-          {selectedCalc && selectedMunicipality && (
-            <div className="bg-white rounded-2xl p-6 card-shadow border border-gray-100 mb-6">
-              <h2 className="text-xl font-bold text-ink mb-2">{selectedCalc.name[currentLang]}</h2>
-              <p className="text-gray-700 mb-4">{selectedCalc.description[currentLang]}</p>
-              {selectedCalc.info && <div className="mb-4 p-3 rounded-lg bg-blue-50 text-sm text-blue-900">{selectedCalc.info[isDe ? "de" : "en"]}</div>}
-              <div className="mb-4 p-4 rounded-xl bg-paper border border-gray-100">
-                <h3 className="font-semibold mb-2">{isDe ? "Formel" : "Formula"}</h3>
-                <div className="font-mono text-sm bg-white border border-gray-200 p-3 rounded-lg overflow-x-auto">{selectedCalc.formula[currentLang]}</div>
+          {!selectedMunicipality && <div className="text-muted">{isDe ? "Bitte wählen Sie eine Kommune aus." : "Please select a municipality."}</div>}
+          {selectedMunicipality && CALCULATOR_SECTIONS.map(sec => {
+            const isDasein = sec.id === "daseinsvorsorge";
+            const isExpanded = expandedSections[sec.id] !== false;
+            return (
+              <div key={sec.id} className="mb-6">
+                <button onClick={()=>isDasein && setExpandedSections(prev => ({ ...prev, [sec.id]: !isExpanded }))} className={`w-full flex items-center justify-between p-4 rounded-xl text-left font-bold text-ink ${isDasein ? "bg-white card-shadow border border-gray-100 hover:bg-gray-50" : ""}`}>
+                  <span>{sec.name[currentLang]}</span>
+                  {isDasein && <span className="text-xl text-gray-400">{isExpanded ? "−" : "+"}</span>}
+                </button>
+                {(!isDasein || isExpanded) && (
+                  <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {grouped[sec.id].map(calc => renderCalculatorCard(calc))}
+                  </div>
+                )}
               </div>
-              <h3 className="font-semibold mb-2">{t("inputValues")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                {selectedCalc.inputs.map(input => {
-                  const officialValue = input.source ? getIndicatorValue(input.source) : null;
-                  const meta = input.source ? getIndicatorMeta(input.source) : null;
-                  return (
-                    <div key={input.id}>
-                      <label className="block text-sm font-medium mb-1">{input.name[currentLang]}</label>
-                      <input type="text" value={inputs[input.id] || ""} onChange={e=>handleInputChange(input.id, e.target.value)} className="w-full border border-gray-300 rounded-lg p-2" placeholder={officialValue !== null ? fmt(officialValue, 2) : t("enterManually")} />
-                      <div className="text-xs text-muted mt-1">{input.explanation[currentLang]}</div>
-                      {input.source && officialValue !== null && meta && <div className="text-xs text-forest mt-1">{t("source")}: {meta.source} {meta.date ? "· " + meta.date : ""}</div>}
-                      {input.source && officialValue === null && <div className="text-xs text-low mt-1">{t("noData")} · {t("enterManually")}</div>}
-                      {!input.source && <div className="text-xs text-muted mt-1">{t("enterManually")}</div>}
-                    </div>
-                  );
-                })}
-              </div>
-              <button onClick={handleCalculate} className="px-4 py-2 bg-forest text-white rounded-lg hover:bg-forest/90">{t("calculate")}</button>
-              {error && <div className="mt-4 text-low text-sm">{error}</div>}
-              {result && (
-                <div className="mt-6">
-                  <div className="p-4 rounded-xl bg-paper border border-gray-100 mb-4">
-                    <h3 className="font-semibold mb-2">{t("result")}</h3>
-                    <div className="text-2xl font-bold text-ink">{fmt(result.result, 2)} {unitText(selectedCalc.unit)}</div>
-                  </div>
-                  <div className="p-4 rounded-xl bg-paper border border-gray-100 mb-4">
-                    <h3 className="font-semibold mb-2">{t("calculationSteps")}</h3>
-                    {result.steps.map((step, idx) => <div key={idx} className="font-mono text-sm mb-1">{step}</div>)}
-                  </div>
-                  {renderOfficialComparison()}
-                  <div className="mt-4">
-                    <button onClick={goToMethodology} className="text-sm text-forest hover:underline">{t("viewMethodology")}</button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+            );
+          })}
         </div>
       );
     };
